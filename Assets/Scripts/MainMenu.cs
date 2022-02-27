@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEditor;
 
 public class MainMenu : MonoBehaviour
 {
-   [SerializeField] private GameObject buttonSet;
+    [SerializeField] private GameObject buttonSet;
     private TextMeshProUGUI title;
     private TextMeshProUGUI pressToContinueText;
 
@@ -20,7 +21,11 @@ public class MainMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PressAnyKey();
+        if(title.gameObject.activeInHierarchy && pressToContinueText.gameObject.activeInHierarchy)
+        {
+            PressAnyKey();
+        }
+        
     }
 
     void PressAnyKey()
@@ -31,5 +36,23 @@ public class MainMenu : MonoBehaviour
             pressToContinueText.gameObject.SetActive(false);
             buttonSet.SetActive(true);
         }
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene(1); // scene index 1 is the gameplay mode scene
+    }
+    public void GoToSettings()
+    {
+        SceneManager.LoadScene(2); // scene index 2 is the settings scene
+    }
+
+    public void ExitGame()
+    {
+#if UNITY_EDITOR
+        EditorApplication.ExitPlaymode();
+#else
+        Application.Quit();
+#endif
     }
 }
