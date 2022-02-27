@@ -8,6 +8,7 @@ using UnityEditor;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject buttonSet;
+    [SerializeField] private GameObject exitGameMessage;
     private TextMeshProUGUI title;
     private TextMeshProUGUI pressToContinueText;
 
@@ -47,6 +48,11 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(2); // scene index 2 is the settings scene
     }
 
+    public void TurnOnExitMessage()
+    {
+        buttonSet.SetActive(false);
+        exitGameMessage.SetActive(true);
+    }
     public void ExitGame()
     {
 #if UNITY_EDITOR
@@ -54,5 +60,13 @@ public class MainMenu : MonoBehaviour
 #else
         Application.Quit();
 #endif
+    }
+    public void CancelExit()
+        /*
+         * This event triggers when the players press No in the Quit message
+         */
+    {
+        buttonSet.SetActive(true);
+        exitGameMessage.SetActive(false);
     }
 }
