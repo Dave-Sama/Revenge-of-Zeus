@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject buttonSet;
     [SerializeField] private GameObject exitGameMessage;
+    [SerializeField] private GameObject gameplayModeWindow;
     private TextMeshProUGUI title;
     private TextMeshProUGUI pressToContinueText;
 
@@ -41,11 +42,12 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(1); // scene index 1 is the gameplay mode scene
+        buttonSet.SetActive(false);
+        gameplayModeWindow.SetActive(true);
     }
     public void GoToSettings()
     {
-        SceneManager.LoadScene(2); // scene index 2 is the settings scene
+        SceneManager.LoadScene(2); // scene index 1 is the settings scene
     }
 
     public void TurnOnExitMessage()
