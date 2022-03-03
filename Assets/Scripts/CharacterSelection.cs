@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CharacterSelection : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class CharacterSelection : MonoBehaviour
         
     }
 
-    public void ChangeColorWhenHovering()
+    public void WhenMouseHovering()
     {
         imageOutline.effectColor = Color.red;
         if(!isInstanceExists)
@@ -34,7 +35,7 @@ public class CharacterSelection : MonoBehaviour
         }
     }
 
-    public void ChangeColorBackWhenNotHovering()
+    public void WhenMouseNotHovering()
     {
         imageOutline.effectColor = color;
         if(isInstanceExists)
@@ -42,5 +43,10 @@ public class CharacterSelection : MonoBehaviour
             Destroy(modelClone);
             isInstanceExists = false;
         }
+    }
+
+    public void onBackBtnClick()
+    {
+        SceneManager.LoadScene(0); //index 0 = main menu scene
     }
 }

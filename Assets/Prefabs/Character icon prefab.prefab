@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imageOutline: {fileID: 284266184120418812}
+  model: {fileID: 0}
 --- !u!1 &284266184120418810
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +235,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 284266183837951890}
           m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
-          m_MethodName: ChangeColorWhenHovering
+          m_MethodName: WhenMouseHovering
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -250,7 +251,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 284266183837951890}
           m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
-          m_MethodName: ChangeColorBackWhenNotHovering
+          m_MethodName: WhenMouseNotHovering
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
