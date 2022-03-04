@@ -4,14 +4,28 @@ using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
-    // Like Start but is called even if the sctipt is disabled
+    public static DataManager Instance;
+
     void Awake()
+        /*
+         * Awake is like Start but is called even if the sctipt is disabled.
+         * Basically I created a singleton that will never be destroyed when loading a new scene.
+         * That way I can pass data between different scenes.
+         */
     {
-        
+        if(Instance!=null)
+        {
+            Destroy(Instance);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
-    // Update is called once per frame
     void Update()
+        /*
+         * Update is called once per frame
+         */
     {
         
     }
