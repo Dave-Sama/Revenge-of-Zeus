@@ -5,6 +5,7 @@ using UnityEngine;
 public class DataManager : MonoBehaviour
 {
     public static DataManager Instance;
+    public string GameMod { get; set; }
 
     void Awake()
         /*

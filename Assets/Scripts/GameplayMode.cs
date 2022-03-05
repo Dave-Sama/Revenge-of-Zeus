@@ -34,13 +34,18 @@ public class GameplayMode : MonoBehaviour
     {
         introSong.Stop();
         buttonClick.Play();
+        DataManager.Instance.GameMod = "ML1";
     }
     public void ML2()
     {
-
+        introSong.Stop();
+        buttonClick.Play();
+        DataManager.Instance.GameMod = "ML2";
     }
     public void PvP()
     {
-
+        introSong.Stop();
+        buttonClick.Play();
+        DataManager.Instance.GameMod = "PvP";
     }
 }
