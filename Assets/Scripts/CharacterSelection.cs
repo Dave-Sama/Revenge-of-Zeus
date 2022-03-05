@@ -12,14 +12,13 @@ public class CharacterSelection : MonoBehaviour
     private Color color;
     private bool isInstanceExists;
     private Object modelClone;
-    private AudioSource nameSound;
+    private string characterName;
 
     // Start is called before the first frame update
     void Start()
     {
         color = imageOutline.effectColor;
         isInstanceExists = false;
-        nameSound = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -55,6 +54,7 @@ public class CharacterSelection : MonoBehaviour
 
     public void onCharacterClick()
     {
+        characterName = gameObject.name;
         areYouSurePanel.SetActive(true);
         
     }
@@ -66,6 +66,7 @@ public class CharacterSelection : MonoBehaviour
 
     public void PressYesOnPanel()
     {
+        DataManager.Instance.Character = characterName;
         SceneManager.LoadScene(3); //index 3 = battle scene
     }
 }

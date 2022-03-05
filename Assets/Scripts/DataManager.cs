@@ -6,6 +6,7 @@ public class DataManager : MonoBehaviour
 {
     public static DataManager Instance;
     public string GameMod { get; set; }
+    public string Character { get; set; }
 
     void Awake()
         /*
