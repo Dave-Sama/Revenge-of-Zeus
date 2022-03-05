@@ -55,8 +55,8 @@ public class CharacterSelection : MonoBehaviour
     public void onCharacterClick()
     {
         characterName = gameObject.name;
+        DataManager.Instance.Character = characterName;
         areYouSurePanel.SetActive(true);
-        
     }
 
     public void PressNoOnPanel()
@@ -66,7 +66,6 @@ public class CharacterSelection : MonoBehaviour
 
     public void PressYesOnPanel()
     {
-        DataManager.Instance.Character = characterName;
         SceneManager.LoadScene(3); //index 3 = battle scene
     }
 }
