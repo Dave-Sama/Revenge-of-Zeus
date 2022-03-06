@@ -35,6 +35,15 @@ public class PlayerController : MonoBehaviour
         {
             playerAnim.SetBool("Jump_Bool", false);
         }
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            playerAnim.SetBool("Crouch_Bool", true);
+        }
+        else
+        {
+            playerAnim.SetBool("Crouch_Bool", false);
+        }
+
         if (Input.GetKeyDown(KeyCode.A))
         {
             playerAnim.SetBool("PunchLeft_Bool", true);
