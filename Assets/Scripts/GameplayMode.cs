@@ -21,6 +21,7 @@ public class GameplayMode : MonoBehaviour
         if(!introSong.isPlaying && !buttonClick.isPlaying)
         {
             SceneManager.LoadScene(2); // Scene index 2 is character selection scene
+            //SceneLoader.Instance.LoadScene(2);
         }
     }
 
