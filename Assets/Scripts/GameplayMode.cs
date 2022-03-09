@@ -18,11 +18,11 @@ public class GameplayMode : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!introSong.isPlaying && !buttonClick.isPlaying)
-        {
-            SceneManager.LoadScene(2); // Scene index 2 is character selection scene
-            //SceneLoader.Instance.LoadScene(2);
-        }
+        //if(!introSong.isPlaying && !buttonClick.isPlaying)
+        //{
+        //    SceneManager.LoadScene(2); // Scene index 2 is character selection scene
+        //    //SceneLoader.Instance.LoadScene(2);
+        //}
     }
 
     public void CloseWindow()
@@ -36,6 +36,7 @@ public class GameplayMode : MonoBehaviour
         introSong.Stop();
         buttonClick.Play();
         DataManager.Instance.GameMod = "ML1";
+        StartCoroutine(LoadAfterAudioStops());
     }
     public void ML2()
     {
@@ -48,5 +49,16 @@ public class GameplayMode : MonoBehaviour
         introSong.Stop();
         buttonClick.Play();
         DataManager.Instance.GameMod = "PvP";
+    }
+
+    IEnumerator LoadAfterAudioStops()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(6);
+            SceneLoader.Instance.LoadScene(2);
+            break;
+        }
+        
     }
 }
