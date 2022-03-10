@@ -8,27 +8,23 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] characters = new GameObject[15];
-    [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private TextMeshProUGUI playersNameText;
+    [SerializeField] private TextMeshProUGUI opponentsNameText;
     [SerializeField] private Slider healthBarFront;
     [SerializeField] private Slider healthBarBack;
-    private string characterName;
-    private Vector3 characterPosition = new Vector3(-2.13f, 0, 0);
     private float sleep; // sleep variable for dalying porpuses
     private bool pressed; // is space button pressed or not, temporary for development and testing
 
     // Start is called before the first frame update
     void Start()
     {
-        characterName = DataManager.Instance.Character;
-        foreach(GameObject character in characters)
-        {
-            Debug.Log(character.name);
-            if(string.Equals(characterName,character.name))
-            {
-                Instantiate(character,characterPosition,character.transform.rotation);
-            }
-        }
-        nameText.text = characterName;
+        string playersName = DataManager.Instance.PlayersCharacter;
+        string opponentsName = "Zeus"; //Temporary for development and testing
+        Vector3 characterPosition = new Vector3(-2.75f, 0, 0);
+        InstantiateCharacter(playersName, characterPosition,true);
+        InstantiateCharacter(opponentsName, characterPosition*(-1),false);
+        playersNameText.text = playersName;
+        opponentsNameText.text = opponentsName;
         sleep = 0;
         pressed = false;
     }
@@ -63,5 +59,28 @@ public class GameManager : MonoBehaviour
          */
     {
         SceneManager.LoadScene(2);
+    }
+
+    private void InstantiateCharacter(string characterName,Vector3 characterPosition, bool isPlayer)
+    {
+        foreach (GameObject character in characters)
+        {
+            if (string.Equals(characterName, character.name))
+            {
+                if (isPlayer)
+                {
+                    Instantiate(character, characterPosition, character.transform.rotation);
+                }
+                else
+                {
+                    float opponentRotationX = character.transform.rotation.x;
+                    float opponentRotationY = character.transform.rotation.y * (-1);
+                    float opponentRotationZ = character.transform.rotation.z;
+                    float opponentRotationW = character.transform.rotation.w;
+                    Quaternion opponentRotation = new Quaternion(opponentRotationX, opponentRotationY, opponentRotationZ, opponentRotationW);
+                    Instantiate(character, characterPosition, opponentRotation);
+                }
+            }
+        }
     }
 }

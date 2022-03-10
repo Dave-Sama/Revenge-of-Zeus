@@ -55,7 +55,7 @@ public class CharacterSelection : MonoBehaviour
     public void onCharacterClick()
     {
         characterName = gameObject.name;
-        DataManager.Instance.Character = characterName;
+        DataManager.Instance.PlayersCharacter = characterName;
         areYouSurePanel.SetActive(true);
     }
 
