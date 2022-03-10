@@ -35,7 +35,7 @@ public class SceneLoader : MonoBehaviour
         {
             float progress = Mathf.Clamp01(opertaion.progress / .9f);
             slider.value = progress;
-            progressText.text = progress * 100 + "%";
+            progressText.text = (int)(progress * 100) + "%";
             yield return null;
         }
     }
