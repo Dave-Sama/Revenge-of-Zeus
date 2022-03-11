@@ -319,6 +319,8 @@ GameObject:
   - component: {fileID: 7456768727562141131}
   - component: {fileID: 7367370677806434715}
   - component: {fileID: -9202333939319512821}
+  - component: {fileID: 2121465771}
+  - component: {fileID: 2121465770}
   m_Layer: 0
   m_Name: Uranus
   m_TagString: Untagged
@@ -374,6 +376,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b8f7b340a787334bbd292059b18285f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &2121465771
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7452350415948544407}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 120
+  m_CollisionDetection: 0
+--- !u!65 &2121465770
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7452350415948544407}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.8507326, z: 0.9303706}
+  m_Center: {x: -1.9569786e-16, y: 0.92851055, z: 0.048728973}
 --- !u!1 &7452357796888558749
 GameObject:
   m_ObjectHideFlags: 0

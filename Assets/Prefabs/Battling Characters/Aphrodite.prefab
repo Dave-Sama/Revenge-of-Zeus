@@ -480,6 +480,8 @@ GameObject:
   - component: {fileID: 2941813632460202992}
   - component: {fileID: 2996883158274482000}
   - component: {fileID: 712267335266336121}
+  - component: {fileID: 7175500149357392558}
+  - component: {fileID: 9009291092208866407}
   m_Layer: 0
   m_Name: Aphrodite
   m_TagString: Untagged
@@ -536,6 +538,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b8f7b340a787334bbd292059b18285f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &7175500149357392558
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2937851563300268572}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 120
+  m_CollisionDetection: 0
+--- !u!65 &9009291092208866407
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2937851563300268572}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.8346063, z: 0.8695275}
+  m_Center: {x: -8.637947e-17, y: 0.9076471, z: 0.015665114}
 --- !u!1 &2937857135469460266
 GameObject:
   m_ObjectHideFlags: 0

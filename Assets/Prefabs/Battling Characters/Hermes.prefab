@@ -1756,6 +1756,8 @@ GameObject:
   - component: {fileID: 3317934741563935615}
   - component: {fileID: 3409260873329204199}
   - component: {fileID: 4195016648058642660}
+  - component: {fileID: 1597215282}
+  - component: {fileID: 1597215281}
   m_Layer: 0
   m_Name: Hermes
   m_TagString: Untagged
@@ -1812,6 +1814,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b8f7b340a787334bbd292059b18285f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &1597215282
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3315480021874290413}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 120
+  m_CollisionDetection: 0
+--- !u!65 &1597215281
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3315480021874290413}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.9195921, z: 1.2887601}
+  m_Center: {x: -4.2234045e-16, y: 0.9593065, z: -0.14709756}
 --- !u!1 &3315481042720804235
 GameObject:
   m_ObjectHideFlags: 0

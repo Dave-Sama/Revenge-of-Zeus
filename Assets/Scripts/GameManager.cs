@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI opponentsNameText;
     [SerializeField] private Slider healthBarFront;
     [SerializeField] private Slider healthBarBack;
-    private float sleep; // sleep variable for dalying porpuses
+    private float sleep; // sleep variable for daleying porpuses
     private bool pressed; // is space button pressed or not, temporary for development and testing
 
     // Start is called before the first frame update
@@ -78,6 +78,8 @@ public class GameManager : MonoBehaviour
                     float opponentRotationZ = character.transform.rotation.z;
                     float opponentRotationW = character.transform.rotation.w;
                     Quaternion opponentRotation = new Quaternion(opponentRotationX, opponentRotationY, opponentRotationZ, opponentRotationW);
+                    PlayerController controller = character.gameObject.GetComponent<PlayerController>();
+                    controller.enabled = false;
                     Instantiate(character, characterPosition, opponentRotation);
                 }
             }
