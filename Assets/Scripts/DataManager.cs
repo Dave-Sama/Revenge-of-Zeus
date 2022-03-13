@@ -8,6 +8,7 @@ public class DataManager : MonoBehaviour
     public string GameMod { get; set; }
     public string PlayersCharacter { get; set; }
     public string OpponentsCharacter { get; set; }
+    public int Damage { get; set; }
 
     void Awake()
         /*

@@ -1609,7 +1609,7 @@ GameObject:
   - component: {fileID: 850439112}
   m_Layer: 0
   m_Name: Morpheus
-  m_TagString: Untagged
+  m_TagString: Fighter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
