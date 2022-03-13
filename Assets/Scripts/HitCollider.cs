@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class HitCollider : MonoBehaviour
 {
-
     // Start is called before the first frame update
     void Start()
     {
@@ -19,11 +18,13 @@ public class HitCollider : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         int damage=0;
-        if((gameObject.CompareTag("Left arm")||gameObject.CompareTag("Right arm"))&&other.CompareTag("Fighter"))
+        if((gameObject.CompareTag("Left arm")||gameObject.CompareTag("Right arm"))&&other.CompareTag("Opponent")&&DataManager.Instance.IsAttacking)
         {
-            damage = 10;
+            damage = 1;
+            DataManager.Instance.IsAttacking = false;
+            Animator hitAnim = other.GetComponent<Animator>();
+            hitAnim.SetTrigger("LeftPunchHit_Trigger");
         }
-        //DataManager.Instance.Damage = damage;
-        Debug.Log(damage + " HP");
+        DataManager.Instance.Damage = damage;
     }
 }

@@ -9,6 +9,7 @@ public class DataManager : MonoBehaviour
     public string PlayersCharacter { get; set; }
     public string OpponentsCharacter { get; set; }
     public int Damage { get; set; }
+    public bool IsAttacking { get; set; }
 
     void Awake()
         /*

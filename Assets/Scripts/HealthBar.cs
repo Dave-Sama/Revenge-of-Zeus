@@ -7,7 +7,7 @@ public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Slider healthBarFront;
     [SerializeField] private Slider healthBarBack;
-    private float sleep; // sleep variable for daleying porpuses
+    private float sleep; // sleep variable for daleying time porpuses
     private bool pressed; // is space button pressed or not, temporary for development and testing
     // Start is called before the first frame update
     void Start()
@@ -19,9 +19,15 @@ public class HealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        DrainHealth();
+    }
+
+    void DrainHealth()
+    {
+        if (DataManager.Instance.Damage != 0)
         {
-            healthBarFront.value = healthBarFront.value - 1;
+            healthBarFront.value = healthBarFront.value - DataManager.Instance.Damage;
+            DataManager.Instance.Damage = 0;
             pressed = true;
         }
         if (sleep < 1 && pressed == true)
