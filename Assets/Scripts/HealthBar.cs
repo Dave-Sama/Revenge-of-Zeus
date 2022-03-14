@@ -19,7 +19,14 @@ public class HealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DrainHealth();
+        if(DataManager.Instance.IsPlayer && healthBarFront.tag=="Player" && healthBarBack.tag=="Player")
+        {
+            DrainHealth();
+        }
+        if (!DataManager.Instance.IsPlayer && healthBarFront.tag == "Opponent" && healthBarBack.tag == "Opponent")
+        {
+            DrainHealth();
+        }
     }
 
     void DrainHealth()
@@ -36,7 +43,6 @@ public class HealthBar : MonoBehaviour
         }
         if (healthBarBack.value > healthBarFront.value && sleep >= 1)
         {
-
             healthBarBack.value = healthBarBack.value - 0.01f;
         }
         if (healthBarBack.value <= healthBarFront.value)

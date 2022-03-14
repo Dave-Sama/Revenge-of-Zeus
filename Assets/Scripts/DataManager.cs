@@ -10,6 +10,7 @@ public class DataManager : MonoBehaviour
     public string OpponentsCharacter { get; set; }
     public int Damage { get; set; }
     public bool IsAttacking { get; set; }
+    public bool IsPlayer { get; set; } // Wether the player gets hit or the opponent gets hit
 
     void Awake()
         /*

@@ -1072,6 +1072,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -2.4999466
       objectReference: {fileID: 0}
+    - target: {fileID: 3337051608384783712, guid: ebe855b409236ab4cb86bf88caeee881, type: 3}
+      propertyPath: m_TagString
+      value: Opponent
+      objectReference: {fileID: 0}
     - target: {fileID: 3337051608384783718, guid: ebe855b409236ab4cb86bf88caeee881, type: 3}
       propertyPath: m_Value
       value: 10
@@ -1079,6 +1083,10 @@ PrefabInstance:
     - target: {fileID: 3337051608384783718, guid: ebe855b409236ab4cb86bf88caeee881, type: 3}
       propertyPath: m_Direction
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3337051608598423105, guid: ebe855b409236ab4cb86bf88caeee881, type: 3}
+      propertyPath: m_TagString
+      value: Opponent
       objectReference: {fileID: 0}
     - target: {fileID: 3337051608598423110, guid: ebe855b409236ab4cb86bf88caeee881, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1141,6 +1149,10 @@ PrefabInstance:
     - target: {fileID: 8557149582473810601, guid: 492d91ee91a7a4a47af094e791d50258, type: 3}
       propertyPath: m_Name
       value: Helios
+      objectReference: {fileID: 0}
+    - target: {fileID: 8557149582473810601, guid: 492d91ee91a7a4a47af094e791d50258, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8560153803055029987, guid: 492d91ee91a7a4a47af094e791d50258, type: 3}
       propertyPath: m_RootOrder
@@ -1516,6 +1528,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -2.4999695
       objectReference: {fileID: 0}
+    - target: {fileID: 3337051608384783712, guid: ebe855b409236ab4cb86bf88caeee881, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 3337051608384783718, guid: ebe855b409236ab4cb86bf88caeee881, type: 3}
       propertyPath: m_Value
       value: 10
@@ -1523,6 +1539,10 @@ PrefabInstance:
     - target: {fileID: 3337051608384783718, guid: ebe855b409236ab4cb86bf88caeee881, type: 3}
       propertyPath: m_Direction
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3337051608598423105, guid: ebe855b409236ab4cb86bf88caeee881, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3337051608598423110, guid: ebe855b409236ab4cb86bf88caeee881, type: 3}
       propertyPath: m_SizeDelta.x

@@ -24,6 +24,7 @@ public class HitCollider : MonoBehaviour
             DataManager.Instance.IsAttacking = false;
             Animator hitAnim = other.GetComponent<Animator>();
             hitAnim.SetTrigger("LeftPunchHit_Trigger");
+            DataManager.Instance.IsPlayer = false;
         }
         DataManager.Instance.Damage = damage;
     }

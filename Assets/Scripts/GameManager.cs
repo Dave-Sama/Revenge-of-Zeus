@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
                 {
                     GameObject player;
                     player=Instantiate(character, characterPosition, character.transform.rotation);
-                    player.tag = "player";
+                    player.tag = "Player";
                 }
                 else
                 {
