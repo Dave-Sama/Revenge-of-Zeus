@@ -23,11 +23,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //---------------------Walk Backwards---------------------------
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             playerAnim.SetFloat("Speed_Float", -1);
         }
-
+        //---------------------Walk Forward---------------------------
         else if (Input.GetKey(KeyCode.RightArrow))
         {
             playerAnim.SetFloat("Speed_Float", 1);
@@ -36,6 +37,7 @@ public class PlayerController : MonoBehaviour
         {
             playerAnim.SetFloat("Speed_Float", 0);
         }
+        //---------------------Jump---------------------------
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             playerAnim.SetBool("Jump_Bool", true);
@@ -44,6 +46,7 @@ public class PlayerController : MonoBehaviour
         {
             playerAnim.SetBool("Jump_Bool", false);
         }
+        //---------------------Crouch---------------------------
         if (Input.GetKey(KeyCode.DownArrow))
         {
             playerAnim.SetBool("Crouch_Bool", true);
@@ -52,8 +55,8 @@ public class PlayerController : MonoBehaviour
         {
             playerAnim.SetBool("Crouch_Bool", false);
         }
-      
 
+        //---------------------Punch---------------------------
         if (Input.GetKeyDown(KeyCode.A)&&AKeyPressed)
         {
             if (Time.time - firstKeyTime <= 0.3f)
@@ -87,22 +90,25 @@ public class PlayerController : MonoBehaviour
             AKeyPressed = false;
             reset = false;
         }
+        //---------------------Mid Kick--------------------------
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            playerAnim.SetBool("MidKickLeft_Bool", true);
+            playerAnim.SetBool("MidKick_Trig", true);
         }
         else
         {
-            playerAnim.SetBool("MidKickLeft_Bool", false);
+            playerAnim.SetBool("MidKick_Trig", false);
         }
-        if (Input.GetKeyDown(KeyCode.X))
+        //---------------------Block--------------------------
+        if (Input.GetKey(KeyCode.LeftControl))
         {
-            playerAnim.SetBool("MidKickRight_Bool", true);
+            playerAnim.SetBool("Block_Bool", true);
         }
         else
         {
-            playerAnim.SetBool("MidKickRight_Bool", false);
+            playerAnim.SetBool("Block_Bool", false);
         }
+
     }
 
     IEnumerator SetIsAttackingToFalse()

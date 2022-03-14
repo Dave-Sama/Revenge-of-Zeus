@@ -8,7 +8,6 @@ TagManager:
   - Right arm
   - Opponent
   - Fighter
-  - player
   layers:
   - Default
   - TransparentFX
