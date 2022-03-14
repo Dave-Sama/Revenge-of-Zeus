@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     bool AKeyPressed;
     float firstKeyTime;
     bool reset;
+    bool rightPunch; // to know wether the right punch animation is activated to not interrupt it
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +17,7 @@ public class PlayerController : MonoBehaviour
         AKeyPressed = false;
         firstKeyTime = 0;
         reset = false;
+        rightPunch = false;
     }
 
     // Update is called once per frame
@@ -49,49 +52,27 @@ public class PlayerController : MonoBehaviour
         {
             playerAnim.SetBool("Crouch_Bool", false);
         }
-
-        //if (Input.GetKeyDown(KeyCode.A) && firstButtonPressed)
-        //{
-        //    if (Time.time - timeOfFirstButton < 0.5f)
-        //    {
-        //        Debug.Log("DoubleClicked");
-        //    }
-        //    else
-        //    {
-        //        Debug.Log("Too late");
-        //    }
-
-        //    reset = true;
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.A) && !firstButtonPressed)
-        //{
-        //    firstButtonPressed = true;
-        //    timeOfFirstButton = Time.time;
-        //}
-
-        //if (reset)
-        //{
-        //    firstButtonPressed = false;
-        //    reset = false;
-        //}
+      
 
         if (Input.GetKeyDown(KeyCode.A)&&AKeyPressed)
         {
-            if (Time.time - firstKeyTime < 0.5f)
+            if (Time.time - firstKeyTime <= 0.3f)
             {
-                playerAnim.SetBool("PunchRight_Bool", true);
+                playerAnim.SetBool("PunchRight_Trig", true);
+                rightPunch = false;
+            }
+            else
+            {
+                playerAnim.SetBool("PunchLeft_Bool", false);
+                rightPunch = false;
             }
             reset = true;   
             
         }
-        else
-        {
-            playerAnim.SetBool("PunchRight_Bool", false);
-        }
-        if (Input.GetKeyDown(KeyCode.A) && !AKeyPressed)
+        if (Input.GetKeyDown(KeyCode.A) && !AKeyPressed && !rightPunch)
         {
             AKeyPressed = true;
+            rightPunch = true;
             firstKeyTime = Time.time;
             playerAnim.SetBool("PunchLeft_Bool", true);
             DataManager.Instance.IsAttacking = true;
