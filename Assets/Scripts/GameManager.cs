@@ -10,22 +10,40 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] characters = new GameObject[15];
     [SerializeField] private TextMeshProUGUI playersNameText;
     [SerializeField] private TextMeshProUGUI opponentsNameText;
+    private GameObject rightWall;
+    private GameObject leftWall;
+    private GameObject playerClone;
+    private GameObject opponentClone;
+    private Camera camera;
 
     // Start is called before the first frame update
     void Start()
     {
+        rightWall = GameObject.Find("Right Wall");
+        leftWall = GameObject.Find("Left Wall");
+        camera = GameObject.Find("Main Camera").GetComponent<Camera>();
         string playersName = DataManager.Instance.PlayersCharacter;
         string opponentsName = "Zeus"; //Temporary for development and testing
         Vector3 characterPosition = new Vector3(-2.75f, 0, 0);
-        InstantiateCharacter(playersName, characterPosition,true);
-        InstantiateCharacter(opponentsName, characterPosition*(-1),false);
+        playerClone=InstantiateCharacter(playersName, characterPosition,true);
+        opponentClone=InstantiateCharacter(opponentsName, characterPosition*(-1),false);
         playersNameText.text = playersName;
         opponentsNameText.text = opponentsName;
+        rightWall.transform.position = new Vector3(camera.pixelWidth/2, rightWall.transform.position.y);
+        leftWall.transform.position = new Vector3(camera.pixelWidth / (-2), rightWall.transform.position.y);
     }
 
     // Update is called once per frame
     void Update()
     {
+        //if(playerClone.transform.position.x<-4.21f)
+        //{
+        //    playerClone.transform.position = new Vector3(-4.21f, playerClone.transform.position.y, playerClone.transform.position.z);
+        //}
+        if (opponentClone.transform.position.x > 3.99f)
+        {
+            opponentClone.transform.position = new Vector3(3.99f, opponentClone.transform.position.y, opponentClone.transform.position.z);
+        }
     }
 
     public void OnBackButtonClick()
@@ -36,7 +54,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(2);
     }
 
-    private void InstantiateCharacter(string characterName,Vector3 characterPosition, bool isPlayer)
+    private GameObject InstantiateCharacter(string characterName,Vector3 characterPosition, bool isPlayer)
     {
         foreach (GameObject character in characters)
         {
@@ -47,6 +65,7 @@ public class GameManager : MonoBehaviour
                     GameObject player;
                     player=Instantiate(character, characterPosition, character.transform.rotation);
                     player.tag = "Player";
+                    return player;
                 }
                 else
                 {
@@ -60,8 +79,10 @@ public class GameManager : MonoBehaviour
                     GameObject opponent;
                     opponent=Instantiate(character, characterPosition, opponentRotation);
                     opponent.tag = "Opponent";
+                    return opponent;
                 }
             }
         }
+        return null;
     }
 }

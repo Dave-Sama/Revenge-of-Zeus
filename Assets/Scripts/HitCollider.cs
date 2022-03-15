@@ -26,6 +26,15 @@ public class HitCollider : MonoBehaviour
             hitAnim.SetTrigger("LeftPunchHit_Trigger");
             DataManager.Instance.IsPlayer = false;
         }
+        if ((gameObject.CompareTag("Left Leg") || gameObject.CompareTag("Right Leg")) && other.CompareTag("Opponent") && DataManager.Instance.IsAttacking)
+        {
+            damage = 2;
+            DataManager.Instance.IsAttacking = false;
+            Animator hitAnim = other.GetComponent<Animator>();
+            hitAnim.SetTrigger("KickHit_Trig");
+            DataManager.Instance.IsPlayer = false;
+        }
+        DataManager.Instance.Damage = damage;
         DataManager.Instance.Damage = damage;
     }
 }

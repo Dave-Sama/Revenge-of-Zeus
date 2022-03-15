@@ -5,19 +5,19 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Animator playerAnim;
-    bool AKeyPressed;
-    float firstKeyTime;
-    bool reset;
-    bool rightPunch; // to know wether the right punch animation is activated to not interrupt it
+    bool SKeyPressed;
+    float firstSKeyTime;
+    bool SKeyReset;
+    bool leftPunch; // to know wether the right punch animation is activated to not interrupt it
 
     // Start is called before the first frame update
     void Start()
     {
         playerAnim = gameObject.GetComponent<Animator>();
-        AKeyPressed = false;
-        firstKeyTime = 0;
-        reset = false;
-        rightPunch = false;
+        SKeyPressed = false;
+        firstSKeyTime = 0;
+        SKeyReset = false;
+        leftPunch = false;
     }
 
     // Update is called once per frame
@@ -56,48 +56,41 @@ public class PlayerController : MonoBehaviour
             playerAnim.SetBool("Crouch_Bool", false);
         }
 
-        //---------------------Punch---------------------------
-        if (Input.GetKeyDown(KeyCode.A)&&AKeyPressed)
+        //---------------------Upper Punch---------------------------
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            if (Time.time - firstKeyTime <= 0.3f)
-            {
-                playerAnim.SetBool("PunchRight_Trig", true);
-                rightPunch = false;
-            }
-            else
-            {
-                playerAnim.SetBool("PunchLeft_Bool", false);
-                rightPunch = false;
-            }
-            reset = true;   
-            
+            playerAnim.SetTrigger("UpPunchLeft_Trig");
         }
-        if (Input.GetKeyDown(KeyCode.A) && !AKeyPressed && !rightPunch)
+        if (Input.GetKeyDown(KeyCode.S))
         {
-            AKeyPressed = true;
-            rightPunch = true;
-            firstKeyTime = Time.time;
-            playerAnim.SetBool("PunchLeft_Bool", true);
-            DataManager.Instance.IsAttacking = true;
-            StartCoroutine(SetIsAttackingToFalse());
+            playerAnim.SetTrigger("UpPunchRight_Trig");
         }
-        else
-        {
-            playerAnim.SetBool("PunchLeft_Bool", false);
-        }
-        if (reset)
-        {
-            AKeyPressed = false;
-            reset = false;
-        }
-        //---------------------Mid Kick--------------------------
+        //---------------------Mid Punch--------------------------
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            playerAnim.SetBool("MidKick_Trig", true);
+            playerAnim.SetTrigger("MidPunchLeft_Trig");
         }
-        else
+        if (Input.GetKeyDown(KeyCode.X))
         {
-            playerAnim.SetBool("MidKick_Trig", false);
+            playerAnim.SetTrigger("MidPunchRight_Trig");
+        }
+        //---------------------High Kick--------------------------
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            playerAnim.SetTrigger("HighKick_Trig");
+            DataManager.Instance.IsAttacking = true;
+        }
+        //---------------------Mid Kick--------------------------
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            playerAnim.SetTrigger("MidKick_Trig");
+            DataManager.Instance.IsAttacking = true;
+        }
+        //---------------------Special Attack--------------------------
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            playerAnim.SetTrigger("SpecialAttack_Trig");
+            DataManager.Instance.IsAttacking = true;
         }
         //---------------------Block--------------------------
         if (Input.GetKey(KeyCode.LeftControl))
