@@ -4,30 +4,24 @@ using UnityEngine;
 
 public class Settings : MonoBehaviour
 {
-    public AudioSource AudioSource;
 
-    private float musicVolume = 1f;
+    
     [SerializeField] private GameObject menuButtonSet;
-    // Start is called before the first frame update
-    void Start()
-    {
-  
-    }
+    [SerializeField] private GameObject settingsWindow;
+    [SerializeField] private GameObject soundSettingsWindow;
 
-    // Update is called once per frame
-    void Update()
-    {
-        AudioSource.volume = musicVolume;
-    }
 
-    public void updateVolume(float volume)
-    {
-        musicVolume = volume;
-    }
-
+    // Go back to main menu
     public void CloseWindow()
     {
         menuButtonSet.SetActive(true);
         gameObject.SetActive(false);
+    }
+    // Go to Sound settings
+    public void GoToSoundSettings()
+    {
+
+        soundSettingsWindow.SetActive(true);
+        settingsWindow.SetActive(false);
     }
 }
