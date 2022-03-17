@@ -235,8 +235,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -114.048386, y: -67.99997}
-  m_SizeDelta: {x: 77.9032, y: 36.5299}
+  m_AnchoredPosition: {x: -128.71, y: -67.99997}
+  m_SizeDelta: {x: 48.575, y: 36.5299}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &18842402
 MonoBehaviour:
@@ -292,10 +292,10 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1425019838}
-        m_TargetAssemblyTypeName: Settings, Assembly-CSharp
+      - m_Target: {fileID: 1386786146}
+        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
         m_MethodName: ReadPlayer1KickInput
-        m_Mode: 5
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -306,19 +306,7 @@ MonoBehaviour:
         m_CallState: 2
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1425019838}
-        m_TargetAssemblyTypeName: Settings, Assembly-CSharp
-        m_MethodName: OnPlayer1KickInputChange
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -1348,12 +1336,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 1
@@ -1924,7 +1912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0.5}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1933,18 +1921,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 2
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
+    m_MinSize: 0
+    m_MaxSize: 120
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter text...
+  m_Text: ..
 --- !u!222 &311736533
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3074,7 +3062,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0.5}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3083,18 +3071,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 2
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter text...
+  m_Text: ..
 --- !u!222 &553318028
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3288,9 +3276,9 @@ RectTransform:
   - {fileID: 1710100186}
   - {fileID: 1653262528}
   - {fileID: 1868127509}
-  - {fileID: 1069583058}
-  - {fileID: 1858469086}
   - {fileID: 2015568489}
+  - {fileID: 1858469086}
+  - {fileID: 1069583058}
   m_Father: {fileID: 997207188}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3566,12 +3554,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 1
@@ -3636,7 +3624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0.5}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3645,18 +3633,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 2
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter text...
+  m_Text: ..
 --- !u!222 &629417528
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3858,12 +3846,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 1
@@ -5004,8 +4992,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -114.048386, y: 0.000034332275}
-  m_SizeDelta: {x: 77.9032, y: 36.5299}
+  m_AnchoredPosition: {x: -128.71, y: 0.000034332275}
+  m_SizeDelta: {x: 48.57, y: 36.5299}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &867952674
 MonoBehaviour:
@@ -5061,10 +5049,10 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1425019838}
-        m_TargetAssemblyTypeName: Settings, Assembly-CSharp
+      - m_Target: {fileID: 1386786146}
+        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
         m_MethodName: ReadPlayer1PunchInput
-        m_Mode: 5
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5075,19 +5063,7 @@ MonoBehaviour:
         m_CallState: 2
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1425019838}
-        m_TargetAssemblyTypeName: Settings, Assembly-CSharp
-        m_MethodName: OnPlayer1PunchInputChange
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -5338,7 +5314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0.5}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5347,18 +5323,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 2
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter text...
+  m_Text: ..
 --- !u!222 &901604598
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5640,7 +5616,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -273.45056, y: -0.9999962}
+  m_AnchoredPosition: {x: -273.45056, y: -1}
   m_SizeDelta: {x: 82.2031, y: 24.6282}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &944782759
@@ -6359,8 +6335,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -114.048386, y: -207.99998}
-  m_SizeDelta: {x: 77.9032, y: 36.5299}
+  m_AnchoredPosition: {x: -128.71, y: -207.99998}
+  m_SizeDelta: {x: 48.57, y: 36.5299}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1051604721
 MonoBehaviour:
@@ -6416,10 +6392,10 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1425019838}
-        m_TargetAssemblyTypeName: Settings, Assembly-CSharp
+      - m_Target: {fileID: 1386786146}
+        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
         m_MethodName: ReadPlayer1JumpInput
-        m_Mode: 5
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6430,19 +6406,7 @@ MonoBehaviour:
         m_CallState: 2
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1425019838}
-        m_TargetAssemblyTypeName: Settings, Assembly-CSharp
-        m_MethodName: OnPlayer1JumpInputChange
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -6778,7 +6742,7 @@ GameObject:
   - component: {fileID: 1069583060}
   - component: {fileID: 1069583059}
   m_Layer: 5
-  m_Name: 'Jump 2 Input  '
+  m_Name: 'Bend 2 Input  '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6798,12 +6762,12 @@ RectTransform:
   - {fileID: 1409492835}
   - {fileID: 148304695}
   m_Father: {fileID: 599355985}
-  m_RootOrder: 17
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 300, y: -207.99998}
-  m_SizeDelta: {x: 77.9032, y: 36.5299}
+  m_AnchoredPosition: {x: 284.75, y: -207.99998}
+  m_SizeDelta: {x: 49.762, y: 36.5299}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1069583059
 MonoBehaviour:
@@ -6859,10 +6823,10 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1425019838}
-        m_TargetAssemblyTypeName: Settings, Assembly-CSharp
+      - m_Target: {fileID: 1386786146}
+        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
         m_MethodName: ReadPlayer2JumpInput
-        m_Mode: 5
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6873,19 +6837,7 @@ MonoBehaviour:
         m_CallState: 2
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1425019838}
-        m_TargetAssemblyTypeName: Settings, Assembly-CSharp
-        m_MethodName: OnPlayer2JumpInputChange
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -7930,8 +7882,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -114.048386, y: -139.99997}
-  m_SizeDelta: {x: 77.9032, y: 36.5299}
+  m_AnchoredPosition: {x: -128.71, y: -139.99997}
+  m_SizeDelta: {x: 48.57, y: 36.5299}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1207199933
 MonoBehaviour:
@@ -7987,10 +7939,10 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1425019838}
-        m_TargetAssemblyTypeName: Settings, Assembly-CSharp
+      - m_Target: {fileID: 1386786146}
+        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
         m_MethodName: ReadPlayer1BendInput
-        m_Mode: 5
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8001,19 +7953,7 @@ MonoBehaviour:
         m_CallState: 2
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1425019838}
-        m_TargetAssemblyTypeName: Settings, Assembly-CSharp
-        m_MethodName: OnPlayer1BendInputChange
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -8338,12 +8278,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 1
@@ -8395,8 +8335,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 300, y: 0.000034332275}
-  m_SizeDelta: {x: 77.9032, y: 36.5299}
+  m_AnchoredPosition: {x: 284.75452, y: 0.000034332275}
+  m_SizeDelta: {x: 49.7621, y: 36.5299}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1308921697
 MonoBehaviour:
@@ -8452,10 +8392,10 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1425019838}
-        m_TargetAssemblyTypeName: Settings, Assembly-CSharp
+      - m_Target: {fileID: 1386786146}
+        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
         m_MethodName: ReadPlayer2PunchInput
-        m_Mode: 5
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8466,19 +8406,7 @@ MonoBehaviour:
         m_CallState: 2
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1425019838}
-        m_TargetAssemblyTypeName: Settings, Assembly-CSharp
-        m_MethodName: OnPlayer2PunchInputChange
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -8717,12 +8645,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 1
@@ -9043,7 +8971,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1386786148}
-  - component: {fileID: 1386786147}
   - component: {fileID: 1386786146}
   m_Layer: 0
   m_Name: 'Controls Settings '
@@ -9061,26 +8988,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1386786145}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb86db4b07d44b54e84feddbc2be689f, type: 3}
+  m_Script: {fileID: 11500000, guid: 563fe3e48070ed64d869602f12f279ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AudioSource: {fileID: 0}
---- !u!114 &1386786147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1386786145}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a64e31f28cd0dd345a2dfd9be15f86de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  menuButtonSet: {fileID: 1495085711}
-  settingsWindow: {fileID: 1386786145}
-  soundSettingsWindow: {fileID: 0}
-  controlSettingsWindow: {fileID: 0}
+  punch1InputField: {fileID: 867952674}
+  kick1InputField: {fileID: 18842402}
+  jump1InputField: {fileID: 1051604721}
+  bend1InputField: {fileID: 1207199933}
+  punch2InputField: {fileID: 1308921697}
+  kick2InputField: {fileID: 1653262529}
+  jump2InputField: {fileID: 1069583059}
+  bend2InputField: {fileID: 2015568490}
 --- !u!4 &1386786148
 Transform:
   m_ObjectHideFlags: 0
@@ -9146,7 +9064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0.5}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9155,18 +9073,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 2
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter text...
+  m_Text: ..
 --- !u!222 &1409492837
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9589,7 +9507,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1386786147}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Settings, Assembly-CSharp
         m_MethodName: CloseWindow
         m_Mode: 1
@@ -9792,7 +9710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0.5}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9801,18 +9719,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 2
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter text...
+  m_Text: ..
 --- !u!222 &1481388333
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9880,12 +9798,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 1
@@ -10558,12 +10476,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 1
@@ -10959,8 +10877,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 300, y: -67.99997}
-  m_SizeDelta: {x: 77.9032, y: 36.5299}
+  m_AnchoredPosition: {x: 284.75, y: -67.99997}
+  m_SizeDelta: {x: 49.762, y: 36.5299}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1653262529
 MonoBehaviour:
@@ -11016,10 +10934,10 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1425019838}
-        m_TargetAssemblyTypeName: Settings, Assembly-CSharp
+      - m_Target: {fileID: 1386786146}
+        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
         m_MethodName: ReadPlayer2KickInput
-        m_Mode: 5
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11030,19 +10948,7 @@ MonoBehaviour:
         m_CallState: 2
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1425019838}
-        m_TargetAssemblyTypeName: Settings, Assembly-CSharp
-        m_MethodName: OnPlayer2KickInputChange
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -11796,12 +11702,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 0
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 1
@@ -12735,7 +12641,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0.5}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -12744,18 +12650,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 2
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter text...
+  m_Text: ..
 --- !u!222 &1913732065
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12911,7 +12817,7 @@ GameObject:
   - component: {fileID: 2015568491}
   - component: {fileID: 2015568490}
   m_Layer: 5
-  m_Name: 'Bend 2 Input  '
+  m_Name: 'Jump 2 Input  '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12931,12 +12837,12 @@ RectTransform:
   - {fileID: 1481388331}
   - {fileID: 1541479060}
   m_Father: {fileID: 599355985}
-  m_RootOrder: 19
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 300, y: -139.99997}
-  m_SizeDelta: {x: 77.9032, y: 36.5299}
+  m_AnchoredPosition: {x: 284.75, y: -139.99997}
+  m_SizeDelta: {x: 49.762, y: 36.5299}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2015568490
 MonoBehaviour:
@@ -12992,10 +12898,10 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1425019838}
-        m_TargetAssemblyTypeName: Settings, Assembly-CSharp
+      - m_Target: {fileID: 1386786146}
+        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
         m_MethodName: ReadPlayer2BendInput
-        m_Mode: 5
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -13006,19 +12912,7 @@ MonoBehaviour:
         m_CallState: 2
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1425019838}
-        m_TargetAssemblyTypeName: Settings, Assembly-CSharp
-        m_MethodName: OnPlayer2BendInputChange
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -13483,7 +13377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0.5}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -13492,18 +13386,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 2
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter text...
+  m_Text: ..
 --- !u!222 &2086755841
 CanvasRenderer:
   m_ObjectHideFlags: 0
