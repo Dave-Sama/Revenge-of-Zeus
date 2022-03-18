@@ -6,24 +6,29 @@ using UnityEngine.UI;
 public class ControllSettings : MonoBehaviour
 {
     // player 1
-    private string punch1;
-    private string kick1;
-    private string jump1;
-    private string bend1;
+    private string punch1 = "Q";
+    private string kick1 = "W";
+    private string jump1 = "E";
+    private string bend1 = "R";
     public InputField punch1InputField;
     public InputField kick1InputField;
     public InputField jump1InputField;
     public InputField bend1InputField;
 
     // player 2
-    private string punch2;
-    private string kick2;
-    private string jump2;
-    private string bend2;
+    private string punch2 = "O";
+    private string kick2 = "P";
+    private string jump2 = "{";
+    private string bend2 = "}";
     public InputField punch2InputField;
     public InputField kick2InputField;
     public InputField jump2InputField;
     public InputField bend2InputField;
+
+    // game objects
+
+    [SerializeField] private GameObject mainSettings;
+    [SerializeField] private GameObject controlSettings;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +43,37 @@ public class ControllSettings : MonoBehaviour
         jump2InputField.characterLimit = 1;
         bend2InputField.characterLimit = 1;
 
+        // init player 1 inputs
+        punch1InputField.text = "Q";
+        kick1InputField.text = "W";
+        jump1InputField.text = "E";
+        bend1InputField.text = "R";
+
+        // init player 2 inputs
+        punch2InputField.text = "O";
+        kick2InputField.text = "P";
+        jump2InputField.text = "{";
+        bend2InputField.text = "}";
+    }
+
+    // Go back to main menu
+    public void CloseWindow()
+    {
+        mainSettings.SetActive(true);
+        controlSettings.SetActive(false);
+    }
+
+    // Restore all Controllers to default state.
+    public void RestoreControllers()
+    {
+        ReadPlayer1PunchInput("Q");
+        ReadPlayer1KickInput("W");
+        ReadPlayer1JumpInput("E");
+        ReadPlayer1BendInput("R");
+        ReadPlayer2PunchInput("O");
+        ReadPlayer2KickInput("P");
+        ReadPlayer2JumpInput("{");
+        ReadPlayer2BendInput("}");
     }
 
     // player 1 punch text input
