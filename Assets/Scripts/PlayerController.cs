@@ -5,19 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Animator playerAnim;
-    bool SKeyPressed;
-    float firstSKeyTime;
-    bool SKeyReset;
-    bool leftPunch; // to know wether the right punch animation is activated to not interrupt it
 
     // Start is called before the first frame update
     void Start()
     {
         playerAnim = gameObject.GetComponent<Animator>();
-        SKeyPressed = false;
-        firstSKeyTime = 0;
-        SKeyReset = false;
-        leftPunch = false;
     }
 
     // Update is called once per frame
@@ -50,6 +42,18 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.DownArrow))
         {
             playerAnim.SetBool("Crouch_Bool", true);
+            if(Input.GetKeyDown(KeyCode.Z)) // Low punch
+            {
+                playerAnim.SetTrigger("LowPunch_Trig");
+            }
+            if (Input.GetKeyDown(KeyCode.X)) // Low kick
+            {
+                playerAnim.SetTrigger("LowKick_Trig");
+            }
+            if (Input.GetKeyDown(KeyCode.C)) // Uppercut
+            {
+                playerAnim.SetTrigger("Uppercut_Trig");
+            }
         }
         else
         {
@@ -66,11 +70,11 @@ public class PlayerController : MonoBehaviour
             playerAnim.SetTrigger("UpPunchRight_Trig");
         }
         //---------------------Mid Punch--------------------------
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z) && !Input.GetKey(KeyCode.DownArrow))
         {
             playerAnim.SetTrigger("MidPunchLeft_Trig");
         }
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) && !Input.GetKey(KeyCode.DownArrow))
         {
             playerAnim.SetTrigger("MidPunchRight_Trig");
         }
@@ -81,7 +85,7 @@ public class PlayerController : MonoBehaviour
             DataManager.Instance.IsAttacking = true;
         }
         //---------------------Mid Kick--------------------------
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C) && !Input.GetKey(KeyCode.DownArrow))
         {
             playerAnim.SetTrigger("MidKick_Trig");
             DataManager.Instance.IsAttacking = true;
