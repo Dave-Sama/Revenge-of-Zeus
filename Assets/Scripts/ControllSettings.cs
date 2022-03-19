@@ -29,6 +29,8 @@ public class ControllSettings : MonoBehaviour
 
     [SerializeField] private GameObject mainSettings;
     [SerializeField] private GameObject controlSettings;
+    [SerializeField] private GameObject soundSettingsWindow;
+    [SerializeField] private GameObject videoSettingsWindow;
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +63,23 @@ public class ControllSettings : MonoBehaviour
     {
         mainSettings.SetActive(true);
         controlSettings.SetActive(false);
+    }
+
+    // Go to Sound settings
+    public void GoToSoundSettings()
+    {
+
+        controlSettings.SetActive(false);
+        soundSettingsWindow.SetActive(true);
+    }
+
+
+    // Go to Video settings
+    public void GoToVideoSettings()
+    {
+
+        controlSettings.SetActive(false);
+        videoSettingsWindow.SetActive(true);
     }
 
     // Restore all Controllers to default state.
