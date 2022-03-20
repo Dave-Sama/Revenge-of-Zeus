@@ -18,23 +18,52 @@ public class HitCollider : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         int damage=0;
-        if((gameObject.CompareTag("Left arm")||gameObject.CompareTag("Right arm"))&&other.CompareTag("Opponent")&&DataManager.Instance.IsAttacking)
+        if((DataManager.Instance.AttackName== "Up punch left" || DataManager.Instance.AttackName == "High kick") && other.CompareTag("Opponent")&&DataManager.Instance.IsAttacking)
+        {
+            damage = 1;
+            Debug.Log("blat");
+            DataManager.Instance.IsAttacking = false;
+            DataManager.Instance.AttackName = "";
+            Animator hitAnim = other.GetComponent<Animator>();
+            hitAnim.SetTrigger("HighLeftHit_Trig");
+            DataManager.Instance.IsPlayer = false;
+        }
+        if ((DataManager.Instance.AttackName == "Up punch right" || DataManager.Instance.AttackName == "Mid kick") && other.CompareTag("Opponent") && DataManager.Instance.IsAttacking)
         {
             damage = 1;
             DataManager.Instance.IsAttacking = false;
+            DataManager.Instance.AttackName = "";
             Animator hitAnim = other.GetComponent<Animator>();
-            hitAnim.SetTrigger("LeftPunchHit_Trigger");
+            hitAnim.SetTrigger("HighRightHit_Trig");
             DataManager.Instance.IsPlayer = false;
         }
-        if ((gameObject.CompareTag("Left Leg") || gameObject.CompareTag("Right Leg")) && other.CompareTag("Opponent") && DataManager.Instance.IsAttacking)
+        if (DataManager.Instance.AttackName== "Mid punch left" && other.CompareTag("Opponent") && DataManager.Instance.IsAttacking)
         {
             damage = 2;
             DataManager.Instance.IsAttacking = false;
+            DataManager.Instance.AttackName = "";
             Animator hitAnim = other.GetComponent<Animator>();
-            hitAnim.SetTrigger("KickHit_Trig");
+            hitAnim.SetTrigger("MidLeftHit_Trig");
             DataManager.Instance.IsPlayer = false;
         }
-        DataManager.Instance.Damage = damage;
+        if (DataManager.Instance.AttackName=="Mid punch right" && other.CompareTag("Opponent") && DataManager.Instance.IsAttacking)
+        {
+            damage = 2;
+            DataManager.Instance.IsAttacking = false;
+            DataManager.Instance.AttackName = "";
+            Animator hitAnim = other.GetComponent<Animator>();
+            hitAnim.SetTrigger("MidRightHit_Trig");
+            DataManager.Instance.IsPlayer = false;
+        }
+        if (DataManager.Instance.AttackName == "Special attack" && other.CompareTag("Opponent") && DataManager.Instance.IsAttacking)
+        {
+            damage = 5;
+            DataManager.Instance.IsAttacking = false;
+            DataManager.Instance.AttackName = "";
+            Animator hitAnim = other.GetComponent<Animator>();
+            hitAnim.SetTrigger("SpecialAttackHit_Trig");
+            DataManager.Instance.IsPlayer = false;
+        }
         DataManager.Instance.Damage = damage;
     }
 }

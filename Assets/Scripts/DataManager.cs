@@ -11,6 +11,7 @@ public class DataManager : MonoBehaviour
     public int Damage { get; set; }
     public bool IsAttacking { get; set; } // Wether the player attacks or the opponent attacks
     public bool IsPlayer { get; set; } // Wether the player gets hit or the opponent gets hit to know who lost health
+    public string AttackName { get; set; } // Which attack is used
 
     void Awake()
         /*

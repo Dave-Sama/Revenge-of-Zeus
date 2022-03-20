@@ -44,14 +44,20 @@ public class PlayerController : MonoBehaviour
             playerAnim.SetBool("Crouch_Bool", true);
             if(Input.GetKeyDown(KeyCode.Z)) // Low punch
             {
+                DataManager.Instance.IsAttacking = true;
+                DataManager.Instance.AttackName = "Low punch";
                 playerAnim.SetTrigger("LowPunch_Trig");
             }
             if (Input.GetKeyDown(KeyCode.X)) // Low kick
             {
+                DataManager.Instance.IsAttacking = true;
+                DataManager.Instance.AttackName = "Low kick";
                 playerAnim.SetTrigger("LowKick_Trig");
             }
             if (Input.GetKeyDown(KeyCode.C)) // Uppercut
             {
+                DataManager.Instance.IsAttacking = true;
+                DataManager.Instance.AttackName = "Uppercut";
                 playerAnim.SetTrigger("Uppercut_Trig");
             }
         }
@@ -63,38 +69,49 @@ public class PlayerController : MonoBehaviour
         //---------------------Upper Punch---------------------------
         if (Input.GetKeyDown(KeyCode.A))
         {
+            DataManager.Instance.IsAttacking = true;
+            DataManager.Instance.AttackName = "Up punch left";
             playerAnim.SetTrigger("UpPunchLeft_Trig");
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
+            DataManager.Instance.IsAttacking = true;
+            DataManager.Instance.AttackName = "Up punch right";
             playerAnim.SetTrigger("UpPunchRight_Trig");
         }
         //---------------------Mid Punch--------------------------
         if (Input.GetKeyDown(KeyCode.Z) && !Input.GetKey(KeyCode.DownArrow))
         {
+            DataManager.Instance.IsAttacking = true;
+            DataManager.Instance.AttackName = "Mid punch left";
             playerAnim.SetTrigger("MidPunchLeft_Trig");
         }
         if (Input.GetKeyDown(KeyCode.X) && !Input.GetKey(KeyCode.DownArrow))
         {
+            DataManager.Instance.IsAttacking = true;
+            DataManager.Instance.AttackName = "Mid punch right";
             playerAnim.SetTrigger("MidPunchRight_Trig");
         }
         //---------------------High Kick--------------------------
         if (Input.GetKeyDown(KeyCode.D))
         {
-            playerAnim.SetTrigger("HighKick_Trig");
             DataManager.Instance.IsAttacking = true;
+            DataManager.Instance.AttackName = "High kick";
+            playerAnim.SetTrigger("HighKick_Trig");
         }
         //---------------------Mid Kick--------------------------
         if (Input.GetKeyDown(KeyCode.C) && !Input.GetKey(KeyCode.DownArrow))
         {
-            playerAnim.SetTrigger("MidKick_Trig");
             DataManager.Instance.IsAttacking = true;
+            DataManager.Instance.AttackName = "Mid kick";
+            playerAnim.SetTrigger("MidKick_Trig");
         }
         //---------------------Special Attack--------------------------
         if (Input.GetKeyDown(KeyCode.V))
         {
-            playerAnim.SetTrigger("SpecialAttack_Trig");
             DataManager.Instance.IsAttacking = true;
+            DataManager.Instance.AttackName = "Special attack";
+            playerAnim.SetTrigger("SpecialAttack_Trig");
         }
         //---------------------Block--------------------------
         if (Input.GetKey(KeyCode.LeftControl))
@@ -105,12 +122,17 @@ public class PlayerController : MonoBehaviour
         {
             playerAnim.SetBool("Block_Bool", false);
         }
+        if (DataManager.Instance.IsAttacking)
+        {
+            StartCoroutine(ResetAttack());
+        }
 
     }
 
-    IEnumerator SetIsAttackingToFalse()
+    IEnumerator ResetAttack()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(3);
         DataManager.Instance.IsAttacking = false;
+        DataManager.Instance.AttackName = "";
     }
 }
