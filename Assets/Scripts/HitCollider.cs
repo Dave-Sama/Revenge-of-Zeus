@@ -21,7 +21,6 @@ public class HitCollider : MonoBehaviour
         if((DataManager.Instance.AttackName== "Up punch left" || DataManager.Instance.AttackName == "High kick") && other.CompareTag("Opponent")&&DataManager.Instance.IsAttacking)
         {
             damage = 1;
-            Debug.Log("blat");
             DataManager.Instance.IsAttacking = false;
             DataManager.Instance.AttackName = "";
             Animator hitAnim = other.GetComponent<Animator>();
@@ -62,6 +61,33 @@ public class HitCollider : MonoBehaviour
             DataManager.Instance.AttackName = "";
             Animator hitAnim = other.GetComponent<Animator>();
             hitAnim.SetTrigger("SpecialAttackHit_Trig");
+            DataManager.Instance.IsPlayer = false;
+        }
+        if (DataManager.Instance.AttackName == "Uppercut" && other.CompareTag("Opponent") && DataManager.Instance.IsAttacking)
+        {
+            damage = 1;
+            DataManager.Instance.IsAttacking = false;
+            DataManager.Instance.AttackName = "";
+            Animator hitAnim = other.GetComponent<Animator>();
+            hitAnim.SetTrigger("UppercutHit_Trig");
+            DataManager.Instance.IsPlayer = false;
+        }
+        if (DataManager.Instance.AttackName == "Low punch" && other.CompareTag("Opponent") && DataManager.Instance.IsAttacking)
+        {
+            damage = 1;
+            DataManager.Instance.IsAttacking = false;
+            DataManager.Instance.AttackName = "";
+            Animator hitAnim = other.GetComponent<Animator>();
+            hitAnim.SetTrigger("LowPunchHit_Trig");
+            DataManager.Instance.IsPlayer = false;
+        }
+        if (DataManager.Instance.AttackName == "Low kick" && other.CompareTag("Opponent") && DataManager.Instance.IsAttacking)
+        {
+            damage = 1;
+            DataManager.Instance.IsAttacking = false;
+            DataManager.Instance.AttackName = "";
+            Animator hitAnim = other.GetComponent<Animator>();
+            hitAnim.SetTrigger("LowKickHit_Trig");
             DataManager.Instance.IsPlayer = false;
         }
         DataManager.Instance.Damage = damage;
