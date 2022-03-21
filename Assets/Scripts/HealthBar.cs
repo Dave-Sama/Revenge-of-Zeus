@@ -50,5 +50,18 @@ public class HealthBar : MonoBehaviour
             sleep = 0;
             pressed = false;
         }
+        if(healthBarFront.value==0 && healthBarBack.value == 0)
+        {
+            healthBarFront.gameObject.SetActive(false);
+            healthBarBack.gameObject.SetActive(false); 
+            if(healthBarFront.tag=="Player")
+            {
+                DataManager.Instance.IsPlayerDead = true;
+            }
+            if (healthBarFront.tag == "Opponent")
+            {
+                DataManager.Instance.IsOpponentDead = true;
+            }
+        }
     }
 }

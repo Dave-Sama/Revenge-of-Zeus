@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     private GameObject playerClone;
     private GameObject opponentClone;
     private Camera camera;
+    private Animator playerDeadAnim;
+    private Animator opponentDeadAnim;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,10 @@ public class GameManager : MonoBehaviour
         opponentClone=InstantiateCharacter(opponentsName, characterPosition*(-1),false);
         playersNameText.text = playersName;
         opponentsNameText.text = opponentsName;
+        //playerDeadAnim = playerClone.GetComponent<Animator>();
+        opponentDeadAnim = opponentClone.GetComponent<Animator>();
+        DataManager.Instance.IsPlayerDead = false;
+        DataManager.Instance.IsOpponentDead = false;
         rightWall.transform.position = new Vector3(camera.pixelWidth/2, rightWall.transform.position.y);
         leftWall.transform.position = new Vector3(camera.pixelWidth / (-2), rightWall.transform.position.y);
     }
@@ -43,6 +49,14 @@ public class GameManager : MonoBehaviour
         if (opponentClone.transform.position.x > 3.99f)
         {
             opponentClone.transform.position = new Vector3(3.99f, opponentClone.transform.position.y, opponentClone.transform.position.z);
+        }
+        //if(DataManager.Instance.IsPlayerDead)
+        //{
+        //    playerDeadAnim.SetTrigger("Dead_Trig");
+        //}
+        if (DataManager.Instance.IsOpponentDead)
+        {
+            opponentDeadAnim.SetTrigger("Dead_Trig");
         }
     }
 
