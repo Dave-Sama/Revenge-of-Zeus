@@ -10,6 +10,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] characters = new GameObject[15];
     [SerializeField] private TextMeshProUGUI playersNameText;
     [SerializeField] private TextMeshProUGUI opponentsNameText;
+    [SerializeField] private TextMeshProUGUI winText;
+    [SerializeField] private TextMeshProUGUI roundText;
+    [SerializeField] private TextMeshProUGUI readyText;
+    [SerializeField] private TextMeshProUGUI fightText;
+    [SerializeField] private GameObject[] playerVictoryMark; // the blue little circles that appear when the player wins the current round
+    [SerializeField] private GameObject[] opponentVictoryMark; // the blue little circles that appear when the opponent wins the current round
     private GameObject rightWall;
     private GameObject leftWall;
     private GameObject playerClone;
@@ -17,6 +23,8 @@ public class GameManager : MonoBehaviour
     private Camera camera;
     private Animator playerDeadAnim;
     private Animator opponentDeadAnim;
+    private int roundCounter;
+    private PlayerController playerController;
 
     // Start is called before the first frame update
     void Start()
@@ -24,25 +32,27 @@ public class GameManager : MonoBehaviour
         rightWall = GameObject.Find("Right Wall");
         leftWall = GameObject.Find("Left Wall");
         camera = GameObject.Find("Main Camera").GetComponent<Camera>();
-        string playersName = DataManager.Instance.PlayersCharacter;
-        string opponentsName = "Zeus"; //Temporary for development and testing
+        playersNameText.text = DataManager.Instance.PlayersCharacter;
+        opponentsNameText.text = "Zeus"; //-----------------------Temporary for development and testing--------------
         Vector3 characterPosition = new Vector3(-2.75f, 0, 0);
-        playerClone=InstantiateCharacter(playersName, characterPosition,true);
-        opponentClone=InstantiateCharacter(opponentsName, characterPosition*(-1),false);
-        playersNameText.text = playersName;
-        opponentsNameText.text = opponentsName;
-        //playerDeadAnim = playerClone.GetComponent<Animator>();
+        playerClone=InstantiateCharacter(playersNameText.text, characterPosition,true);
+        opponentClone=InstantiateCharacter(opponentsNameText.text, characterPosition*(-1),false);
+        //playerDeadAnim = playerClone.GetComponent<Animator>(); // --------put in comments when testing-----------
         opponentDeadAnim = opponentClone.GetComponent<Animator>();
         DataManager.Instance.IsPlayerDead = false;
         DataManager.Instance.IsOpponentDead = false;
         rightWall.transform.position = new Vector3(camera.pixelWidth/2, rightWall.transform.position.y);
         leftWall.transform.position = new Vector3(camera.pixelWidth / (-2), rightWall.transform.position.y);
+        roundCounter = 1;
+        //playerController = playerClone.GetComponent<PlayerController>(); put temporarily in comments for development and testing
+        //playerController.enabled = false;  put temporarily in comments for development and testing
+        StartCoroutine(RoundReadyFight());
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if(playerClone.transform.position.x<-4.21f)
+        //if (playerClone.transform.position.x < -4.21f) // --------put in comments when testing-----------
         //{
         //    playerClone.transform.position = new Vector3(-4.21f, playerClone.transform.position.y, playerClone.transform.position.z);
         //}
@@ -50,13 +60,44 @@ public class GameManager : MonoBehaviour
         {
             opponentClone.transform.position = new Vector3(3.99f, opponentClone.transform.position.y, opponentClone.transform.position.z);
         }
-        //if(DataManager.Instance.IsPlayerDead)
+        //if (DataManager.Instance.IsPlayerDead) // --------put in comments when testing-----------
         //{
         //    playerDeadAnim.SetTrigger("Dead_Trig");
+        //    winText.text = opponentsNameText.text + " Wins!";
+        //    winText.gameObject.SetActive(true);
         //}
         if (DataManager.Instance.IsOpponentDead)
         {
             opponentDeadAnim.SetTrigger("Dead_Trig");
+            winText.text = playersNameText.text + " Wins!";
+            winText.gameObject.SetActive(true);
+            if (roundCounter == 2)
+            {
+                roundCounter=0;
+                playerVictoryMark[1].SetActive(true);
+            }
+            if (roundCounter == 1)
+            {
+                roundCounter++;
+                playerVictoryMark[0].SetActive(true);
+            }
+        }
+        if(DataManager.Instance.IsPlayerDead && DataManager.Instance.IsOpponentDead)
+        {
+            winText.text = "Draw";
+            winText.gameObject.SetActive(true);
+            if (roundCounter == 2)
+            {
+                roundCounter=0;
+                opponentVictoryMark[1].SetActive(true);
+                playerVictoryMark[1].SetActive(true);
+            }
+            if (roundCounter == 1)
+            {
+                roundCounter++;
+                opponentVictoryMark[0].SetActive(true);
+                playerVictoryMark[0].SetActive(true);
+            }
         }
     }
 
@@ -98,5 +139,22 @@ public class GameManager : MonoBehaviour
             }
         }
         return null;
+    }
+
+    IEnumerator RoundReadyFight()
+        /*
+         * Declares what round it is, and then declares the ready, fight statements
+         */
+    {
+        roundText.text = "Round " + roundCounter;
+        yield return new WaitForSeconds(2);
+        roundText.gameObject.SetActive(false);
+        readyText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
+        readyText.gameObject.SetActive(false);
+        fightText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
+        fightText.gameObject.SetActive(false);
+        //playerController.enabled = true; put temporary in comments for development and testing
     }
 }

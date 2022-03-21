@@ -19,13 +19,26 @@ public class HealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(DataManager.Instance.IsPlayer && healthBarFront.tag=="Player" && healthBarBack.tag=="Player")
+        if (DataManager.Instance.IsPlayer && !DataManager.Instance.IsPlayerDead && !DataManager.Instance.IsPlayerDead && healthBarFront.tag == "Player" && healthBarBack.tag == "Player")
         {
             DrainHealth();
         }
-        if (!DataManager.Instance.IsPlayer && healthBarFront.tag == "Opponent" && healthBarBack.tag == "Opponent")
+        if (!DataManager.Instance.IsPlayer && !DataManager.Instance.IsOpponentDead && healthBarFront.tag == "Opponent" && healthBarBack.tag == "Opponent")
         {
             DrainHealth();
+        }
+        //if (Input.GetKey(KeyCode.Space)) // for testing
+        //{
+        //    DataManager.Instance.Damage = 5;
+        //    DrainHealth();
+        //}
+        if (DataManager.Instance.IsPlayerDead && healthBarFront.tag == "Player" && healthBarBack.tag == "Player")
+        {
+            FillHealthBack();
+        }
+        if (DataManager.Instance.IsOpponentDead && healthBarFront.tag == "Opponent" && healthBarBack.tag == "Opponent")
+        {
+            FillHealthBack();
         }
     }
 
@@ -63,5 +76,34 @@ public class HealthBar : MonoBehaviour
                 DataManager.Instance.IsOpponentDead = true;
             }
         }
+    }
+
+    void FillHealthBack()
+    {
+        if (sleep < 5)
+        {
+            sleep += Time.deltaTime;
+            Debug.Log(sleep);
+        }
+        if(sleep >= 5)
+        {
+            healthBarFront.gameObject.SetActive(true);
+            healthBarBack.gameObject.SetActive(true);
+            sleep = 0;
+            Debug.Log("suka");
+        }
+        if(healthBarBack.value<healthBarBack.maxValue && healthBarFront.IsActive() && healthBarBack.IsActive())
+        {
+            healthBarBack.value = healthBarBack.value + 0.01f;
+        }
+        if(healthBarBack.value==healthBarBack.maxValue && sleep < 1 && healthBarFront.IsActive() && healthBarBack.IsActive())
+        {
+            sleep += Time.deltaTime;
+        }
+        if (sleep >= 1 && healthBarFront.IsActive() && healthBarBack.IsActive())
+        {
+            healthBarFront.value = healthBarFront.maxValue;
+        }
+
     }
 }
