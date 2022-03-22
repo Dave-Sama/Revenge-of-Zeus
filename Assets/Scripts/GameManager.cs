@@ -23,12 +23,13 @@ public class GameManager : MonoBehaviour
     private Camera camera;
     private Animator playerDeadAnim;
     private Animator opponentDeadAnim;
-    private int roundCounter;
     private PlayerController playerController;
 
     // Start is called before the first frame update
     void Start()
     {
+        // check why my character is not instantiated in round 2
+        // and why da fuck the win message flickers
         rightWall = GameObject.Find("Right Wall");
         leftWall = GameObject.Find("Left Wall");
         camera = GameObject.Find("Main Camera").GetComponent<Camera>();
@@ -43,9 +44,14 @@ public class GameManager : MonoBehaviour
         DataManager.Instance.IsOpponentDead = false;
         rightWall.transform.position = new Vector3(camera.pixelWidth/2, rightWall.transform.position.y);
         leftWall.transform.position = new Vector3(camera.pixelWidth / (-2), rightWall.transform.position.y);
-        roundCounter = 1;
-        //playerController = playerClone.GetComponent<PlayerController>(); put temporarily in comments for development and testing
-        //playerController.enabled = false;  put temporarily in comments for development and testing
+        if(DataManager.Instance.playerWonCounter == 0 && DataManager.Instance.opponentWonCounter == 0)
+        {
+            DataManager.Instance.CurrentRound = 1;
+        }
+        WinningsToVictoryMarks(DataManager.Instance.playerWonCounter, playerVictoryMark);
+        WinningsToVictoryMarks(DataManager.Instance.opponentWonCounter, opponentVictoryMark);
+        //playerController = playerClone.GetComponent<PlayerController>();------------ put temporarily in comments for development and testing----------
+        //playerController.enabled = false;  --------------------put temporarily in comments for development and testing---------------------
         StartCoroutine(RoundReadyFight());
     }
 
@@ -69,34 +75,40 @@ public class GameManager : MonoBehaviour
         if (DataManager.Instance.IsOpponentDead)
         {
             opponentDeadAnim.SetTrigger("Dead_Trig");
-            winText.text = playersNameText.text + " Wins!";
-            winText.gameObject.SetActive(true);
-            if (roundCounter == 2)
+            StartCoroutine(WinnerAnnouncement(playersNameText.text));
+            Debug.Log(DataManager.Instance.IsOpponentDead);
+            if (DataManager.Instance.CurrentRound == 2)
             {
-                roundCounter=0;
-                playerVictoryMark[1].SetActive(true);
+                DataManager.Instance.playerWonCounter = 2;
+                DataManager.Instance.IsOpponentDead = false;
             }
-            if (roundCounter == 1)
+            if (DataManager.Instance.CurrentRound == 1)
             {
-                roundCounter++;
-                playerVictoryMark[0].SetActive(true);
+                DataManager.Instance.CurrentRound++;
+                DataManager.Instance.playerWonCounter = 1;
+                DataManager.Instance.IsOpponentDead = false;
+                StartCoroutine(ResetScene());
             }
         }
         if(DataManager.Instance.IsPlayerDead && DataManager.Instance.IsOpponentDead)
         {
             winText.text = "Draw";
             winText.gameObject.SetActive(true);
-            if (roundCounter == 2)
+            if (DataManager.Instance.CurrentRound == 2)
             {
-                roundCounter=0;
+                DataManager.Instance.CurrentRound = 0;
                 opponentVictoryMark[1].SetActive(true);
                 playerVictoryMark[1].SetActive(true);
+                DataManager.Instance.IsOpponentDead = false;
+                DataManager.Instance.IsPlayerDead = false;
             }
-            if (roundCounter == 1)
+            if (DataManager.Instance.CurrentRound == 1)
             {
-                roundCounter++;
+                DataManager.Instance.CurrentRound++;
                 opponentVictoryMark[0].SetActive(true);
                 playerVictoryMark[0].SetActive(true);
+                DataManager.Instance.IsOpponentDead = false;
+                DataManager.Instance.IsPlayerDead = false;
             }
         }
     }
@@ -146,7 +158,7 @@ public class GameManager : MonoBehaviour
          * Declares what round it is, and then declares the ready, fight statements
          */
     {
-        roundText.text = "Round " + roundCounter;
+        roundText.text = "Round " + DataManager.Instance.CurrentRound;
         yield return new WaitForSeconds(2);
         roundText.gameObject.SetActive(false);
         readyText.gameObject.SetActive(true);
@@ -155,6 +167,39 @@ public class GameManager : MonoBehaviour
         fightText.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
         fightText.gameObject.SetActive(false);
-        //playerController.enabled = true; put temporary in comments for development and testing
+        //playerController.enabled = true; ---------------put temporary in comments for development and testing----------------
+    }
+
+    IEnumerator WinnerAnnouncement(string name)
+    {
+        winText.text = name + " Wins!";
+        winText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
+        winText.gameObject.SetActive(false);
+    }
+
+    void WinningsToVictoryMarks(int winCounter, GameObject[] victoryMark)
+    {
+        if (winCounter == 0)
+        {
+            victoryMark[0].SetActive(false);
+            victoryMark[1].SetActive(false);
+        }
+        if (winCounter == 1)
+        {
+            victoryMark[0].SetActive(true);
+            victoryMark[1].SetActive(false);
+        }
+        if (winCounter == 2)
+        {
+            victoryMark[0].SetActive(true);
+            victoryMark[1].SetActive(true);
+        }
+    }
+
+    IEnumerator ResetScene()
+    {
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

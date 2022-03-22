@@ -32,14 +32,14 @@ public class HealthBar : MonoBehaviour
         //    DataManager.Instance.Damage = 5;
         //    DrainHealth();
         //}
-        if (DataManager.Instance.IsPlayerDead && healthBarFront.tag == "Player" && healthBarBack.tag == "Player")
-        {
-            FillHealthBack();
-        }
-        if (DataManager.Instance.IsOpponentDead && healthBarFront.tag == "Opponent" && healthBarBack.tag == "Opponent")
-        {
-            FillHealthBack();
-        }
+        //if (DataManager.Instance.IsPlayerDead && healthBarFront.tag == "Player" && healthBarBack.tag == "Player") //candidate for deletion
+        //{
+        //    FillHealthBack();
+        //}
+        //if (DataManager.Instance.IsOpponentDead && healthBarFront.tag == "Opponent" && healthBarBack.tag == "Opponent")
+        //{
+        //    FillHealthBack();
+        //}
     }
 
     void DrainHealth()
@@ -66,7 +66,7 @@ public class HealthBar : MonoBehaviour
         if(healthBarFront.value==0 && healthBarBack.value == 0)
         {
             healthBarFront.gameObject.SetActive(false);
-            healthBarBack.gameObject.SetActive(false); 
+            healthBarBack.gameObject.SetActive(false);
             if(healthBarFront.tag=="Player")
             {
                 DataManager.Instance.IsPlayerDead = true;
@@ -78,32 +78,31 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    void FillHealthBack()
-    {
-        if (sleep < 5)
-        {
-            sleep += Time.deltaTime;
-            Debug.Log(sleep);
-        }
-        if(sleep >= 5)
-        {
-            healthBarFront.gameObject.SetActive(true);
-            healthBarBack.gameObject.SetActive(true);
-            sleep = 0;
-            Debug.Log("suka");
-        }
-        if(healthBarBack.value<healthBarBack.maxValue && healthBarFront.IsActive() && healthBarBack.IsActive())
-        {
-            healthBarBack.value = healthBarBack.value + 0.01f;
-        }
-        if(healthBarBack.value==healthBarBack.maxValue && sleep < 1 && healthBarFront.IsActive() && healthBarBack.IsActive())
-        {
-            sleep += Time.deltaTime;
-        }
-        if (sleep >= 1 && healthBarFront.IsActive() && healthBarBack.IsActive())
-        {
-            healthBarFront.value = healthBarFront.maxValue;
-        }
+    //void FillHealthBack() // candidate for deletion
+    //{
+    //    if (sleep < 5)
+    //    {
+    //        sleep += Time.deltaTime;
+    //    }
+    //    if(sleep >= 5)
+    //    {
+    //        healthBarFront.gameObject.SetActive(true);
+    //        healthBarBack.gameObject.SetActive(true);
+    //        currentRound = DataManager.Instance.CurrentRound;
+    //        sleep = 0;
+    //    }
+    //    if(healthBarBack.value<healthBarBack.maxValue && healthBarFront.IsActive() && healthBarBack.IsActive())
+    //    {
+    //        healthBarBack.value = healthBarBack.value + 0.01f;
+    //    }
+    //    if(healthBarBack.value==healthBarBack.maxValue && sleep < 1 && healthBarFront.IsActive() && healthBarBack.IsActive())
+    //    {
+    //        sleep += Time.deltaTime;
+    //    }
+    //    if (sleep >= 1 && healthBarFront.IsActive() && healthBarBack.IsActive())
+    //    {
+    //        healthBarFront.value = healthBarFront.maxValue;
+    //    }
 
-    }
+    //}
 }

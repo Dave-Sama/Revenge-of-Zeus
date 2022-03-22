@@ -14,6 +14,9 @@ public class DataManager : MonoBehaviour
     public string AttackName { get; set; } // Which attack is used
     public bool IsPlayerDead { get; set; }
     public bool IsOpponentDead { get; set; }
+    public int CurrentRound { get; set; }
+    public int playerWonCounter { get; set; } // How many rounds the player won in the current fight
+    public int opponentWonCounter { get; set; } // How many rounds the opponent won in the current fight
 
     void Awake()
         /*
