@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
         playersNameText.text = DataManager.Instance.PlayersCharacter;
         opponentsNameText.text = "Zeus"; //-----------------------Temporary for development and testing--------------
         Vector3 characterPosition = new Vector3(-2.75f, 0, 0);
+        Debug.Log("players name text: " + playersNameText.text);
         playerClone=InstantiateCharacter(playersNameText.text, characterPosition,true);
         opponentClone=InstantiateCharacter(opponentsNameText.text, characterPosition*(-1),false);
         //playerDeadAnim = playerClone.GetComponent<Animator>(); // --------put in comments when testing-----------

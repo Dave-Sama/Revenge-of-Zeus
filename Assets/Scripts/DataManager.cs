@@ -25,13 +25,18 @@ public class DataManager : MonoBehaviour
          * That way I can pass data between different scenes.
          */
     {
-        if(Instance!=null)
+        if (Instance == null)
         {
-            Destroy(Instance);
-            return;
+            DontDestroyOnLoad(gameObject);
+            Instance = this;
         }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
+        else
+        {
+            if (Instance != this)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     void Update()
