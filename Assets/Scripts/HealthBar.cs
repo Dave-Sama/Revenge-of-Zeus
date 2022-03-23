@@ -9,11 +9,13 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Slider healthBarBack;
     private float sleep; // sleep variable for daleying time porpuses
     private bool pressed; // is space button pressed or not, temporary for development and testing
+    private bool characterDied;
     // Start is called before the first frame update
     void Start()
     {
         sleep = 0;
         pressed = false;
+        characterDied = false;
     }
 
     // Update is called once per frame
@@ -63,11 +65,12 @@ public class HealthBar : MonoBehaviour
             sleep = 0;
             pressed = false;
         }
-        if(healthBarFront.value==0 && healthBarBack.value == 0)
+        if(healthBarFront.value==0 && healthBarBack.value == 0 && !characterDied)
         {
             healthBarFront.gameObject.SetActive(false);
             healthBarBack.gameObject.SetActive(false);
-            if(healthBarFront.tag=="Player")
+            characterDied = true;
+            if (healthBarFront.tag=="Player")
             {
                 DataManager.Instance.IsPlayerDead = true;
             }

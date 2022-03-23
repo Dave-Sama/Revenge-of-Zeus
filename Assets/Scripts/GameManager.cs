@@ -28,8 +28,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // check why my character is not instantiated in round 2
-        // and why da fuck the win message flickers
         rightWall = GameObject.Find("Right Wall");
         leftWall = GameObject.Find("Left Wall");
         camera = GameObject.Find("Main Camera").GetComponent<Camera>();
@@ -45,6 +43,8 @@ public class GameManager : MonoBehaviour
         DataManager.Instance.IsOpponentDead = false;
         rightWall.transform.position = new Vector3(camera.pixelWidth/2, rightWall.transform.position.y);
         leftWall.transform.position = new Vector3(camera.pixelWidth / (-2), rightWall.transform.position.y);
+        Debug.Log("player won counter: " + DataManager.Instance.playerWonCounter);
+        Debug.Log("is opponent dead: " + DataManager.Instance.IsOpponentDead);
         if(DataManager.Instance.playerWonCounter == 0 && DataManager.Instance.opponentWonCounter == 0)
         {
             DataManager.Instance.CurrentRound = 1;
@@ -176,7 +176,6 @@ public class GameManager : MonoBehaviour
         winText.text = name + " Wins!";
         winText.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
-        winText.gameObject.SetActive(false);
     }
 
     void WinningsToVictoryMarks(int winCounter, GameObject[] victoryMark)
