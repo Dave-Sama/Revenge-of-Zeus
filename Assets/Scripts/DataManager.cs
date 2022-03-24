@@ -17,6 +17,9 @@ public class DataManager : MonoBehaviour
     public int CurrentRound { get; set; }
     public int playerWonCounter { get; set; } // How many rounds the player won in the current fight
     public int opponentWonCounter { get; set; } // How many rounds the opponent won in the current fight
+    public List<string> FreeOpponents{ get; set; } // List of opponents that have not been used yet in the current game
+    public int BattleNumber { get; set; } // Which battle number it is out of 10 battles
+    public string CurrentOpponent { get; set; }  // The opponent for the current battle
 
     void Awake()
         /*

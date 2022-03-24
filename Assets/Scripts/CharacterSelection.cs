@@ -66,6 +66,7 @@ public class CharacterSelection : MonoBehaviour
 
     public void PressYesOnPanel()
     {
+        DataManager.Instance.BattleNumber = 1;
         SceneManager.LoadScene(3); //index 3 = battle scene
     }
 }

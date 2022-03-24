@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     private Animator playerDeadAnim;
     private Animator opponentDeadAnim;
     private PlayerController playerController;
+    private List<string> freeOpponents;
 
     // Start is called before the first frame update
     void Start()
@@ -31,10 +32,35 @@ public class GameManager : MonoBehaviour
         rightWall = GameObject.Find("Right Wall");
         leftWall = GameObject.Find("Left Wall");
         camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        if (DataManager.Instance.playerWonCounter == 0 && DataManager.Instance.opponentWonCounter == 0)
+        {
+            DataManager.Instance.CurrentRound = 1;
+        }
+
         playersNameText.text = DataManager.Instance.PlayersCharacter;
-        opponentsNameText.text = "Helios"; //-----------------------Temporary for development and testing--------------
+
+        if (DataManager.Instance.BattleNumber == 1 && DataManager.Instance.CurrentRound == 1)
+        {
+            freeOpponents = new List<string>();
+            FillListWithOpponents();
+            DataManager.Instance.FreeOpponents = freeOpponents; // init the free opponents
+        }
+        else
+        {
+            freeOpponents = DataManager.Instance.FreeOpponents; // update the free opponents
+        }
+        //playersNameText.text = "Helios"; //-----------------------Temporary for development and testing--------------
+        //opponentsNameText.text = "Hermes"; 
+        if (DataManager.Instance.CurrentRound==1)
+        {
+            opponentsNameText.text = GetRandomCharacterName();
+            DataManager.Instance.CurrentOpponent = opponentsNameText.text;
+        }
+        else
+        {
+            opponentsNameText.text = DataManager.Instance.CurrentOpponent;
+        }
         Vector3 characterPosition = new Vector3(-2.75f, 0, 0);
-        Debug.Log("players name text: " + playersNameText.text);
         playerClone=InstantiateCharacter(playersNameText.text, characterPosition,true);
         opponentClone=InstantiateCharacter(opponentsNameText.text, characterPosition*(-1),false);
         //playerDeadAnim = playerClone.GetComponent<Animator>(); // --------put in comments when testing-----------
@@ -43,12 +69,6 @@ public class GameManager : MonoBehaviour
         DataManager.Instance.IsOpponentDead = false;
         rightWall.transform.position = new Vector3(camera.pixelWidth/2, rightWall.transform.position.y);
         leftWall.transform.position = new Vector3(camera.pixelWidth / (-2), rightWall.transform.position.y);
-        Debug.Log("player won counter: " + DataManager.Instance.playerWonCounter);
-        Debug.Log("is opponent dead: " + DataManager.Instance.IsOpponentDead);
-        if(DataManager.Instance.playerWonCounter == 0 && DataManager.Instance.opponentWonCounter == 0)
-        {
-            DataManager.Instance.CurrentRound = 1;
-        }
         WinningsToVictoryMarks(DataManager.Instance.playerWonCounter, playerVictoryMark);
         WinningsToVictoryMarks(DataManager.Instance.opponentWonCounter, opponentVictoryMark);
         //playerController = playerClone.GetComponent<PlayerController>();------------ put temporarily in comments for development and testing----------
@@ -81,7 +101,20 @@ public class GameManager : MonoBehaviour
             if (DataManager.Instance.CurrentRound == 2)
             {
                 DataManager.Instance.playerWonCounter = 2;
+                playerVictoryMark[1].SetActive(true);
                 DataManager.Instance.IsOpponentDead = false;
+                if (DataManager.Instance.opponentWonCounter == 0)
+                {
+                    DataManager.Instance.playerWonCounter = 0;
+                    freeOpponents.Remove(opponentsNameText.text);
+                    DataManager.Instance.FreeOpponents = freeOpponents;
+                    DataManager.Instance.BattleNumber++;
+                }
+                if (DataManager.Instance.opponentWonCounter == 1)
+                {
+                    DataManager.Instance.CurrentRound++;
+                }
+                StartCoroutine(ResetScene());
             }
             if (DataManager.Instance.CurrentRound == 1)
             {
@@ -120,6 +153,24 @@ public class GameManager : MonoBehaviour
          */
     {
         SceneManager.LoadScene(2);
+    }
+
+    void FillListWithOpponents()
+    {
+        foreach(GameObject character in characters)
+        {
+            if (character.name != playersNameText.text)
+            {
+                freeOpponents.Add(character.name);
+            }
+        }
+    }
+
+    string GetRandomCharacterName()
+    {
+        int randomIndex=Random.Range(0, freeOpponents.Count);
+        string character = freeOpponents[randomIndex];
+        return character;
     }
 
     private GameObject InstantiateCharacter(string characterName,Vector3 characterPosition, bool isPlayer)
