@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
         leftWall = GameObject.Find("Left Wall");
         camera = GameObject.Find("Main Camera").GetComponent<Camera>();
         playersNameText.text = DataManager.Instance.PlayersCharacter;
-        opponentsNameText.text = "Zeus"; //-----------------------Temporary for development and testing--------------
+        opponentsNameText.text = "Helios"; //-----------------------Temporary for development and testing--------------
         Vector3 characterPosition = new Vector3(-2.75f, 0, 0);
         Debug.Log("players name text: " + playersNameText.text);
         playerClone=InstantiateCharacter(playersNameText.text, characterPosition,true);
