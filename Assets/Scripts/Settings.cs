@@ -9,6 +9,7 @@ public class Settings : MonoBehaviour
     [SerializeField] private GameObject settingsWindow;
     [SerializeField] private GameObject soundSettingsWindow;
     [SerializeField] private GameObject controlSettingsWindow;
+    [SerializeField] private GameObject videoSettingsWindow;
 
 
     // Go back to main menu
@@ -23,6 +24,22 @@ public class Settings : MonoBehaviour
 
         settingsWindow.SetActive(false);
         soundSettingsWindow.SetActive(true);
+    }
+
+    // Go to Control settings
+    public void GoToControlSettingsSound()
+    {
+
+        soundSettingsWindow.SetActive(false);
+        controlSettingsWindow.SetActive(true);
+    }
+
+    // Go to Video settings
+    public void GoToVideoSettingsSound()
+    {
+
+        soundSettingsWindow.SetActive(false);
+        videoSettingsWindow.SetActive(true);
     }
 
     public void GoToControlSettings()
