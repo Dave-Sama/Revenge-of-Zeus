@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class HitCollider : MonoBehaviour
 {
+    AudioSource hitSound;
+
     // Start is called before the first frame update
     void Start()
     {
+        hitSound = GameObject.Find("Hit Sound").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -23,6 +26,7 @@ public class HitCollider : MonoBehaviour
             damage = 1;
             DataManager.Instance.IsAttacking = false;
             DataManager.Instance.AttackName = "";
+            hitSound.Play();
             Animator hitAnim = other.GetComponent<Animator>();
             hitAnim.SetTrigger("HighLeftHit_Trig");
             DataManager.Instance.IsPlayer = false;
@@ -32,6 +36,7 @@ public class HitCollider : MonoBehaviour
             damage = 1;
             DataManager.Instance.IsAttacking = false;
             DataManager.Instance.AttackName = "";
+            hitSound.Play();
             Animator hitAnim = other.GetComponent<Animator>();
             hitAnim.SetTrigger("HighRightHit_Trig");
             DataManager.Instance.IsPlayer = false;
@@ -41,6 +46,7 @@ public class HitCollider : MonoBehaviour
             damage = 2;
             DataManager.Instance.IsAttacking = false;
             DataManager.Instance.AttackName = "";
+            hitSound.Play();
             Animator hitAnim = other.GetComponent<Animator>();
             hitAnim.SetTrigger("MidLeftHit_Trig");
             DataManager.Instance.IsPlayer = false;
@@ -50,6 +56,7 @@ public class HitCollider : MonoBehaviour
             damage = 2;
             DataManager.Instance.IsAttacking = false;
             DataManager.Instance.AttackName = "";
+            hitSound.Play();
             Animator hitAnim = other.GetComponent<Animator>();
             hitAnim.SetTrigger("MidRightHit_Trig");
             DataManager.Instance.IsPlayer = false;
@@ -59,6 +66,7 @@ public class HitCollider : MonoBehaviour
             damage = 5;
             DataManager.Instance.IsAttacking = false;
             DataManager.Instance.AttackName = "";
+            hitSound.Play();
             Animator hitAnim = other.GetComponent<Animator>();
             hitAnim.SetTrigger("SpecialAttackHit_Trig");
             DataManager.Instance.IsPlayer = false;
@@ -68,6 +76,7 @@ public class HitCollider : MonoBehaviour
             damage = 1;
             DataManager.Instance.IsAttacking = false;
             DataManager.Instance.AttackName = "";
+            hitSound.Play();
             Animator hitAnim = other.GetComponent<Animator>();
             hitAnim.SetTrigger("UppercutHit_Trig");
             DataManager.Instance.IsPlayer = false;
@@ -77,6 +86,7 @@ public class HitCollider : MonoBehaviour
             damage = 1;
             DataManager.Instance.IsAttacking = false;
             DataManager.Instance.AttackName = "";
+            hitSound.Play();
             Animator hitAnim = other.GetComponent<Animator>();
             hitAnim.SetTrigger("LowPunchHit_Trig");
             DataManager.Instance.IsPlayer = false;
@@ -86,6 +96,7 @@ public class HitCollider : MonoBehaviour
             damage = 1;
             DataManager.Instance.IsAttacking = false;
             DataManager.Instance.AttackName = "";
+            hitSound.Play();
             Animator hitAnim = other.GetComponent<Animator>();
             hitAnim.SetTrigger("LowKickHit_Trig");
             DataManager.Instance.IsPlayer = false;

@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     private Animator opponentDeadAnim;
     private PlayerController playerController;
     private List<string> freeOpponents;
+    private AudioSource battleMusic;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
         rightWall = GameObject.Find("Right Wall");
         leftWall = GameObject.Find("Left Wall");
         camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        battleMusic = gameObject.GetComponent<AudioSource>();
         if (DataManager.Instance.playerWonCounter == 0 && DataManager.Instance.opponentWonCounter == 0)
         {
             DataManager.Instance.CurrentRound = 1;
@@ -71,8 +73,8 @@ public class GameManager : MonoBehaviour
         leftWall.transform.position = new Vector3(camera.pixelWidth / (-2), rightWall.transform.position.y);
         WinningsToVictoryMarks(DataManager.Instance.playerWonCounter, playerVictoryMark);
         WinningsToVictoryMarks(DataManager.Instance.opponentWonCounter, opponentVictoryMark);
-        //playerController = playerClone.GetComponent<PlayerController>();------------ put temporarily in comments for development and testing----------
-        //playerController.enabled = false;  --------------------put temporarily in comments for development and testing---------------------
+        playerController = playerClone.GetComponent<PlayerController>();
+        playerController.enabled = false;
         StartCoroutine(RoundReadyFight());
     }
 
@@ -219,7 +221,8 @@ public class GameManager : MonoBehaviour
         fightText.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
         fightText.gameObject.SetActive(false);
-        //playerController.enabled = true; ---------------put temporary in comments for development and testing----------------
+        playerController.enabled = true;
+        battleMusic.Play();
     }
 
     IEnumerator WinnerAnnouncement(string name)
