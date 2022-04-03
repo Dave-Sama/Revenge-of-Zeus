@@ -20,6 +20,7 @@ public class DataManager : MonoBehaviour
     public List<string> FreeOpponents{ get; set; } // List of opponents that have not been used yet in the current game
     public int BattleNumber { get; set; } // Which battle number it is out of 10 battles
     public string CurrentOpponent { get; set; }  // The opponent for the current battle
+    public bool downArrowPressed { get; set; } // For the highlighting of the buttons using the arrow in the menu
 
     void Awake()
         /*

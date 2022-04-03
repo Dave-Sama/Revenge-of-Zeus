@@ -13,6 +13,7 @@ public class GameplayMode : MonoBehaviour
     void Start()
     {
         buttonClick = GameObject.Find("Gameplay Button Set").GetComponent<AudioSource>();
+        DataManager.Instance.downArrowPressed = true;
     }
 
     // Update is called once per frame
@@ -23,10 +24,15 @@ public class GameplayMode : MonoBehaviour
         //    SceneManager.LoadScene(2); // Scene index 2 is character selection scene
         //    //SceneLoader.Instance.LoadScene(2);
         //}
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            CloseWindow();
+        }
     }
 
     public void CloseWindow()
     {
+        DataManager.Instance.downArrowPressed = false;
         menuButtonSet.SetActive(true);
         gameObject.SetActive(false);
     }
