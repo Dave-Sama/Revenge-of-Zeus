@@ -22695,30 +22695,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 563fe3e48070ed64d869602f12f279ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upper_left_punch1_Field: {fileID: 1238414713}
-  upper_right_punch1_Field: {fileID: 443199}
-  upper_kick1_Field: {fileID: 58093783}
-  middle_left_punch1_Field: {fileID: 1176849540}
-  middle_right_punch1_Field: {fileID: 2096727563}
-  middle_kick1_Field: {fileID: 1416494052}
-  special_attack1_Field: {fileID: 111571639}
-  jump1_Field: {fileID: 1540291892}
-  bend1_Field: {fileID: 1485539956}
-  block1_Field: {fileID: 456902335}
-  upper_left_punch2_Field: {fileID: 1500317958}
-  upper_right_punch2_Field: {fileID: 1199884034}
-  upper_kick2_Field: {fileID: 2031407542}
-  middle_left_punch2_Field: {fileID: 1448878119}
-  middle_right_punch2_Field: {fileID: 1467280240}
-  middle_kick2_Field: {fileID: 1610379853}
-  special_attack2_Field: {fileID: 1311788094}
-  jump2_Field: {fileID: 1337836244}
-  bend2_Field: {fileID: 695153724}
-  block2_Field: {fileID: 1271210270}
+  punch1InputField: {fileID: 0}
+  kick1InputField: {fileID: 0}
+  jump1InputField: {fileID: 0}
+  bend1InputField: {fileID: 0}
+  punch2InputField: {fileID: 0}
+  kick2InputField: {fileID: 0}
+  jump2InputField: {fileID: 0}
+  bend2InputField: {fileID: 0}
   mainSettings: {fileID: 1777525923}
   controlSettings: {fileID: 2096644180}
-  soundSettingsWindow: {fileID: 1068023770}
-  videoSettingsWindow: {fileID: 626647725}
 --- !u!4 &2096644182
 Transform:
   m_ObjectHideFlags: 0
