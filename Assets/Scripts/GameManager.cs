@@ -227,9 +227,27 @@ public class GameManager : MonoBehaviour
 
     IEnumerator WinnerAnnouncement(string name)
     {
+        AudioSource winnerSound=null;
+        foreach(GameObject character in characters)
+        {
+            if (name == character.name)
+            {
+                winnerSound = GameObject.Find(character.name + "(Clone)").GetComponent<AudioSource>();
+                break;
+            }
+        }
         winText.text = name + " Wins!";
         winText.gameObject.SetActive(true);
-        yield return new WaitForSeconds(2);
+        if(winnerSound!=null)
+        {
+            winnerSound.Play();
+            Debug.Log("is playing: "+winnerSound.isPlaying);
+        }
+        else
+        {
+            Debug.Log("Winner sound error!");
+        }
+        yield return new WaitForSeconds(3);
     }
 
     void WinningsToVictoryMarks(int winCounter, GameObject[] victoryMark)
