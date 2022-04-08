@@ -7,8 +7,7 @@ public class SoundSettings : MonoBehaviour
     public AudioSource AudioSource;
     public AudioSource musicClick;
     public AudioSource buttonSet;
-    private float musicVolume = 0f;
-
+    private float musicVolume = 1f;
 
     [SerializeField] private GameObject soundSettingsWindow;
     [SerializeField] private GameObject controlSettingsWindow;
