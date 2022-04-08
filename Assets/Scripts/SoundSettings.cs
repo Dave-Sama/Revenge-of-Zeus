@@ -5,7 +5,10 @@ using UnityEngine;
 public class SoundSettings : MonoBehaviour
 {
     public AudioSource AudioSource;
+    public AudioSource musicClick;
+    public AudioSource buttonSet;
     private float musicVolume = 0f;
+
 
     [SerializeField] private GameObject soundSettingsWindow;
     [SerializeField] private GameObject controlSettingsWindow;
@@ -31,6 +34,19 @@ public class SoundSettings : MonoBehaviour
     {
         soundSettingsWindow.SetActive(false);
         controlSettingsWindow.SetActive(true);
+    }
+
+    public void toggleSFX(bool tog)
+    {
+        if (tog)
+        {
+            musicClick.volume = 1f;
+            buttonSet.volume = 1f;
+        } else
+        {
+            buttonSet.volume = 0f;
+            musicClick.volume = 0f;
+        }
     }
 
 }
