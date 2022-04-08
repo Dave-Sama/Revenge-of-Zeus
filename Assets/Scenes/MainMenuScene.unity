@@ -255,8 +255,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
+      - m_Target: {fileID: 2096644181}
+        m_TargetAssemblyTypeName: ControlSettings, Assembly-CSharp
         m_MethodName: ReadPlayer1UpperRightPunchInput
         m_Mode: 0
         m_Arguments:
@@ -489,8 +489,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
+      - m_Target: {fileID: 2096644181}
+        m_TargetAssemblyTypeName: ControlSettings, Assembly-CSharp
         m_MethodName: ReadPlayer1UpperKickInput
         m_Mode: 0
         m_Arguments:
@@ -1287,8 +1287,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
+      - m_Target: {fileID: 2096644181}
+        m_TargetAssemblyTypeName: ControlSettings, Assembly-CSharp
         m_MethodName: ReadPlayer1SpecialAttackInput
         m_Mode: 0
         m_Arguments:
@@ -4958,8 +4958,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
+      - m_Target: {fileID: 2096644181}
+        m_TargetAssemblyTypeName: ControlSettings, Assembly-CSharp
         m_MethodName: ReadPlayer1BlockInput
         m_Mode: 0
         m_Arguments:
@@ -8229,8 +8229,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
+      - m_Target: {fileID: 2096644181}
+        m_TargetAssemblyTypeName: ControlSettings, Assembly-CSharp
         m_MethodName: ReadPlayer2BendInput
         m_Mode: 0
         m_Arguments:
@@ -13335,8 +13335,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
+      - m_Target: {fileID: 2096644181}
+        m_TargetAssemblyTypeName: ControlSettings, Assembly-CSharp
         m_MethodName: ReadPlayer1MiddleLeftPunchInput
         m_Mode: 0
         m_Arguments:
@@ -13697,8 +13697,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
+      - m_Target: {fileID: 2096644181}
+        m_TargetAssemblyTypeName: ControlSettings, Assembly-CSharp
         m_MethodName: ReadPlayer2UpperRightPunchInput
         m_Mode: 0
         m_Arguments:
@@ -14064,8 +14064,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
+      - m_Target: {fileID: 2096644181}
+        m_TargetAssemblyTypeName: ControlSettings, Assembly-CSharp
         m_MethodName: ReadPlayer1UpperLeftPunchInput
         m_Mode: 0
         m_Arguments:
@@ -14239,8 +14239,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
+      - m_Target: {fileID: 2096644181}
+        m_TargetAssemblyTypeName: ControlSettings, Assembly-CSharp
         m_MethodName: ReadPlayer2BlockInput
         m_Mode: 0
         m_Arguments:
@@ -14666,8 +14666,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
+      - m_Target: {fileID: 2096644181}
+        m_TargetAssemblyTypeName: ControlSettings, Assembly-CSharp
         m_MethodName: ReadPlayer2SpecialAttackInput
         m_Mode: 0
         m_Arguments:
@@ -14896,8 +14896,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
+      - m_Target: {fileID: 2096644181}
+        m_TargetAssemblyTypeName: ControlSettings, Assembly-CSharp
         m_MethodName: ReadPlayer2JumpInput
         m_Mode: 0
         m_Arguments:
@@ -15002,8 +15002,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
+      - m_Target: {fileID: 2096644181}
+        m_TargetAssemblyTypeName: ControlSettings, Assembly-CSharp
         m_MethodName: CloseWindow
         m_Mode: 1
         m_Arguments:
@@ -15978,8 +15978,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
+      - m_Target: {fileID: 2096644181}
+        m_TargetAssemblyTypeName: ControlSettings, Assembly-CSharp
         m_MethodName: ReadPlayer1MiddleKickInput
         m_Mode: 0
         m_Arguments:
@@ -16265,8 +16265,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
+      - m_Target: {fileID: 2096644181}
+        m_TargetAssemblyTypeName: ControlSettings, Assembly-CSharp
         m_MethodName: ReadPlayer2MiddleLeftPunchInput
         m_Mode: 0
         m_Arguments:
@@ -16602,8 +16602,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
+      - m_Target: {fileID: 2096644181}
+        m_TargetAssemblyTypeName: ControlSettings, Assembly-CSharp
         m_MethodName: ReadPlayer2MiddleRightPunchInput
         m_Mode: 0
         m_Arguments:
@@ -17013,8 +17013,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
+      - m_Target: {fileID: 2096644181}
+        m_TargetAssemblyTypeName: ControlSettings, Assembly-CSharp
         m_MethodName: ReadPlayer1BendInput
         m_Mode: 0
         m_Arguments:
@@ -17569,8 +17569,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
+      - m_Target: {fileID: 2096644181}
+        m_TargetAssemblyTypeName: ControlSettings, Assembly-CSharp
         m_MethodName: ReadPlayer2UpperLeftPunchInput
         m_Mode: 0
         m_Arguments:
@@ -17813,8 +17813,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
+      - m_Target: {fileID: 2096644181}
+        m_TargetAssemblyTypeName: ControlSettings, Assembly-CSharp
         m_MethodName: ReadPlayer1JumpInput
         m_Mode: 0
         m_Arguments:
@@ -18659,8 +18659,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
+      - m_Target: {fileID: 2096644181}
+        m_TargetAssemblyTypeName: ControlSettings, Assembly-CSharp
         m_MethodName: ReadPlayer2MiddleKickInput
         m_Mode: 0
         m_Arguments:
@@ -19723,8 +19723,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
+      - m_Target: {fileID: 2096644181}
+        m_TargetAssemblyTypeName: ControlSettings, Assembly-CSharp
         m_MethodName: RestoreControllers
         m_Mode: 1
         m_Arguments:
@@ -22316,8 +22316,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
+      - m_Target: {fileID: 2096644181}
+        m_TargetAssemblyTypeName: ControlSettings, Assembly-CSharp
         m_MethodName: ReadPlayer2UpperKickInput
         m_Mode: 0
         m_Arguments:
@@ -23137,7 +23137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2096644181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23321,8 +23321,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ControllSettings, Assembly-CSharp
+      - m_Target: {fileID: 2096644181}
+        m_TargetAssemblyTypeName: ControlSettings, Assembly-CSharp
         m_MethodName: ReadPlayer1MiddleRightPunchInput
         m_Mode: 0
         m_Arguments:
