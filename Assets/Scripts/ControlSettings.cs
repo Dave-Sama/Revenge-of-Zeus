@@ -7,9 +7,13 @@ using System;
 public class ControlSettings : MonoBehaviour
 {
     // Keys
+    private readonly Array keyCodes = Enum.GetValues(typeof(KeyCode));
     private KeyCode key;
 
-    // player 1
+    // Default Controls
+    private string[] controls = { "A", "S", "D", "Z", "X", "C", "V", "1", "2", "3", "I", "O", "P", "J", "K", "L", ";", "0", "-", "=" };
+    
+    // player 1 Fields
     public InputField upper_left_punch1_Field;
     public InputField upper_right_punch1_Field;
     public InputField upper_kick1_Field;
@@ -21,14 +25,7 @@ public class ControlSettings : MonoBehaviour
     public InputField bend1_Field;
     public InputField block1_Field;
 
-
-    private readonly Array keyCodes = Enum.GetValues(typeof(KeyCode));
-
-
-    private string[] controls = { "A", "S", "D", "Z", "X", "C", "V", "1", "2", "3", "I", "O", "P", "J", "K", "L", ";", "0", "-", "=" };
-
-
-    // player 2
+    // player 2 Fields
     public InputField upper_left_punch2_Field;
     public InputField upper_right_punch2_Field;
     public InputField upper_kick2_Field;
@@ -41,14 +38,10 @@ public class ControlSettings : MonoBehaviour
     public InputField block2_Field;
 
     // game objects
-
     [SerializeField] private GameObject mainSettings;
     [SerializeField] private GameObject controlSettings;
     [SerializeField] private GameObject soundSettingsWindow;
     [SerializeField] private GameObject videoSettingsWindow;
-
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -102,7 +95,6 @@ public class ControlSettings : MonoBehaviour
         bend2_Field.text = controls[18];
         block2_Field.text = controls[19];
     }
-
 
     // Go back to main menu
     public void CloseWindow()

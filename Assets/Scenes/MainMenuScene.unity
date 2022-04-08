@@ -11117,6 +11117,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AudioSource: {fileID: 480421200}
+  musicClick: {fileID: 1575227436}
+  buttonSet: {fileID: 1495085713}
   soundSettingsWindow: {fileID: 0}
   controlSettingsWindow: {fileID: 0}
 --- !u!4 &960700287
@@ -12469,6 +12471,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AudioSource: {fileID: 480421200}
+  musicClick: {fileID: 0}
+  buttonSet: {fileID: 0}
   soundSettingsWindow: {fileID: 1068023770}
   controlSettingsWindow: {fileID: 2096644180}
 --- !u!1 &1084657253
@@ -23119,7 +23123,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 960700286}
+        m_TargetAssemblyTypeName: SoundSettings, Assembly-CSharp
+        m_MethodName: toggleSFX
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &2096644180
 GameObject:

@@ -13,7 +13,6 @@ public class DataManager : MonoBehaviour
     public bool IsPlayer { get; set; } // Wether the player gets hit or the opponent gets hit to know who lost health
     
     // Keycodes for player 1 control
-
     public KeyCode upper_left_punch1_Keycode { get; set; }
     public KeyCode upper_right_punch1_Keycode { get; set; }
     public KeyCode upper_kick1_Keycode { get; set; }
