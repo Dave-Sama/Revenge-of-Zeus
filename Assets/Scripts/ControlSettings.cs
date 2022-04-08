@@ -6,6 +6,9 @@ using System;
 
 public class ControlSettings : MonoBehaviour
 {
+    // Keys
+    private KeyCode key;
+
     // player 1
     public InputField upper_left_punch1_Field;
     public InputField upper_right_punch1_Field;
@@ -17,7 +20,13 @@ public class ControlSettings : MonoBehaviour
     public InputField jump1_Field;
     public InputField bend1_Field;
     public InputField block1_Field;
+
+
+    private readonly Array keyCodes = Enum.GetValues(typeof(KeyCode));
+
+
     private string[] controls = { "A", "S", "D", "Z", "X", "C", "V", "1", "2", "3", "I", "O", "P", "J", "K", "L", ";", "0", "-", "=" };
+
 
     // player 2
     public InputField upper_left_punch2_Field;
@@ -37,6 +46,9 @@ public class ControlSettings : MonoBehaviour
     [SerializeField] private GameObject controlSettings;
     [SerializeField] private GameObject soundSettingsWindow;
     [SerializeField] private GameObject videoSettingsWindow;
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -91,11 +103,12 @@ public class ControlSettings : MonoBehaviour
         block2_Field.text = controls[19];
     }
 
+
     // Go back to main menu
     public void CloseWindow()
     {
-        mainSettings.SetActive(true);
         controlSettings.SetActive(false);
+        mainSettings.SetActive(true);
     }
 
     // Go to Sound settings
@@ -123,6 +136,7 @@ public class ControlSettings : MonoBehaviour
     // Restore all Controllers to default state.
     public void RestoreControllers()
     {
+        // player 1 default controllers
         ReadPlayer1UpperLeftPunchInput(controls[0]);
         ReadPlayer1UpperRightPunchInput(controls[1]);
         ReadPlayer1UpperKickInput(controls[2]);
@@ -134,6 +148,7 @@ public class ControlSettings : MonoBehaviour
         ReadPlayer1BendInput(controls[8]);
         ReadPlayer1BlockInput(controls[9]);
 
+        // player 2 default controllers
         ReadPlayer2UpperLeftPunchInput(controls[10]);
         ReadPlayer2UpperRightPunchInput(controls[11]);
         ReadPlayer2UpperKickInput(controls[12]);
@@ -146,7 +161,19 @@ public class ControlSettings : MonoBehaviour
         ReadPlayer2BlockInput(controls[19]);
     }
 
-
+    // Convert the string from the input to a keycode.
+    private void keyCodeToCharCheck(string s) 
+    {
+        foreach (KeyCode keyCode in keyCodes)
+            {
+                if (keyCode.ToString() == s)
+                {
+                    key = keyCode;
+                    break;
+                }
+            }
+        
+    }
     // --------------------- Player 1 -------------------------// 
     // player 1 Upper Left Punch input
     public void ReadPlayer1UpperLeftPunchInput(string s)
@@ -154,7 +181,12 @@ public class ControlSettings : MonoBehaviour
         string upper_left_punch1 = GetUpperSub(s);
 
         if (-1 != Array.IndexOf(controls, upper_left_punch1) && upper_left_punch1 != controls[0]) upper_left_punch1_Field.text = "..";
-        else upper_left_punch1_Field.text = upper_left_punch1;
+        else {
+        upper_left_punch1_Field.text = upper_left_punch1;
+            keyCodeToCharCheck(upper_left_punch1);
+            Debug.Log("in the upper left function, the key is:" + key.ToString());
+            DataManager.Instance.upper_left_punch1_Keycode = key; 
+        }
     }
 
     // player 1 Upper Right Punch input
@@ -162,7 +194,11 @@ public class ControlSettings : MonoBehaviour
     {
         string upper_right_punch1 = GetUpperSub(s);
         if (-1 != Array.IndexOf(controls, upper_right_punch1) && upper_right_punch1 != controls[1]) upper_right_punch1_Field.text = "..";
-        else upper_right_punch1_Field.text = upper_right_punch1;
+        else {
+            keyCodeToCharCheck(upper_right_punch1);
+            DataManager.Instance.upper_right_punch1_Keycode = key;
+            upper_right_punch1_Field.text = upper_right_punch1;
+        }
     }
 
     // player 1 Upper Kick input
@@ -171,7 +207,11 @@ public class ControlSettings : MonoBehaviour
     {
         string upper_kick1 = GetUpperSub(s);
         if (-1 != Array.IndexOf(controls, upper_kick1) && upper_kick1 != controls[2]) upper_kick1_Field.text = "..";
-        else upper_kick1_Field.text = upper_kick1;
+        else {
+            keyCodeToCharCheck(upper_kick1);
+            DataManager.Instance.upper_kick1_Keycode = key;
+            upper_kick1_Field.text = upper_kick1;
+        }
     }
 
     // player 1 Middle Left Punch input
@@ -179,7 +219,11 @@ public class ControlSettings : MonoBehaviour
     {
         string middle_left_punch1 = GetUpperSub(s);
         if (-1 != Array.IndexOf(controls, middle_left_punch1) && middle_left_punch1 != controls[3]) middle_left_punch1_Field.text = "..";
-        else middle_left_punch1_Field.text = middle_left_punch1;
+        else {
+            keyCodeToCharCheck(middle_left_punch1);
+            DataManager.Instance.middle_left_punch1_Keycode = key;
+            middle_left_punch1_Field.text = middle_left_punch1;
+        }
     }
 
 
@@ -188,7 +232,11 @@ public class ControlSettings : MonoBehaviour
     {
         string middle_right_punch1 = GetUpperSub(s);
         if (-1 != Array.IndexOf(controls, middle_right_punch1) && middle_right_punch1 != controls[4]) middle_right_punch1_Field.text = "..";
-        else middle_right_punch1_Field.text = middle_right_punch1;
+        else {
+            keyCodeToCharCheck(middle_right_punch1);
+            DataManager.Instance.middle_right_punch1_Keycode = key;
+            middle_right_punch1_Field.text = middle_right_punch1;
+        }
     }
 
     // player 1 Middle Kick input
@@ -196,7 +244,11 @@ public class ControlSettings : MonoBehaviour
     {
         string middle_kick1 = GetUpperSub(s);
         if (-1 != Array.IndexOf(controls, middle_kick1) && middle_kick1 != controls[5]) middle_kick1_Field.text = "..";
-        else middle_kick1_Field.text = middle_kick1;
+        else {
+            keyCodeToCharCheck(middle_kick1);
+            DataManager.Instance.middle_kick1_Keycode = key;
+            middle_kick1_Field.text = middle_kick1;
+        }
     }
 
     // player 1 Special Attack input
@@ -204,7 +256,11 @@ public class ControlSettings : MonoBehaviour
     {
         string special_attack1 = GetUpperSub(s);
         if (-1 != Array.IndexOf(controls, special_attack1) && special_attack1 != controls[6]) special_attack1_Field.text = "..";
-        else special_attack1_Field.text = special_attack1;
+        else {
+            keyCodeToCharCheck(special_attack1);
+            DataManager.Instance.special_attack1_Keycode = key;
+            special_attack1_Field.text = special_attack1;
+        }
     }
 
     // player 1 Jump input
@@ -212,7 +268,11 @@ public class ControlSettings : MonoBehaviour
     {
         string jump1 = GetUpperSub(s);
         if (-1 != Array.IndexOf(controls, jump1) && jump1 != controls[7]) jump1_Field.text = "..";
-        else jump1_Field.text = jump1;
+        else {
+            keyCodeToCharCheck(jump1);
+            DataManager.Instance.jump1_Keycode = key;
+            jump1_Field.text = jump1;
+        }
     }
 
     // player 1 bend input
@@ -220,7 +280,11 @@ public class ControlSettings : MonoBehaviour
     {
         string bend1 = GetUpperSub(s);
         if (-1 != Array.IndexOf(controls, bend1) && bend1 != controls[8]) bend1_Field.text = "..";
-        else bend1_Field.text = bend1;
+        else {
+            keyCodeToCharCheck(bend1);
+            DataManager.Instance.bend1_Keycode = key;
+            bend1_Field.text = bend1;
+        }
     }
 
     // player 1 block input
@@ -228,7 +292,11 @@ public class ControlSettings : MonoBehaviour
     {
         string block1 = GetUpperSub(s);
         if (-1 != Array.IndexOf(controls, block1) && block1 != controls[9]) block1_Field.text = "..";
-        else block1_Field.text = block1;
+        else {
+            keyCodeToCharCheck(block1);
+            DataManager.Instance.block1_Keycode = key;
+            block1_Field.text = block1;
+        }
     }
 
     // ---------------------- Player 2 ------------------------  // 
@@ -238,7 +306,11 @@ public class ControlSettings : MonoBehaviour
     {
         string upper_left_punch2 = GetUpperSub(s);
         if (-1 != Array.IndexOf(controls, upper_left_punch2) && upper_left_punch2 != controls[10]) upper_left_punch2_Field.text = "..";
-        else upper_left_punch2_Field.text = upper_left_punch2;
+        else {
+            keyCodeToCharCheck(upper_left_punch2);
+            DataManager.Instance.upper_left_punch2_Keycode = key;
+            upper_left_punch2_Field.text = upper_left_punch2;
+        }
     }
 
     // player 2 Upper Right Punch input
@@ -246,7 +318,11 @@ public class ControlSettings : MonoBehaviour
     {
         string upper_right_punch2 = GetUpperSub(s);
         if (-1 != Array.IndexOf(controls, upper_right_punch2) && upper_right_punch2 != controls[11]) upper_right_punch2_Field.text = "..";
-        else upper_right_punch2_Field.text = upper_right_punch2;
+        else {
+            keyCodeToCharCheck(upper_right_punch2);
+            DataManager.Instance.upper_right_punch2_Keycode = key;
+            upper_right_punch2_Field.text = upper_right_punch2;
+        }
     }
 
     // player 2 Upper Kick input
@@ -254,7 +330,11 @@ public class ControlSettings : MonoBehaviour
     {
         string upper_kick2 = GetUpperSub(s);
         if (-1 != Array.IndexOf(controls, upper_kick2) && upper_kick2 != controls[12]) upper_kick2_Field.text = "..";
-        else upper_kick2_Field.text = upper_kick2;
+        else {
+            keyCodeToCharCheck(upper_kick2);
+            DataManager.Instance.upper_kick2_Keycode = key;
+            upper_kick2_Field.text = upper_kick2;
+        }
     }
 
     // player 2 Middle Left Punch input
@@ -262,7 +342,11 @@ public class ControlSettings : MonoBehaviour
     {
         string middle_left_punch2 = GetUpperSub(s);
         if (-1 != Array.IndexOf(controls, middle_left_punch2) && middle_left_punch2 != controls[13]) middle_left_punch2_Field.text = "..";
-        else middle_left_punch2_Field.text = middle_left_punch2;
+        else {
+            keyCodeToCharCheck(middle_left_punch2);
+            DataManager.Instance.middle_left_punch2_Keycode = key;
+            middle_left_punch2_Field.text = middle_left_punch2;
+        }
     }
 
     // player 2 Middle Right Punch input
@@ -270,7 +354,11 @@ public class ControlSettings : MonoBehaviour
     {
         string middle_right_punch2 = GetUpperSub(s);
         if (-1 != Array.IndexOf(controls, middle_right_punch2) && middle_right_punch2 != controls[14]) middle_right_punch2_Field.text = "..";
-        else middle_right_punch2_Field.text = middle_right_punch2;
+        else {
+            keyCodeToCharCheck(middle_right_punch2);
+            DataManager.Instance.middle_right_punch2_Keycode = key;
+            middle_right_punch2_Field.text = middle_right_punch2;
+        }
     }
 
     // player 2 Middle Kick input
@@ -278,7 +366,11 @@ public class ControlSettings : MonoBehaviour
     {
         string middle_kick2 = GetUpperSub(s);
         if (-1 != Array.IndexOf(controls, middle_kick2) && middle_kick2 != controls[15]) middle_kick2_Field.text = "..";
-        else middle_kick2_Field.text = middle_kick2;
+        else {
+            keyCodeToCharCheck(middle_kick2);
+            DataManager.Instance.middle_kick2_Keycode = key;
+            middle_kick2_Field.text = middle_kick2;
+        }
     }
 
     // player 2 Special Attack input
@@ -286,7 +378,11 @@ public class ControlSettings : MonoBehaviour
     {
         string special_attack2 = GetUpperSub(s);
         if (-1 != Array.IndexOf(controls, special_attack2) && special_attack2 != controls[16]) special_attack2_Field.text = "..";
-        else special_attack2_Field.text = special_attack2;
+        else {
+            keyCodeToCharCheck(special_attack2);
+            DataManager.Instance.special_attack2_Keycode = key;
+            special_attack2_Field.text = special_attack2;
+        }
     }
 
     // player 2 Jump input
@@ -294,7 +390,11 @@ public class ControlSettings : MonoBehaviour
     {
         string jump2 = GetUpperSub(s);
         if (-1 != Array.IndexOf(controls, jump2) && jump2 != controls[17]) jump2_Field.text = "..";
-        else jump2_Field.text = jump2;
+        else {
+            keyCodeToCharCheck(jump2);
+            DataManager.Instance.jump2_Keycode = key;
+            jump2_Field.text = jump2;
+        }
     }
 
     // player 2 bend text input
@@ -302,7 +402,11 @@ public class ControlSettings : MonoBehaviour
     {
         string bend2 = GetUpperSub(s);
         if (-1 != Array.IndexOf(controls, bend2) && bend2 != controls[18]) bend2_Field.text = "..";
-        else bend2_Field.text = bend2;
+        else {
+            keyCodeToCharCheck(bend2);
+            DataManager.Instance.bend2_Keycode = key;
+            bend2_Field.text = bend2;
+        }
     }
 
     // player 2 Block input
@@ -310,6 +414,10 @@ public class ControlSettings : MonoBehaviour
     {
         string block2 = GetUpperSub(s);
         if (-1 != Array.IndexOf(controls, block2) && block2 != controls[19]) block2_Field.text = "..";
-        else block2_Field.text = block2;
+        else {
+            keyCodeToCharCheck(block2);
+            DataManager.Instance.block2_Keycode = key;
+            block2_Field.text = block2;
+        }
     }
 }
