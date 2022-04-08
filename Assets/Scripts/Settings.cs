@@ -34,6 +34,12 @@ public class Settings : MonoBehaviour
         controlSettingsWindow.SetActive(true);
     }
 
+    public void toControlFromSound()
+    {
+        soundSettingsWindow.SetActive(false);
+        controlSettingsWindow.SetActive(true);
+    }
+
 
     // Go to Video settings
     public void GoToVideoSettings()
@@ -41,6 +47,12 @@ public class Settings : MonoBehaviour
 
         settingsWindow.SetActive(false);
         videoSettingsWindow.SetActive(true);
+    }
+
+    public void CloseSoundWindow()
+    {
+        soundSettingsWindow.SetActive(false);
+        settingsWindow.SetActive(true);
     }
 
 
