@@ -67,54 +67,54 @@ public class PlayerController : MonoBehaviour
         }
 
         //---------------------Upper Punch---------------------------
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(DataManager.Instance.upper_left_punch1_Keycode))
         {
             DataManager.Instance.IsAttacking = true;
             DataManager.Instance.AttackName = "Up punch left";
             playerAnim.SetTrigger("UpPunchLeft_Trig");
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(DataManager.Instance.upper_right_punch1_Keycode))
         {
             DataManager.Instance.IsAttacking = true;
             DataManager.Instance.AttackName = "Up punch right";
             playerAnim.SetTrigger("UpPunchRight_Trig");
         }
         //---------------------Mid Punch--------------------------
-        if (Input.GetKeyDown(KeyCode.Z) && !Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKeyDown(DataManager.Instance.middle_left_punch1_Keycode) && !Input.GetKey(KeyCode.DownArrow))
         {
             DataManager.Instance.IsAttacking = true;
             DataManager.Instance.AttackName = "Mid punch left";
             playerAnim.SetTrigger("MidPunchLeft_Trig");
         }
-        if (Input.GetKeyDown(KeyCode.X) && !Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKeyDown(DataManager.Instance.middle_right_punch1_Keycode) && !Input.GetKey(KeyCode.DownArrow))
         {
             DataManager.Instance.IsAttacking = true;
             DataManager.Instance.AttackName = "Mid punch right";
             playerAnim.SetTrigger("MidPunchRight_Trig");
         }
         //---------------------High Kick--------------------------
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(DataManager.Instance.upper_kick1_Keycode))
         {
             DataManager.Instance.IsAttacking = true;
             DataManager.Instance.AttackName = "High kick";
             playerAnim.SetTrigger("HighKick_Trig");
         }
         //---------------------Mid Kick--------------------------
-        if (Input.GetKeyDown(KeyCode.C) && !Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKeyDown(DataManager.Instance.middle_kick1_Keycode) && !Input.GetKey(KeyCode.DownArrow))
         {
             DataManager.Instance.IsAttacking = true;
             DataManager.Instance.AttackName = "Mid kick";
             playerAnim.SetTrigger("MidKick_Trig");
         }
         //---------------------Special Attack--------------------------
-        if (Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(DataManager.Instance.special_attack1_Keycode))
         {
             DataManager.Instance.IsAttacking = true;
             DataManager.Instance.AttackName = "Special attack";
             playerAnim.SetTrigger("SpecialAttack_Trig");
         }
         //---------------------Block--------------------------
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(DataManager.Instance.block1_Keycode))
         {
             playerAnim.SetBool("Block_Bool", true);
         }
