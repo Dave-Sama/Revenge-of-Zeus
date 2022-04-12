@@ -14,13 +14,18 @@ public class SceneLoader : MonoBehaviour
 
     private void Awake()
     {
-        //LoadingScreen = GameObject.Find("Loading Screen");
-        if (Instance != null)
+        if (Instance == null)
         {
-            Destroy(Instance);
-            return;
+            DontDestroyOnLoad(gameObject);
+            Instance = this;
         }
-        Instance = this;
+        else
+        {
+            if (Instance != this)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
     public void LoadScene(int sceneIndex)
     {
@@ -38,5 +43,6 @@ public class SceneLoader : MonoBehaviour
             progressText.text = (int)(progress * 100) + "%";
             yield return null;
         }
+        LoadingScreen.SetActive(false);
     }
 }

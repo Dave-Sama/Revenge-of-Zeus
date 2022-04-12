@@ -21,6 +21,10 @@ public class DataManager : MonoBehaviour
     public int BattleNumber { get; set; } // Which battle number it is out of 10 battles
     public string CurrentOpponent { get; set; }  // The opponent for the current battle
     public bool downArrowPressed { get; set; } // For the highlighting of the buttons using the arrow in the menu
+    public bool BlockTrigger { get; set; } // Used to turn on/off event triggers in the character selection screen
+    public GameObject CPUClone { get; set; } // The clone of the character after chosen in modes ML1 and ML2
+    public GameObject P1Clone { get; set; } // The clone of the player 1 character after chosen in PvP mode
+    public GameObject P2Clone { get; set; } // The clone of the player 2 character after chosen in PvP mode
 
     void Awake()
         /*
