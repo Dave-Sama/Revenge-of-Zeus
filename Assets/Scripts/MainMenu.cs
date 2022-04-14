@@ -28,12 +28,13 @@ public class MainMenu : MonoBehaviour
         pressToContinueText = GameObject.Find("Press Any Key Text").GetComponent<TextMeshProUGUI>();
         eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
         downArrowClicked = false;
+        InitializeControllers();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(title.gameObject.activeInHierarchy && pressToContinueText.gameObject.activeInHierarchy)
+        if (title.gameObject.activeInHierarchy && pressToContinueText.gameObject.activeInHierarchy)
         {
             PressAnyKey();
         }
@@ -51,7 +52,7 @@ public class MainMenu : MonoBehaviour
             ML1Button.Select();
             downArrowClicked = true;
         }
-        if(!gameplayModeWindow.activeInHierarchy && !DataManager.Instance.downArrowPressed)
+        if (!gameplayModeWindow.activeInHierarchy && !DataManager.Instance.downArrowPressed)
         {
             downArrowClicked = false;
             DataManager.Instance.downArrowPressed = true;
@@ -60,9 +61,9 @@ public class MainMenu : MonoBehaviour
     }
 
     void PressAnyKey()
-        /*
-         * Refers to the "Press any key to continue" message, opens the menu when pressing any key
-         */
+    /*
+     * Refers to the "Press any key to continue" message, opens the menu when pressing any key
+     */
     {
         if (Input.anyKeyDown)
         {
@@ -103,9 +104,9 @@ public class MainMenu : MonoBehaviour
 #endif
     }
     public void CancelExit()
-        /*
-         * This event triggers when the players press No in the Quit message
-         */
+    /*
+     * This event triggers when the players press No in the Quit message
+     */
     {
         buttonSet.SetActive(true);
         exitGameMessage.SetActive(false);
@@ -120,9 +121,36 @@ public class MainMenu : MonoBehaviour
     public void ResetDownArrowSelection()
     {
         downArrowClicked = false;
-        if(exitGameMessage.activeInHierarchy)
+        if (exitGameMessage.activeInHierarchy)
         {
             noButton.Select();
         }
+    }
+
+    public void InitializeControllers()
+    {
+        DataManager.Instance.upper_left_punch1_Keycode = KeyCode.A;
+        DataManager.Instance.upper_right_punch1_Keycode = KeyCode.S;
+        DataManager.Instance.upper_kick1_Keycode = KeyCode.D;
+        DataManager.Instance.middle_left_punch1_Keycode = KeyCode.Z;
+        DataManager.Instance.middle_right_punch1_Keycode = KeyCode.X;
+        DataManager.Instance.middle_kick1_Keycode = KeyCode.C;
+        DataManager.Instance.special_attack1_Keycode = KeyCode.V;
+        DataManager.Instance.jump1_Keycode = KeyCode.UpArrow;
+        DataManager.Instance.bend1_Keycode = KeyCode.DownArrow;
+        DataManager.Instance.block1_Keycode = KeyCode.LeftControl;
+
+
+        DataManager.Instance.upper_left_punch2_Keycode = KeyCode.Insert;
+        DataManager.Instance.upper_right_punch2_Keycode = KeyCode.Home;
+        DataManager.Instance.upper_kick2_Keycode = KeyCode.PageUp;
+        DataManager.Instance.middle_left_punch2_Keycode = KeyCode.Delete;
+        DataManager.Instance.middle_right_punch2_Keycode = KeyCode.End;
+        DataManager.Instance.middle_kick2_Keycode = KeyCode.PageDown;
+        DataManager.Instance.special_attack2_Keycode = KeyCode.Keypad7;
+        DataManager.Instance.jump2_Keycode = KeyCode.Keypad8;
+        DataManager.Instance.bend2_Keycode = KeyCode.Keypad2;
+        DataManager.Instance.block2_Keycode = KeyCode.Keypad0;
+
     }
 }

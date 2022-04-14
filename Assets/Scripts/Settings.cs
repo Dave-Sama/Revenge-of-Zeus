@@ -27,27 +27,34 @@ public class Settings : MonoBehaviour
     }
 
     // Go to Control settings
-    public void GoToControlSettingsSound()
-    {
-
-        soundSettingsWindow.SetActive(false);
-        controlSettingsWindow.SetActive(true);
-    }
-
-    // Go to Video settings
-    public void GoToVideoSettingsSound()
-    {
-
-        soundSettingsWindow.SetActive(false);
-        videoSettingsWindow.SetActive(true);
-    }
-
     public void GoToControlSettings()
     {
 
         settingsWindow.SetActive(false);
         controlSettingsWindow.SetActive(true);
     }
+
+    public void toControlFromSound()
+    {
+        soundSettingsWindow.SetActive(false);
+        controlSettingsWindow.SetActive(true);
+    }
+
+
+    // Go to Video settings
+    public void GoToVideoSettings()
+    {
+
+        settingsWindow.SetActive(false);
+        videoSettingsWindow.SetActive(true);
+    }
+
+    public void CloseSoundWindow()
+    {
+        soundSettingsWindow.SetActive(false);
+        settingsWindow.SetActive(true);
+    }
+
 
 
 
