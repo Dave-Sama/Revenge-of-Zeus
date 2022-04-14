@@ -26,6 +26,31 @@ public class DataManager : MonoBehaviour
     public GameObject P1Clone { get; set; } // The clone of the player 1 character after chosen in PvP mode
     public GameObject P2Clone { get; set; } // The clone of the player 2 character after chosen in PvP mode
 
+
+    // Keycodes for player 1 control
+    public KeyCode upper_left_punch1_Keycode { get; set; }
+    public KeyCode upper_right_punch1_Keycode { get; set; }
+    public KeyCode upper_kick1_Keycode { get; set; }
+    public KeyCode middle_left_punch1_Keycode { get; set; }
+    public KeyCode middle_right_punch1_Keycode { get; set; }
+    public KeyCode middle_kick1_Keycode { get; set; }
+    public KeyCode special_attack1_Keycode { get; set; }
+    public KeyCode jump1_Keycode { get; set; }
+    public KeyCode bend1_Keycode { get; set; }
+    public KeyCode block1_Keycode { get; set; }
+
+    // Keycodes for player 2 control
+    public KeyCode upper_left_punch2_Keycode { get; set; }
+    public KeyCode upper_right_punch2_Keycode { get; set; }
+    public KeyCode upper_kick2_Keycode { get; set; }
+    public KeyCode middle_left_punch2_Keycode { get; set; }
+    public KeyCode middle_right_punch2_Keycode { get; set; }
+    public KeyCode middle_kick2_Keycode { get; set; }
+    public KeyCode special_attack2_Keycode { get; set; }
+    public KeyCode jump2_Keycode { get; set; }
+    public KeyCode bend2_Keycode { get; set; }
+    public KeyCode block2_Keycode { get; set; }
+
     void Awake()
         /*
          * Awake is like Start but is called even if the sctipt is disabled.
