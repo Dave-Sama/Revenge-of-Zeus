@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     private Animator playerDeadAnim;
     private Animator opponentDeadAnim;
     private PlayerController playerController;
+    private PlayerController opponentController;
     private List<string> freeOpponents;
     private AudioSource battleMusic;
 
@@ -41,27 +42,37 @@ public class GameManager : MonoBehaviour
 
         playersNameText.text = DataManager.Instance.PlayersCharacter;
 
-        if (DataManager.Instance.BattleNumber == 1 && DataManager.Instance.CurrentRound == 1)
+        if(DataManager.Instance.GameMode=="ML1" || DataManager.Instance.GameMode=="ML2")
         {
-            freeOpponents = new List<string>();
-            FillListWithOpponents();
-            DataManager.Instance.FreeOpponents = freeOpponents; // init the free opponents
+            if (DataManager.Instance.BattleNumber == 1 && DataManager.Instance.CurrentRound == 1)
+            {
+                freeOpponents = new List<string>();
+                FillListWithOpponents();
+                DataManager.Instance.FreeOpponents = freeOpponents; // init the free opponents
+            }
+            else
+            {
+                freeOpponents = DataManager.Instance.FreeOpponents; // update the free opponents
+            }
+            //playersNameText.text = "Helios"; //-----------------------Temporary for development and testing--------------
+            //opponentsNameText.text = "Hermes"; 
+            if (DataManager.Instance.CurrentRound == 1)
+            {
+                opponentsNameText.text = GetRandomCharacterName();
+                DataManager.Instance.CurrentOpponent = opponentsNameText.text;
+            }
+            else
+            {
+                opponentsNameText.text = DataManager.Instance.CurrentOpponent;
+            }
         }
-        else
+
+        if (DataManager.Instance.GameMode == "PvP")
         {
-            freeOpponents = DataManager.Instance.FreeOpponents; // update the free opponents
-        }
-        //playersNameText.text = "Helios"; //-----------------------Temporary for development and testing--------------
-        //opponentsNameText.text = "Hermes"; 
-        if (DataManager.Instance.CurrentRound==1)
-        {
-            opponentsNameText.text = GetRandomCharacterName();
+            opponentsNameText.text = DataManager.Instance.OpponentsCharacter;
             DataManager.Instance.CurrentOpponent = opponentsNameText.text;
         }
-        else
-        {
-            opponentsNameText.text = DataManager.Instance.CurrentOpponent;
-        }
+
         Vector3 characterPosition = new Vector3(-2.75f, 0, 0);
         playerClone=InstantiateCharacter(playersNameText.text, characterPosition,true);
         opponentClone=InstantiateCharacter(opponentsNameText.text, characterPosition*(-1),false);
@@ -75,6 +86,8 @@ public class GameManager : MonoBehaviour
         WinningsToVictoryMarks(DataManager.Instance.opponentWonCounter, opponentVictoryMark);
         playerController = playerClone.GetComponent<PlayerController>();
         playerController.enabled = false;
+        opponentController = opponentClone.GetComponent<PlayerController>();
+        opponentController.enabled = false;
         StartCoroutine(RoundReadyFight());
     }
 
@@ -195,8 +208,11 @@ public class GameManager : MonoBehaviour
                     float opponentRotationZ = character.transform.rotation.z;
                     float opponentRotationW = character.transform.rotation.w;
                     Quaternion opponentRotation = new Quaternion(opponentRotationX, opponentRotationY, opponentRotationZ, opponentRotationW);
-                    PlayerController controller = character.gameObject.GetComponent<PlayerController>();
-                    controller.enabled = false;
+                    //if(DataManager.Instance.GameMode=="ML1" || DataManager.Instance.GameMode=="ML2")
+                    //{
+                    //    PlayerController controller = character.gameObject.GetComponent<PlayerController>();
+                    //    controller.enabled = false;
+                    //}
                     GameObject opponent;
                     opponent=Instantiate(character, characterPosition, opponentRotation);
                     opponent.tag = "Opponent";
@@ -222,6 +238,10 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2);
         fightText.gameObject.SetActive(false);
         playerController.enabled = true;
+        if (DataManager.Instance.GameMode == "PvP")
+        {
+            opponentController.enabled = true;
+        }
         battleMusic.Play();
     }
 

@@ -41,20 +41,21 @@ public class GameplayMode : MonoBehaviour
     {
         introSong.Stop();
         buttonClick.Play();
-        DataManager.Instance.GameMod = "ML1";
+        DataManager.Instance.GameMode = "ML1";
         StartCoroutine(LoadAfterAudioStops());
     }
     public void ML2()
     {
         introSong.Stop();
         buttonClick.Play();
-        DataManager.Instance.GameMod = "ML2";
+        DataManager.Instance.GameMode = "ML2";
     }
     public void PvP()
     {
         introSong.Stop();
         buttonClick.Play();
-        DataManager.Instance.GameMod = "PvP";
+        DataManager.Instance.GameMode = "PvP";
+        StartCoroutine(LoadAfterAudioStops());
     }
 
     IEnumerator LoadAfterAudioStops()

@@ -20,12 +20,12 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //---------------------Walk Backwards---------------------------
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if ((gameObject.tag=="Player" && Input.GetKey(KeyCode.LeftArrow)) || (gameObject.tag=="Opponent" && Input.GetKey(KeyCode.Keypad6)))
         {
             playerAnim.SetFloat("Speed_Float", -1);
         }
         //---------------------Walk Forward---------------------------
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if ((gameObject.tag == "Player" && Input.GetKey(KeyCode.RightArrow)) || (gameObject.tag == "Opponent" && Input.GetKey(KeyCode.Keypad4)))
         {
             playerAnim.SetFloat("Speed_Float", 1);
         }
@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
             playerAnim.SetFloat("Speed_Float", 0);
         }
         //---------------------Jump---------------------------
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if ((gameObject.tag == "Player" && Input.GetKey(KeyCode.UpArrow)) || (gameObject.tag == "Opponent" && Input.GetKey(KeyCode.Keypad8)))
         {
             playerAnim.SetBool("Jump_Bool", true);
         }
@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
             playerAnim.SetBool("Jump_Bool", false);
         }
         //---------------------Crouch---------------------------
-        if (Input.GetKey(KeyCode.DownArrow))
+        if ((gameObject.tag == "Player" && Input.GetKey(KeyCode.DownArrow)) || (gameObject.tag == "Opponent" && Input.GetKey(KeyCode.Keypad2)))
         {
             playerAnim.SetBool("Crouch_Bool", true);
             if(Input.GetKeyDown(KeyCode.Z)) // Low punch
@@ -74,14 +74,14 @@ public class PlayerController : MonoBehaviour
         }
 
         //---------------------Upper Punch---------------------------
-        if (Input.GetKeyDown(KeyCode.A))
+        if ((gameObject.tag=="Player" && Input.GetKeyDown(DataManager.Instance.upper_left_punch1_Keycode)) || (gameObject.tag == "Opponent" && Input.GetKeyDown(DataManager.Instance.upper_left_punch2_Keycode)))
         {
             DataManager.Instance.IsAttacking = true;
             DataManager.Instance.AttackName = "Up punch left";
             playerAnim.SetTrigger("UpPunchLeft_Trig");
             attackSound2.Play();
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if ((gameObject.tag == "Player" && Input.GetKeyDown(DataManager.Instance.upper_right_punch1_Keycode)) || (gameObject.tag == "Opponent" && Input.GetKeyDown(DataManager.Instance.upper_right_punch2_Keycode)))
         {
             DataManager.Instance.IsAttacking = true;
             DataManager.Instance.AttackName = "Up punch right";
@@ -89,14 +89,14 @@ public class PlayerController : MonoBehaviour
             attackSound1.Play();
         }
         //---------------------Mid Punch--------------------------
-        if (Input.GetKeyDown(KeyCode.Z) && !Input.GetKey(KeyCode.DownArrow))
+        if ((gameObject.tag == "Player" && Input.GetKeyDown(DataManager.Instance.middle_left_punch1_Keycode) && !Input.GetKey(KeyCode.DownArrow)) || (gameObject.tag == "Opponent" && Input.GetKeyDown(DataManager.Instance.middle_left_punch2_Keycode) && !Input.GetKey(KeyCode.Keypad2)))
         {
             DataManager.Instance.IsAttacking = true;
             DataManager.Instance.AttackName = "Mid punch left";
             playerAnim.SetTrigger("MidPunchLeft_Trig");
             attackSound2.Play();
         }
-        if (Input.GetKeyDown(KeyCode.X) && !Input.GetKey(KeyCode.DownArrow))
+        if ((gameObject.tag == "Player" && Input.GetKeyDown(DataManager.Instance.middle_right_punch1_Keycode) && !Input.GetKey(KeyCode.DownArrow)) || (gameObject.tag == "Opponent" && Input.GetKeyDown(DataManager.Instance.middle_right_punch2_Keycode) && !Input.GetKey(KeyCode.Keypad2)))
         {
             DataManager.Instance.IsAttacking = true;
             DataManager.Instance.AttackName = "Mid punch right";
@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
             attackSound1.Play();
         }
         //---------------------High Kick--------------------------
-        if (Input.GetKeyDown(KeyCode.D))
+        if ((gameObject.tag == "Player" && Input.GetKeyDown(DataManager.Instance.upper_kick1_Keycode)) || (gameObject.tag == "Opponent" && Input.GetKeyDown(DataManager.Instance.upper_kick2_Keycode)))
         {
             DataManager.Instance.IsAttacking = true;
             DataManager.Instance.AttackName = "High kick";
@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
             attackSound1.Play();
         }
         //---------------------Mid Kick--------------------------
-        if (Input.GetKeyDown(KeyCode.C) && !Input.GetKey(KeyCode.DownArrow))
+        if ((gameObject.tag == "Player" && Input.GetKeyDown(DataManager.Instance.middle_kick1_Keycode) && !Input.GetKey(KeyCode.DownArrow)) || (gameObject.tag == "Opponent" && Input.GetKeyDown(DataManager.Instance.middle_kick2_Keycode) && !Input.GetKey(KeyCode.Keypad2)))
         {
             DataManager.Instance.IsAttacking = true;
             DataManager.Instance.AttackName = "Mid kick";
@@ -120,14 +120,14 @@ public class PlayerController : MonoBehaviour
             attackSound2.Play();
         }
         //---------------------Special Attack--------------------------
-        if (Input.GetKeyDown(KeyCode.V))
+        if ((gameObject.tag == "Player" && Input.GetKeyDown(DataManager.Instance.special_attack1_Keycode)) || (gameObject.tag == "Opponent" && Input.GetKeyDown(DataManager.Instance.special_attack2_Keycode)))
         {
             DataManager.Instance.IsAttacking = true;
             DataManager.Instance.AttackName = "Special attack";
             playerAnim.SetTrigger("SpecialAttack_Trig");
         }
         //---------------------Block--------------------------
-        if (Input.GetKey(KeyCode.LeftControl))
+        if ((gameObject.tag == "Player" && Input.GetKey(DataManager.Instance.block1_Keycode)) || (gameObject.tag == "Opponent" && Input.GetKey(DataManager.Instance.block2_Keycode)))
         {
             playerAnim.SetBool("Block_Bool", true);
         }
@@ -144,7 +144,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator ResetAttack()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         DataManager.Instance.IsAttacking = false;
         DataManager.Instance.AttackName = "";
     }

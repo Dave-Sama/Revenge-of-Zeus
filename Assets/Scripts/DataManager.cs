@@ -5,12 +5,12 @@ using UnityEngine;
 public class DataManager : MonoBehaviour
 {
     public static DataManager Instance;
-    public string GameMod { get; set; }
+    public string GameMode { get; set; }
     public string PlayersCharacter { get; set; }
     public string OpponentsCharacter { get; set; }
     public int Damage { get; set; }
     public bool IsAttacking { get; set; } // Wether the player attacks or the opponent attacks
-    public bool IsPlayer { get; set; } // Wether the player gets hit or the opponent gets hit to know who lost health
+    public bool IsPlayer { get; set; } // Wether the player gets hit or the opponent gets hit to know who lost health, also, helps to diffrentiate between players in PvP
     public string AttackName { get; set; } // Which attack is used
     public bool IsPlayerDead { get; set; }
     public bool IsOpponentDead { get; set; }
@@ -21,6 +21,35 @@ public class DataManager : MonoBehaviour
     public int BattleNumber { get; set; } // Which battle number it is out of 10 battles
     public string CurrentOpponent { get; set; }  // The opponent for the current battle
     public bool downArrowPressed { get; set; } // For the highlighting of the buttons using the arrow in the menu
+    public bool BlockTrigger { get; set; } // Used to turn on/off event triggers in the character selection screen
+    public GameObject CPUClone { get; set; } // The clone of the character after chosen in modes ML1 and ML2
+    public GameObject P1Clone { get; set; } // The clone of the player 1 character after chosen in PvP mode
+    public GameObject P2Clone { get; set; } // The clone of the player 2 character after chosen in PvP mode
+
+
+    // Keycodes for player 1 control
+    public KeyCode upper_left_punch1_Keycode { get; set; }
+    public KeyCode upper_right_punch1_Keycode { get; set; }
+    public KeyCode upper_kick1_Keycode { get; set; }
+    public KeyCode middle_left_punch1_Keycode { get; set; }
+    public KeyCode middle_right_punch1_Keycode { get; set; }
+    public KeyCode middle_kick1_Keycode { get; set; }
+    public KeyCode special_attack1_Keycode { get; set; }
+    public KeyCode jump1_Keycode { get; set; }
+    public KeyCode bend1_Keycode { get; set; }
+    public KeyCode block1_Keycode { get; set; }
+
+    // Keycodes for player 2 control
+    public KeyCode upper_left_punch2_Keycode { get; set; }
+    public KeyCode upper_right_punch2_Keycode { get; set; }
+    public KeyCode upper_kick2_Keycode { get; set; }
+    public KeyCode middle_left_punch2_Keycode { get; set; }
+    public KeyCode middle_right_punch2_Keycode { get; set; }
+    public KeyCode middle_kick2_Keycode { get; set; }
+    public KeyCode special_attack2_Keycode { get; set; }
+    public KeyCode jump2_Keycode { get; set; }
+    public KeyCode bend2_Keycode { get; set; }
+    public KeyCode block2_Keycode { get; set; }
 
     void Awake()
         /*
