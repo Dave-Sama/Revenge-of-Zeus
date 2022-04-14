@@ -28,7 +28,7 @@ public class SoundSettings : MonoBehaviour
     {
         musicVolume = volume;
     }
-
+    
     public void toControl()
     {
         soundSettingsWindow.SetActive(false);

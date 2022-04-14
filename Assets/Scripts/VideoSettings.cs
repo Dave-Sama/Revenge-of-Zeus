@@ -57,7 +57,7 @@ public class VideoSettings : MonoBehaviour
     {
         videoSettingsWindow.SetActive(false);
         mainSettings.SetActive(true);
-    }
+    } 
 
     public void SetFullScreen(bool isFullScreen)
     {

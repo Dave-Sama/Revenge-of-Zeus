@@ -193,6 +193,7 @@ public class ControlSettings : MonoBehaviour
         }
     }
 
+
     // player 1 Upper Kick input
 
     public void ReadPlayer1UpperKickInput(string s)
@@ -412,4 +413,10 @@ public class ControlSettings : MonoBehaviour
             block2_Field.text = block2;
         }
     }
+
+    
+
 }
+
+
+
