@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
         Vector3 characterPosition = new Vector3(-2.75f, 0, 0);
         playerClone=InstantiateCharacter(playersNameText.text, characterPosition,true);
         opponentClone=InstantiateCharacter(opponentsNameText.text, characterPosition*(-1),false);
-        //playerDeadAnim = playerClone.GetComponent<Animator>(); // --------put in comments when testing-----------
+        playerDeadAnim = playerClone.GetComponent<Animator>(); // --------put in comments when testing-----------
         opponentDeadAnim = opponentClone.GetComponent<Animator>();
         DataManager.Instance.IsPlayerDead = false;
         DataManager.Instance.IsOpponentDead = false;
@@ -94,20 +94,20 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (playerClone.transform.position.x < -4.21f) // --------put in comments when testing-----------
-        //{
-        //    playerClone.transform.position = new Vector3(-4.21f, playerClone.transform.position.y, playerClone.transform.position.z);
-        //}
+        if (playerClone.transform.position.x < -4.21f) // --------put in comments when testing-----------
+        {
+            playerClone.transform.position = new Vector3(-4.21f, playerClone.transform.position.y, playerClone.transform.position.z);
+        }
         if (opponentClone.transform.position.x > 3.99f)
         {
             opponentClone.transform.position = new Vector3(3.99f, opponentClone.transform.position.y, opponentClone.transform.position.z);
         }
-        //if (DataManager.Instance.IsPlayerDead) // --------put in comments when testing-----------
-        //{
-        //    playerDeadAnim.SetTrigger("Dead_Trig");
-        //    winText.text = opponentsNameText.text + " Wins!";
-        //    winText.gameObject.SetActive(true);
-        //}
+        if (DataManager.Instance.IsPlayerDead) // --------put in comments when testing-----------
+        {
+            playerDeadAnim.SetTrigger("Dead_Trig");
+            winText.text = opponentsNameText.text + " Wins!";
+            winText.gameObject.SetActive(true);
+        }
         if (DataManager.Instance.IsOpponentDead)
         {
             opponentDeadAnim.SetTrigger("Dead_Trig");
