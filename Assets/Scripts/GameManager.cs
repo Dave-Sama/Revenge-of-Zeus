@@ -128,6 +128,8 @@ public class GameManager : MonoBehaviour
                     }
                     if (DataManager.Instance.GameMode == "PvP")
                     {
+                        DataManager.Instance.PvPWinner=playersNameText.text;
+                        DataManager.Instance.PvPLoser=opponentsNameText.text;
                         SceneLoader.Instance.LoadScene(4); // Scene index 4 = End of Match scene   
                     }
                     
