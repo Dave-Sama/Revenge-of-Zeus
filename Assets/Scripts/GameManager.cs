@@ -112,7 +112,6 @@ public class GameManager : MonoBehaviour
         {
             opponentDeadAnim.SetTrigger("Dead_Trig");
             StartCoroutine(WinnerAnnouncement(playersNameText.text));
-            Debug.Log(DataManager.Instance.IsOpponentDead);
             if (DataManager.Instance.CurrentRound == 2)
             {
                 DataManager.Instance.playerWonCounter = 2;
@@ -120,10 +119,18 @@ public class GameManager : MonoBehaviour
                 DataManager.Instance.IsOpponentDead = false;
                 if (DataManager.Instance.opponentWonCounter == 0)
                 {
-                    DataManager.Instance.playerWonCounter = 0;
-                    freeOpponents.Remove(opponentsNameText.text);
-                    DataManager.Instance.FreeOpponents = freeOpponents;
-                    DataManager.Instance.BattleNumber++;
+                    if(DataManager.Instance.GameMode=="ML1" || DataManager.Instance.GameMode == "ML2")
+                    {
+                        DataManager.Instance.playerWonCounter = 0;
+                        freeOpponents.Remove(opponentsNameText.text);
+                        DataManager.Instance.FreeOpponents = freeOpponents;
+                        DataManager.Instance.BattleNumber++;
+                    }
+                    if (DataManager.Instance.GameMode == "PvP")
+                    {
+                        SceneLoader.Instance.LoadScene(4); // Scene index 4 = End of Match scene   
+                    }
+                    
                 }
                 if (DataManager.Instance.opponentWonCounter == 1)
                 {
