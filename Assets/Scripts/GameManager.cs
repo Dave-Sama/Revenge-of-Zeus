@@ -98,16 +98,50 @@ public class GameManager : MonoBehaviour
         {
             playerClone.transform.position = new Vector3(-4.21f, playerClone.transform.position.y, playerClone.transform.position.z);
         }
+
         if (opponentClone.transform.position.x > 3.99f)
         {
             opponentClone.transform.position = new Vector3(3.99f, opponentClone.transform.position.y, opponentClone.transform.position.z);
         }
+
         if (DataManager.Instance.IsPlayerDead) // --------put in comments when testing-----------
         {
             playerDeadAnim.SetTrigger("Dead_Trig");
-            winText.text = opponentsNameText.text + " Wins!";
-            winText.gameObject.SetActive(true);
+            StartCoroutine(WinnerAnnouncement(opponentsNameText.text));
+            if (DataManager.Instance.CurrentRound == 2)
+            {
+                DataManager.Instance.opponentWonCounter = 2;
+                opponentVictoryMark[1].SetActive(true);
+                DataManager.Instance.IsPlayerDead = false;
+                if (DataManager.Instance.playerWonCounter == 0)
+                {
+                    if (DataManager.Instance.GameMode == "ML1" || DataManager.Instance.GameMode == "ML2")
+                    {
+                        Debug.Log("Go to Game Over scene");
+                    }
+                    if (DataManager.Instance.GameMode == "PvP")
+                    {
+                        DataManager.Instance.PvPWinner = opponentsNameText.text;
+                        DataManager.Instance.PvPLoser = playersNameText.text;
+                        StartCoroutine(GoToEndOfMatchScene());
+                    }
+
+                }
+                if (DataManager.Instance.opponentWonCounter == 1)
+                {
+                    DataManager.Instance.CurrentRound++;
+                    StartCoroutine(ResetScene());
+                }
+            }
+            if (DataManager.Instance.CurrentRound == 1)
+            {
+                DataManager.Instance.CurrentRound++;
+                DataManager.Instance.opponentWonCounter = 1;
+                DataManager.Instance.IsPlayerDead = false;
+                StartCoroutine(ResetScene());
+            }
         }
+
         if (DataManager.Instance.IsOpponentDead)
         {
             opponentDeadAnim.SetTrigger("Dead_Trig");
