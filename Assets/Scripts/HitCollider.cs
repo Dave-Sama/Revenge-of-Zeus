@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HitCollider : MonoBehaviour
 {
@@ -9,7 +10,10 @@ public class HitCollider : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hitSound = GameObject.Find("Hit Sound").GetComponent<AudioSource>();
+        if(SceneManager.GetActiveScene().buildIndex != 4) // Scene index 4 = End of Match scene
+        {
+            hitSound = GameObject.Find("Hit Sound").GetComponent<AudioSource>();
+        }  
     }
 
     // Update is called once per frame

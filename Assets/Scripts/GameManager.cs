@@ -125,20 +125,21 @@ public class GameManager : MonoBehaviour
                         freeOpponents.Remove(opponentsNameText.text);
                         DataManager.Instance.FreeOpponents = freeOpponents;
                         DataManager.Instance.BattleNumber++;
+                        StartCoroutine(ResetScene());
                     }
                     if (DataManager.Instance.GameMode == "PvP")
                     {
                         DataManager.Instance.PvPWinner=playersNameText.text;
                         DataManager.Instance.PvPLoser=opponentsNameText.text;
-                        SceneLoader.Instance.LoadScene(4); // Scene index 4 = End of Match scene   
+                        StartCoroutine(GoToEndOfMatchScene());
                     }
                     
                 }
                 if (DataManager.Instance.opponentWonCounter == 1)
                 {
                     DataManager.Instance.CurrentRound++;
-                }
-                StartCoroutine(ResetScene());
+                    StartCoroutine(ResetScene());
+                } 
             }
             if (DataManager.Instance.CurrentRound == 1)
             {
@@ -302,5 +303,11 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    IEnumerator GoToEndOfMatchScene()
+    {
+        yield return new WaitForSeconds(3);
+        SceneLoader.Instance.LoadScene(4); // Scene index 4 = End of Match scene
     }
 }
