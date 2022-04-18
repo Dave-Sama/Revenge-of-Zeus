@@ -108,6 +108,21 @@ public class GameManager : MonoBehaviour
         {
             playerDeadAnim.SetTrigger("Dead_Trig");
             StartCoroutine(WinnerAnnouncement(opponentsNameText.text));
+
+            if (DataManager.Instance.CurrentRound == 3)
+            {
+                if (DataManager.Instance.GameMode == "ML1" || DataManager.Instance.GameMode == "ML2")
+                {
+                    Debug.Log("Go to game over screen");
+                }
+                if (DataManager.Instance.GameMode == "PvP")
+                {
+                    DataManager.Instance.opponentWonCounter++;
+                    DataManager.Instance.PvPWinner = opponentsNameText.text;
+                    DataManager.Instance.PvPLoser = playersNameText.text;
+                    StartCoroutine(GoToEndOfMatchScene());
+                }
+            }
             if (DataManager.Instance.CurrentRound == 2)
             {
                 DataManager.Instance.opponentWonCounter = 2;
@@ -127,8 +142,9 @@ public class GameManager : MonoBehaviour
                     }
 
                 }
-                if (DataManager.Instance.opponentWonCounter == 1)
+                if (DataManager.Instance.playerWonCounter == 1)
                 {
+                    DataManager.Instance.opponentWonCounter = 1;
                     DataManager.Instance.CurrentRound++;
                     StartCoroutine(ResetScene());
                 }
@@ -146,14 +162,29 @@ public class GameManager : MonoBehaviour
         {
             opponentDeadAnim.SetTrigger("Dead_Trig");
             StartCoroutine(WinnerAnnouncement(playersNameText.text));
-            if (DataManager.Instance.CurrentRound == 2)
+            if (DataManager.Instance.CurrentRound == 3)
             {
-                DataManager.Instance.playerWonCounter = 2;
+                if (DataManager.Instance.GameMode == "ML1" || DataManager.Instance.GameMode == "ML2")
+                {
+                    Debug.Log("Go to the next battle or the winner scene");
+                }
+                if (DataManager.Instance.GameMode == "PvP")
+                {
+                    DataManager.Instance.playerWonCounter++;
+                    playerVictoryMark[1].SetActive(true);
+                    DataManager.Instance.PvPWinner = playersNameText.text;
+                    DataManager.Instance.PvPLoser = opponentsNameText.text;
+                    StartCoroutine(GoToEndOfMatchScene());
+                }
+            }
+            if (DataManager.Instance.CurrentRound == 2)
+            {   
                 playerVictoryMark[1].SetActive(true);
                 DataManager.Instance.IsOpponentDead = false;
                 if (DataManager.Instance.opponentWonCounter == 0)
                 {
-                    if(DataManager.Instance.GameMode=="ML1" || DataManager.Instance.GameMode == "ML2")
+                    DataManager.Instance.playerWonCounter = 2;
+                    if (DataManager.Instance.GameMode=="ML1" || DataManager.Instance.GameMode == "ML2")
                     {
                         DataManager.Instance.playerWonCounter = 0;
                         freeOpponents.Remove(opponentsNameText.text);
@@ -171,6 +202,7 @@ public class GameManager : MonoBehaviour
                 }
                 if (DataManager.Instance.opponentWonCounter == 1)
                 {
+                    DataManager.Instance.playerWonCounter = 1;
                     DataManager.Instance.CurrentRound++;
                     StartCoroutine(ResetScene());
                 } 
