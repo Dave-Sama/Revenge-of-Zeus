@@ -21,19 +21,31 @@ public class HealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (DataManager.Instance.IsPlayer && !DataManager.Instance.IsPlayerDead && !DataManager.Instance.IsPlayerDead && healthBarFront.tag == "Player" && healthBarBack.tag == "Player")
-        {
-            DrainHealth();
-        }
-        if (!DataManager.Instance.IsPlayer && !DataManager.Instance.IsOpponentDead && healthBarFront.tag == "Opponent" && healthBarBack.tag == "Opponent")
-        {
-            DrainHealth();
-        }
-        //if (Input.GetKey(KeyCode.Space)) // for testing
+        //if (DataManager.Instance.IsPlayer && !DataManager.Instance.IsPlayerDead && healthBarFront.tag == "Player" && healthBarBack.tag == "Player")
         //{
-        //    DataManager.Instance.Damage = 5;
         //    DrainHealth();
         //}
+        //if (!DataManager.Instance.IsPlayer && !DataManager.Instance.IsOpponentDead && healthBarFront.tag == "Opponent" && healthBarBack.tag == "Opponent")
+        //{
+        //    DrainHealth();
+        //}
+        DrainHealth();
+        if (Input.GetKeyDown(KeyCode.Space)) // for testing
+        {
+            DataManager.Instance.PlayersDamage = 10;
+            DataManager.Instance.OpponentsDamage = 10;
+            DrainHealth();
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha2)) //for testing
+        {
+            DataManager.Instance.OpponentsDamage = 10;
+            DrainHealth();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1)) //for testing
+        {
+            DataManager.Instance.PlayersDamage = 10;
+            DrainHealth();
+        }
         //if (DataManager.Instance.IsPlayerDead && healthBarFront.tag == "Player" && healthBarBack.tag == "Player") //candidate for deletion
         //{
         //    FillHealthBack();
@@ -46,36 +58,68 @@ public class HealthBar : MonoBehaviour
 
     void DrainHealth()
     {
-        if (DataManager.Instance.Damage != 0)
+        if(healthBarFront.tag == "Player" && healthBarBack.tag == "Player")
         {
-            healthBarFront.value = healthBarFront.value - DataManager.Instance.Damage;
-            DataManager.Instance.Damage = 0;
-            pressed = true;
-        }
-        if (sleep < 1 && pressed == true)
-        {
-            sleep += Time.deltaTime;
-        }
-        if (healthBarBack.value > healthBarFront.value && sleep >= 1)
-        {
-            healthBarBack.value = healthBarBack.value - 0.01f;
-        }
-        if (healthBarBack.value <= healthBarFront.value)
-        {
-            sleep = 0;
-            pressed = false;
-        }
-        if(healthBarFront.value==0 && healthBarBack.value == 0 && !characterDied)
-        {
-            healthBarFront.gameObject.SetActive(false);
-            healthBarBack.gameObject.SetActive(false);
-            characterDied = true;
-            if (healthBarFront.tag=="Player")
+            if (DataManager.Instance.PlayersDamage != 0)
             {
+                healthBarFront.value = healthBarFront.value - DataManager.Instance.PlayersDamage;
+                DataManager.Instance.PlayersDamage = 0;
+                pressed = true;
+            }
+            if (sleep < 1 && pressed == true)
+            {
+                sleep += Time.deltaTime;
+            }
+            if (healthBarBack.value > healthBarFront.value && sleep >= 1)
+            {
+                healthBarBack.value = healthBarBack.value - 0.01f;
+            }
+            if (healthBarBack.value <= healthBarFront.value)
+            {
+                sleep = 0;
+                pressed = false;
+            }
+            if (healthBarFront.value == 0 && healthBarBack.value == 0)
+            {
+                healthBarFront.gameObject.SetActive(false);
+                healthBarBack.gameObject.SetActive(false);
+            }
+            if (healthBarFront.value == 0 && !characterDied)
+            {
+                characterDied = true;
                 DataManager.Instance.IsPlayerDead = true;
             }
-            if (healthBarFront.tag == "Opponent")
+        }
+
+        if(healthBarFront.tag=="Opponent" && healthBarBack.tag == "Opponent")
+        {
+            if (DataManager.Instance.OpponentsDamage != 0)
             {
+                healthBarFront.value = healthBarFront.value - DataManager.Instance.OpponentsDamage;
+                DataManager.Instance.OpponentsDamage = 0;
+                pressed = true;
+            }
+            if (sleep < 1 && pressed == true)
+            {
+                sleep += Time.deltaTime;
+            }
+            if (healthBarBack.value > healthBarFront.value && sleep >= 1)
+            {
+                healthBarBack.value = healthBarBack.value - 0.01f;
+            }
+            if (healthBarBack.value <= healthBarFront.value)
+            {
+                sleep = 0;
+                pressed = false;
+            }
+            if(healthBarFront.value == 0 && healthBarBack.value == 0)
+            {
+                healthBarFront.gameObject.SetActive(false);
+                healthBarBack.gameObject.SetActive(false);
+            }
+            if (healthBarFront.value == 0 && !characterDied)
+            {
+                characterDied = true;
                 DataManager.Instance.IsOpponentDead = true;
             }
         }

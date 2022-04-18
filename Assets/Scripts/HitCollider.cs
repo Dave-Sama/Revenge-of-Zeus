@@ -108,6 +108,8 @@ public class HitCollider : MonoBehaviour
                 hitAnim.SetTrigger("LowKickHit_Trig");
                 DataManager.Instance.IsPlayer = false;
             }
+
+            DataManager.Instance.OpponentsDamage = damage;
         }
 
         if (other.CompareTag("Player"))
@@ -192,8 +194,8 @@ public class HitCollider : MonoBehaviour
                 hitAnim.SetTrigger("LowKickHit_Trig");
                 DataManager.Instance.IsPlayer = true;
             }
+
+            DataManager.Instance.PlayersDamage = damage;
         }
-        
-        DataManager.Instance.Damage = damage;
     }
 }

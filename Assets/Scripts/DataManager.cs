@@ -8,7 +8,8 @@ public class DataManager : MonoBehaviour
     public string GameMode { get; set; }
     public string PlayersCharacter { get; set; }
     public string OpponentsCharacter { get; set; }
-    public int Damage { get; set; }
+    public int PlayersDamage { get; set; }
+    public int OpponentsDamage { get; set; }
     public bool IsP1Attacking { get; set; } // Is player 1 attacking or not
     public bool IsP2Attacking { get; set; } // Is player 2 attacking or not
     public bool IsPlayer { get; set; } // Wether the player gets hit or the opponent gets hit to know who lost health, also, helps to diffrentiate between players in PvP

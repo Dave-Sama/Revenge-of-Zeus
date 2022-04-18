@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     private PlayerController opponentController;
     private List<string> freeOpponents;
     private AudioSource battleMusic;
+    private bool raisedCounterOnDraw;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
         leftWall = GameObject.Find("Left Wall");
         camera = GameObject.Find("Main Camera").GetComponent<Camera>();
         battleMusic = gameObject.GetComponent<AudioSource>();
+        raisedCounterOnDraw = false;
         if (DataManager.Instance.playerWonCounter == 0 && DataManager.Instance.opponentWonCounter == 0)
         {
             DataManager.Instance.CurrentRound = 1;
@@ -94,6 +96,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // --------------------------- Setting the boundaries of the battle arena -----------------------------------------------------
+
         if (playerClone.transform.position.x < -4.21f) // --------put in comments when testing-----------
         {
             playerClone.transform.position = new Vector3(-4.21f, playerClone.transform.position.y, playerClone.transform.position.z);
@@ -104,7 +108,97 @@ public class GameManager : MonoBehaviour
             opponentClone.transform.position = new Vector3(3.99f, opponentClone.transform.position.y, opponentClone.transform.position.z);
         }
 
-        if (DataManager.Instance.IsPlayerDead) // --------put in comments when testing-----------
+        // --------------------------- When it's a draw -----------------------------------------------------
+
+        if (DataManager.Instance.IsPlayerDead && DataManager.Instance.IsOpponentDead)
+        {
+            playerDeadAnim.SetTrigger("Dead_Trig");
+            opponentDeadAnim.SetTrigger("Dead_Trig");
+            StartCoroutine(WinnerAnnouncement(""));
+            if (DataManager.Instance.CurrentRound == 3)
+            {
+                if (DataManager.Instance.GameMode == "ML1" || DataManager.Instance.GameMode == "ML2") // Goes to the next battle (same as if the player won)
+                {
+                    DataManager.Instance.playerWonCounter = 0;
+                    DataManager.Instance.opponentWonCounter = 0;
+                    freeOpponents.Remove(opponentsNameText.text);
+                    DataManager.Instance.FreeOpponents = freeOpponents;
+                    DataManager.Instance.BattleNumber++;
+                    StartCoroutine(ResetScene());
+                }
+                if (DataManager.Instance.GameMode == "PvP")  // Goes to the end of match screen with a draw message
+                {
+                    DataManager.Instance.PvPWinner = "";
+                    DataManager.Instance.PvPLoser = "";
+                    StartCoroutine(GoToEndOfMatchScene());
+                }
+            }
+            if (DataManager.Instance.CurrentRound == 2 && !raisedCounterOnDraw)
+            {
+                DataManager.Instance.playerWonCounter++;
+                DataManager.Instance.opponentWonCounter++;
+                raisedCounterOnDraw = true;
+                Debug.Log("player won: " + DataManager.Instance.playerWonCounter);
+                Debug.Log("opponent won: " + DataManager.Instance.opponentWonCounter);
+                if (DataManager.Instance.playerWonCounter == DataManager.Instance.opponentWonCounter)
+                {
+                    DataManager.Instance.CurrentRound = 3;
+                    opponentVictoryMark[1].SetActive(true);
+                    playerVictoryMark[1].SetActive(true);
+                    DataManager.Instance.IsOpponentDead = false;
+                    DataManager.Instance.IsPlayerDead = false;
+                    StartCoroutine(ResetScene());
+                }
+                if (DataManager.Instance.playerWonCounter > DataManager.Instance.opponentWonCounter)
+                {
+                    Debug.Log("fdjkgdfklgnldfng");
+                    if (DataManager.Instance.GameMode == "ML1" || DataManager.Instance.GameMode == "ML2")
+                    {
+                        DataManager.Instance.playerWonCounter = 0;
+                        DataManager.Instance.opponentWonCounter = 0;
+                        freeOpponents.Remove(opponentsNameText.text);
+                        DataManager.Instance.FreeOpponents = freeOpponents;
+                        DataManager.Instance.BattleNumber++;
+                        StartCoroutine(ResetScene());
+                    }
+                    if (DataManager.Instance.GameMode == "PvP")
+                    {
+                        DataManager.Instance.PvPWinner = playersNameText.text;
+                        DataManager.Instance.PvPLoser = opponentsNameText.text;
+                        StartCoroutine(GoToEndOfMatchScene());
+                    }
+                }
+                if (DataManager.Instance.opponentWonCounter > DataManager.Instance.playerWonCounter)
+                {
+                    if (DataManager.Instance.GameMode == "ML1" || DataManager.Instance.GameMode == "ML2")
+                    {
+                        Debug.Log("Go to Game Over scene");
+                    }
+                    if (DataManager.Instance.GameMode == "PvP")
+                    {
+                        DataManager.Instance.PvPWinner = opponentsNameText.text;
+                        DataManager.Instance.PvPLoser = playersNameText.text;
+                        StartCoroutine(GoToEndOfMatchScene());
+                    }
+                }
+                
+            }
+            if (DataManager.Instance.CurrentRound == 1)
+            {
+                DataManager.Instance.playerWonCounter++;
+                DataManager.Instance.opponentWonCounter++;
+                opponentVictoryMark[0].SetActive(true);
+                playerVictoryMark[0].SetActive(true);
+                DataManager.Instance.CurrentRound++;
+                DataManager.Instance.IsOpponentDead = false;
+                DataManager.Instance.IsPlayerDead = false;
+                StartCoroutine(ResetScene());
+            }
+        }
+
+        // --------------------------- When the opponent (or player 2) kills the player (or player 1)-----------------------------------------------------
+
+        if (DataManager.Instance.IsPlayerDead && !DataManager.Instance.IsOpponentDead) // --------put in comments when testing-----------
         {
             playerDeadAnim.SetTrigger("Dead_Trig");
             StartCoroutine(WinnerAnnouncement(opponentsNameText.text));
@@ -158,7 +252,9 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (DataManager.Instance.IsOpponentDead)
+        // --------------------------- When the player (or player 1) kills the opponent (or player 2)-----------------------------------------------------
+
+        if (DataManager.Instance.IsOpponentDead && !DataManager.Instance.IsPlayerDead)
         {
             opponentDeadAnim.SetTrigger("Dead_Trig");
             StartCoroutine(WinnerAnnouncement(playersNameText.text));
@@ -213,27 +309,6 @@ public class GameManager : MonoBehaviour
                 DataManager.Instance.playerWonCounter = 1;
                 DataManager.Instance.IsOpponentDead = false;
                 StartCoroutine(ResetScene());
-            }
-        }
-        if(DataManager.Instance.IsPlayerDead && DataManager.Instance.IsOpponentDead)
-        {
-            winText.text = "Draw";
-            winText.gameObject.SetActive(true);
-            if (DataManager.Instance.CurrentRound == 2)
-            {
-                DataManager.Instance.CurrentRound = 0;
-                opponentVictoryMark[1].SetActive(true);
-                playerVictoryMark[1].SetActive(true);
-                DataManager.Instance.IsOpponentDead = false;
-                DataManager.Instance.IsPlayerDead = false;
-            }
-            if (DataManager.Instance.CurrentRound == 1)
-            {
-                DataManager.Instance.CurrentRound++;
-                opponentVictoryMark[0].SetActive(true);
-                playerVictoryMark[0].SetActive(true);
-                DataManager.Instance.IsOpponentDead = false;
-                DataManager.Instance.IsPlayerDead = false;
             }
         }
     }
@@ -332,9 +407,19 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
-        winText.text = name + " Wins!";
-        winText.gameObject.SetActive(true);
-        if(winnerSound!=null)
+        if (DataManager.Instance.IsPlayerDead && DataManager.Instance.IsOpponentDead)
+        {
+            winText.text = "Double K.O.";
+            winText.gameObject.SetActive(true);
+        }
+        else
+        {
+            winText.text = "      K.O.";
+            winText.gameObject.SetActive(true);
+            yield return new WaitForSeconds(2);
+            winText.text = name + " Wins!";
+        }
+        if (winnerSound!=null)
         {
             winnerSound.Play();
             Debug.Log("is playing: "+winnerSound.isPlaying);
@@ -343,7 +428,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Winner sound error!");
         }
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(8);
     }
 
     void WinningsToVictoryMarks(int winCounter, GameObject[] victoryMark)

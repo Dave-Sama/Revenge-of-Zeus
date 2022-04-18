@@ -3,19 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class EndOfMach : MonoBehaviour
 {
     [SerializeField] GameObject[] characters = new GameObject[15];
     [SerializeField] Button playAgainButton;
+    [SerializeField] TextMeshProUGUI drawText;
     EventSystem eventSystem;
+    GameObject podium;
     bool downArrowClicked;
+
     // Start is called before the first frame update
     void Start()
     {
         eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
+        podium = GameObject.Find("Podium");
         downArrowClicked = true;
-        InstantiateCharacters();
+        if(DataManager.Instance.PvPWinner == "" && DataManager.Instance.PvPLoser == "")
+        {
+            podium.SetActive(false);
+            drawText.enabled = true;
+        }
+        else
+        {
+            InstantiateCharacters();
+        }
     }
 
     // Update is called once per frame
@@ -81,11 +94,15 @@ public class EndOfMach : MonoBehaviour
 
     public void OnBackToCharacters()
     {
+        DataManager.Instance.playerWonCounter = 0;
+        DataManager.Instance.opponentWonCounter = 0;
         SceneLoader.Instance.LoadScene(2); // Scene index 2 = character selection scene
     }
 
     public void OnBackToMenu()
     {
+        DataManager.Instance.playerWonCounter = 0;
+        DataManager.Instance.opponentWonCounter = 0;
         SceneLoader.Instance.LoadScene(0); // Scene index 0 = main menu scene
     }
 }
