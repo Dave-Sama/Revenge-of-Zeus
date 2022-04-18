@@ -21,14 +21,6 @@ public class HealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (DataManager.Instance.IsPlayer && !DataManager.Instance.IsPlayerDead && healthBarFront.tag == "Player" && healthBarBack.tag == "Player")
-        //{
-        //    DrainHealth();
-        //}
-        //if (!DataManager.Instance.IsPlayer && !DataManager.Instance.IsOpponentDead && healthBarFront.tag == "Opponent" && healthBarBack.tag == "Opponent")
-        //{
-        //    DrainHealth();
-        //}
         DrainHealth();
         if (Input.GetKeyDown(KeyCode.Space)) // for testing
         {
@@ -79,10 +71,13 @@ public class HealthBar : MonoBehaviour
                 sleep = 0;
                 pressed = false;
             }
-            if (healthBarFront.value == 0 && healthBarBack.value == 0)
+            if (healthBarFront.value == 0)
             {
                 healthBarFront.gameObject.SetActive(false);
-                healthBarBack.gameObject.SetActive(false);
+                if(healthBarBack.value == 0)
+                {
+                    healthBarBack.gameObject.SetActive(false);
+                }
             }
             if (healthBarFront.value == 0 && !characterDied)
             {
@@ -112,10 +107,13 @@ public class HealthBar : MonoBehaviour
                 sleep = 0;
                 pressed = false;
             }
-            if(healthBarFront.value == 0 && healthBarBack.value == 0)
+            if (healthBarFront.value == 0)
             {
                 healthBarFront.gameObject.SetActive(false);
-                healthBarBack.gameObject.SetActive(false);
+                if (healthBarBack.value == 0)
+                {
+                    healthBarBack.gameObject.SetActive(false);
+                }
             }
             if (healthBarFront.value == 0 && !characterDied)
             {

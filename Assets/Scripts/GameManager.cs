@@ -138,8 +138,6 @@ public class GameManager : MonoBehaviour
                 DataManager.Instance.playerWonCounter++;
                 DataManager.Instance.opponentWonCounter++;
                 raisedCounterOnDraw = true;
-                Debug.Log("player won: " + DataManager.Instance.playerWonCounter);
-                Debug.Log("opponent won: " + DataManager.Instance.opponentWonCounter);
                 if (DataManager.Instance.playerWonCounter == DataManager.Instance.opponentWonCounter)
                 {
                     DataManager.Instance.CurrentRound = 3;
@@ -151,7 +149,6 @@ public class GameManager : MonoBehaviour
                 }
                 if (DataManager.Instance.playerWonCounter > DataManager.Instance.opponentWonCounter)
                 {
-                    Debug.Log("fdjkgdfklgnldfng");
                     if (DataManager.Instance.GameMode == "ML1" || DataManager.Instance.GameMode == "ML2")
                     {
                         DataManager.Instance.playerWonCounter = 0;
@@ -262,7 +259,7 @@ public class GameManager : MonoBehaviour
             {
                 if (DataManager.Instance.GameMode == "ML1" || DataManager.Instance.GameMode == "ML2")
                 {
-                    Debug.Log("Go to the next battle or the winner scene");
+                    Debug.Log("Go to the next battle or the winner scene"); // --------------------- remember to take care of this shit -----------------
                 }
                 if (DataManager.Instance.GameMode == "PvP")
                 {
