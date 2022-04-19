@@ -39,6 +39,10 @@ public class EndOfMach : MonoBehaviour
             playAgainButton.Select();
             downArrowClicked = true;
         }
+        if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Mouse1)) && downArrowClicked)
+        {
+            ResetDownArrowClicked();
+        }
     }
 
     void InstantiateCharacters()

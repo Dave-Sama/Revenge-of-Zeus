@@ -204,7 +204,7 @@ public class GameManager : MonoBehaviour
             {
                 if (DataManager.Instance.GameMode == "ML1" || DataManager.Instance.GameMode == "ML2")
                 {
-                    Debug.Log("Go to game over screen");
+                    SceneLoader.Instance.LoadScene(5); // Scene index 5 = Game Over scene
                 }
                 if (DataManager.Instance.GameMode == "PvP")
                 {
@@ -223,7 +223,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (DataManager.Instance.GameMode == "ML1" || DataManager.Instance.GameMode == "ML2")
                     {
-                        Debug.Log("Go to Game Over scene");
+                        SceneLoader.Instance.LoadScene(5); // Scene index 5 = Game Over scene
                     }
                     if (DataManager.Instance.GameMode == "PvP")
                     {
