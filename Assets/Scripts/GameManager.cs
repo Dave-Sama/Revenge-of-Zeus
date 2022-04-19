@@ -259,7 +259,19 @@ public class GameManager : MonoBehaviour
             {
                 if (DataManager.Instance.GameMode == "ML1" || DataManager.Instance.GameMode == "ML2")
                 {
-                    Debug.Log("Go to the next battle or the winner scene"); // --------------------- remember to take care of this shit -----------------
+                    if (DataManager.Instance.BattleNumber < 10)
+                    {
+                        DataManager.Instance.playerWonCounter = 0;
+                        DataManager.Instance.opponentWonCounter = 0;
+                        freeOpponents.Remove(opponentsNameText.text);
+                        DataManager.Instance.FreeOpponents = freeOpponents;
+                        DataManager.Instance.BattleNumber++;
+                        StartCoroutine(ResetScene());
+                    }
+                    else
+                    {
+                        StartCoroutine(GoToWinnerScene());
+                    }
                 }
                 if (DataManager.Instance.GameMode == "PvP")
                 {
@@ -279,11 +291,19 @@ public class GameManager : MonoBehaviour
                     DataManager.Instance.playerWonCounter = 2;
                     if (DataManager.Instance.GameMode=="ML1" || DataManager.Instance.GameMode == "ML2")
                     {
-                        DataManager.Instance.playerWonCounter = 0;
-                        freeOpponents.Remove(opponentsNameText.text);
-                        DataManager.Instance.FreeOpponents = freeOpponents;
-                        DataManager.Instance.BattleNumber++;
-                        StartCoroutine(ResetScene());
+                        if(DataManager.Instance.BattleNumber < 10)
+                        {
+                            DataManager.Instance.playerWonCounter = 0;
+                            freeOpponents.Remove(opponentsNameText.text);
+                            DataManager.Instance.FreeOpponents = freeOpponents;
+                            DataManager.Instance.BattleNumber++;
+                            StartCoroutine(ResetScene());
+                        }
+                        else
+                        {
+                            StartCoroutine(GoToWinnerScene());
+                        }
+                        
                     }
                     if (DataManager.Instance.GameMode == "PvP")
                     {
@@ -462,6 +482,11 @@ public class GameManager : MonoBehaviour
     IEnumerator GoToGameOverScene()
     {
         yield return new WaitForSeconds(3);
-        SceneLoader.Instance.LoadScene(5); // Scene index 5 = End of Match scene
+        SceneLoader.Instance.LoadScene(5); // Scene index 5 = Game Over scene
+    }
+    IEnumerator GoToWinnerScene()
+    {
+        yield return new WaitForSeconds(3);
+        SceneLoader.Instance.LoadScene(6); // Scene index 6 = Winner scene
     }
 }
