@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEditor;
+
 public class GameOver : MonoBehaviour
 {
     [SerializeField] Button playAgainButton;
@@ -43,13 +45,6 @@ public class GameOver : MonoBehaviour
     {
         DataManager.Instance.playerWonCounter = 0;
         DataManager.Instance.opponentWonCounter = 0;
-        SceneLoader.Instance.LoadScene(3); // Scene index 3 = battle scene
-    }
-
-    public void OnBackToCharacters()
-    {
-        DataManager.Instance.playerWonCounter = 0;
-        DataManager.Instance.opponentWonCounter = 0;
         SceneLoader.Instance.LoadScene(2); // Scene index 2 = character selection scene
     }
 
@@ -58,5 +53,14 @@ public class GameOver : MonoBehaviour
         DataManager.Instance.playerWonCounter = 0;
         DataManager.Instance.opponentWonCounter = 0;
         SceneLoader.Instance.LoadScene(0); // Scene index 0 = main menu scene
+    }
+
+    public void OnQuitButton()
+    {
+#if UNITY_EDITOR
+        EditorApplication.ExitPlaymode();
+#else
+        Application.Quit();
+#endif
     }
 }
