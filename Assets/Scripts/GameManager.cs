@@ -204,7 +204,7 @@ public class GameManager : MonoBehaviour
             {
                 if (DataManager.Instance.GameMode == "ML1" || DataManager.Instance.GameMode == "ML2")
                 {
-                    SceneLoader.Instance.LoadScene(5); // Scene index 5 = Game Over scene
+                    StartCoroutine(GoToGameOverScene());
                 }
                 if (DataManager.Instance.GameMode == "PvP")
                 {
@@ -223,7 +223,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (DataManager.Instance.GameMode == "ML1" || DataManager.Instance.GameMode == "ML2")
                     {
-                        SceneLoader.Instance.LoadScene(5); // Scene index 5 = Game Over scene
+                        StartCoroutine(GoToGameOverScene());
                     }
                     if (DataManager.Instance.GameMode == "PvP")
                     {
@@ -457,5 +457,11 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         SceneLoader.Instance.LoadScene(4); // Scene index 4 = End of Match scene
+    }
+
+    IEnumerator GoToGameOverScene()
+    {
+        yield return new WaitForSeconds(3);
+        SceneLoader.Instance.LoadScene(5); // Scene index 5 = End of Match scene
     }
 }
