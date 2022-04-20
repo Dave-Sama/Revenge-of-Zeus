@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //---------------------Walk Backwards---------------------------
-        if ((gameObject.tag=="Player" && Input.GetKey(KeyCode.LeftArrow)) || (gameObject.tag=="Opponent" && Input.GetKey(KeyCode.Keypad6)))
+        if ((gameObject.tag == "Player" && Input.GetKey(KeyCode.LeftArrow)) || (gameObject.tag == "Opponent" && Input.GetKey(KeyCode.Keypad6)))
         {
             playerAnim.SetFloat("Speed_Float", -1);
         }
@@ -73,15 +73,15 @@ public class PlayerController : MonoBehaviour
             // ---------------------Low Kick---------------------------
 
             if (gameObject.tag == "Player")
+            {
+                if (Input.GetKeyDown(DataManager.Instance.middle_right_punch1_Keycode))
                 {
-                    if (Input.GetKeyDown(DataManager.Instance.middle_right_punch1_Keycode))
-                    {
-                        DataManager.Instance.IsP1Attacking = true;
-                        DataManager.Instance.P1AttackName = "Low kick";
-                        playerAnim.SetTrigger("LowKick_Trig");
-                        attackSound1.Play();
-                    }
+                    DataManager.Instance.IsP1Attacking = true;
+                    DataManager.Instance.P1AttackName = "Low kick";
+                    playerAnim.SetTrigger("LowKick_Trig");
+                    attackSound1.Play();
                 }
+            }
             if (gameObject.tag == "Opponent")
             {
                 if (Input.GetKeyDown(DataManager.Instance.middle_right_punch2_Keycode))
@@ -123,17 +123,18 @@ public class PlayerController : MonoBehaviour
 
         //---------------------Upper Punch---------------------------
 
-        if(gameObject.tag=="Player")
+        if (gameObject.tag == "Player")
         {
-            if (Input.GetKeyDown(DataManager.Instance.upper_left_punch1_Keycode)){
+            if (Input.GetKeyDown(DataManager.Instance.upper_left_punch1_Keycode))
+            {
                 DataManager.Instance.IsP1Attacking = true;
                 DataManager.Instance.P1AttackName = "Up punch left";
                 playerAnim.SetTrigger("UpPunchLeft_Trig");
                 attackSound2.Play();
-            }         
+            }
         }
-               
-        if(gameObject.tag=="Opponent")
+
+        if (gameObject.tag == "Opponent")
         {
             if (Input.GetKeyDown(DataManager.Instance.upper_left_punch2_Keycode))
             {
@@ -142,9 +143,9 @@ public class PlayerController : MonoBehaviour
                 playerAnim.SetTrigger("UpPunchLeft_Trig");
                 attackSound2.Play();
             }
-        }           
+        }
 
-        if(gameObject.tag == "Player")
+        if (gameObject.tag == "Player")
         {
             if (Input.GetKeyDown(DataManager.Instance.upper_right_punch1_Keycode))
             {
@@ -187,7 +188,7 @@ public class PlayerController : MonoBehaviour
                 attackSound2.Play();
             }
         }
-        
+
 
         if (gameObject.tag == "Player")
         {
@@ -309,13 +310,13 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(ResetAttack());
             }
         }
-        
+
     }
 
     IEnumerator ResetAttack()
     {
         yield return new WaitForSeconds(2);
-        if(gameObject.tag == "Player")
+        if (gameObject.tag == "Player")
         {
             DataManager.Instance.IsP1Attacking = false;
             DataManager.Instance.P1AttackName = "";

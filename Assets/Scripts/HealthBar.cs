@@ -42,10 +42,10 @@ public class HealthBar : MonoBehaviour
         //{
         //    FillHealthBack();
         //}
-        //if (DataManager.Instance.IsOpponentDead && healthBarFront.tag == "Opponent" && healthBarBack.tag == "Opponent")
-        //{
-        //    FillHealthBack();
-        //}
+        if (healthBarFront.tag == "Opponent" && healthBarBack.tag == "Opponent")
+        {
+            FillHealthBack();
+        }
     }
 
     void DrainHealth()
@@ -129,18 +129,18 @@ public class HealthBar : MonoBehaviour
     //    {
     //        sleep += Time.deltaTime;
     //    }
-    //    if(sleep >= 5)
+    //    if (sleep >= 5)
     //    {
     //        healthBarFront.gameObject.SetActive(true);
     //        healthBarBack.gameObject.SetActive(true);
-    //        currentRound = DataManager.Instance.CurrentRound;
+    //        //currentRound = DataManager.Instance.CurrentRound;
     //        sleep = 0;
     //    }
-    //    if(healthBarBack.value<healthBarBack.maxValue && healthBarFront.IsActive() && healthBarBack.IsActive())
+    //    if (healthBarBack.value < healthBarBack.maxValue && healthBarFront.IsActive() && healthBarBack.IsActive())
     //    {
     //        healthBarBack.value = healthBarBack.value + 0.01f;
     //    }
-    //    if(healthBarBack.value==healthBarBack.maxValue && sleep < 1 && healthBarFront.IsActive() && healthBarBack.IsActive())
+    //    if (healthBarBack.value == healthBarBack.maxValue && sleep < 1 && healthBarFront.IsActive() && healthBarBack.IsActive())
     //    {
     //        sleep += Time.deltaTime;
     //    }
@@ -150,4 +150,10 @@ public class HealthBar : MonoBehaviour
     //    }
 
     //}
+
+    void FillHealthBack()
+    {
+        healthBarFront.value = 10;
+        healthBarBack.value = 10;
+    }
 }
