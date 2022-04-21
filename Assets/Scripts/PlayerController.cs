@@ -5,6 +5,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Animator playerAnim;
+    Rigidbody fighterRB;
+    bool jump;
+    bool jumpFwd;
+    bool onTheGround;
     [SerializeField] AudioSource attackSound1;
     [SerializeField] AudioSource attackSound2;
 
@@ -12,6 +16,10 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerAnim = gameObject.GetComponent<Animator>();
+        fighterRB=gameObject.GetComponent<Rigidbody>();
+        jump = false;
+        jumpFwd = false;
+        onTheGround = true;
         attackSound1 = GameObject.Find("Attack Sound 1").GetComponent<AudioSource>();
         attackSound2 = GameObject.Find("Attack Sound 2").GetComponent<AudioSource>();
     }
@@ -28,19 +36,82 @@ public class PlayerController : MonoBehaviour
         else if ((gameObject.tag == "Player" && Input.GetKey(KeyCode.RightArrow)) || (gameObject.tag == "Opponent" && Input.GetKey(KeyCode.Keypad4)))
         {
             playerAnim.SetFloat("Speed_Float", 1);
+            transform.Translate(Vector3.forward * Time.deltaTime*0.5f);  // note to myself: there are 4 fucked up characters that need Vector3.forward*Time.deltaTime*1
+            if (onTheGround)
+            {
+                playerAnim.SetBool("Jump_Bool", false);
+            }
+            if ((gameObject.tag == "Player" && Input.GetKeyDown(KeyCode.UpArrow)) || (gameObject.tag == "Opponent" && Input.GetKeyDown(KeyCode.Keypad8)))
+            {
+                onTheGround=false;
+                jumpFwd = true;
+            }
         }
         else
         {
             playerAnim.SetFloat("Speed_Float", 0);
         }
         //---------------------Jump---------------------------
-        if ((gameObject.tag == "Player" && Input.GetKey(KeyCode.UpArrow)) || (gameObject.tag == "Opponent" && Input.GetKey(KeyCode.Keypad8)))
+        if (onTheGround)
         {
-            playerAnim.SetBool("Jump_Bool", true);
+            if((gameObject.tag=="Player" && !Input.GetKey(KeyCode.RightArrow)) || (gameObject.tag == "Opponent" && !Input.GetKey(KeyCode.Keypad4)))
+            {
+                playerAnim.SetBool("Jump_Bool", false);
+            }
+            if ((gameObject.tag == "Player" && Input.GetKeyDown(KeyCode.UpArrow) && !Input.GetKey(KeyCode.RightArrow)) || 
+                (gameObject.tag == "Opponent" && Input.GetKeyDown(KeyCode.Keypad8) && !Input.GetKey(KeyCode.Keypad4)))
+            {
+                onTheGround = false;
+                jump = true;
+            }
         }
         else
         {
-            playerAnim.SetBool("Jump_Bool", false);
+            if (gameObject.tag == "Player")
+            {
+                // ---------------------P1 Jump Punch---------------------------
+
+                if (Input.GetKeyDown(DataManager.Instance.middle_left_punch1_Keycode))
+                {
+                    DataManager.Instance.IsP1Attacking = true;
+                    DataManager.Instance.P1AttackName = "Jump punch";
+                    playerAnim.SetTrigger("JumpPunch_Trig");
+                    attackSound2.Play();
+                }
+
+                // ---------------------P1 Jump Kick---------------------------
+
+                if (Input.GetKeyDown(DataManager.Instance.middle_right_punch1_Keycode))
+                {
+                    DataManager.Instance.IsP1Attacking = true;
+                    DataManager.Instance.P1AttackName = "Jump kick";
+                    playerAnim.SetTrigger("JumpKick_Trig");
+                    attackSound1.Play();
+                }
+            }
+
+            if (gameObject.tag == "Opponent")
+            {
+                // ---------------------P2 Jump Punch---------------------------
+
+                if (Input.GetKeyDown(DataManager.Instance.middle_left_punch2_Keycode))
+                {
+                    DataManager.Instance.IsP2Attacking = true;
+                    DataManager.Instance.P2AttackName = "Jump punch";
+                    playerAnim.SetTrigger("JumpPunch_Trig");
+                    attackSound2.Play();
+                }
+
+                // ---------------------P2 Jump Kick---------------------------
+
+                if (Input.GetKeyDown(DataManager.Instance.middle_right_punch2_Keycode))
+                {
+                    DataManager.Instance.IsP2Attacking = true;
+                    DataManager.Instance.P2AttackName = "Jump kick";
+                    playerAnim.SetTrigger("JumpKick_Trig");
+                    attackSound1.Play();
+                }
+            }
         }
         //---------------------Crouch---------------------------
         if ((gameObject.tag == "Player" && Input.GetKey(KeyCode.DownArrow)) || (gameObject.tag == "Opponent" && Input.GetKey(KeyCode.Keypad2)))
@@ -170,7 +241,7 @@ public class PlayerController : MonoBehaviour
 
         if (gameObject.tag == "Player")
         {
-            if (Input.GetKeyDown(DataManager.Instance.middle_left_punch1_Keycode) && !Input.GetKey(KeyCode.DownArrow))
+            if (Input.GetKeyDown(DataManager.Instance.middle_left_punch1_Keycode) && !Input.GetKey(KeyCode.DownArrow) && onTheGround)
             {
                 DataManager.Instance.IsP1Attacking = true;
                 DataManager.Instance.P1AttackName = "Mid punch left";
@@ -180,7 +251,7 @@ public class PlayerController : MonoBehaviour
         }
         if (gameObject.tag == "Opponent")
         {
-            if (Input.GetKeyDown(DataManager.Instance.middle_left_punch2_Keycode) && !Input.GetKey(KeyCode.Keypad2))
+            if (Input.GetKeyDown(DataManager.Instance.middle_left_punch2_Keycode) && !Input.GetKey(KeyCode.Keypad2) && onTheGround)
             {
                 DataManager.Instance.IsP2Attacking = true;
                 DataManager.Instance.P2AttackName = "Mid punch left";
@@ -192,7 +263,7 @@ public class PlayerController : MonoBehaviour
 
         if (gameObject.tag == "Player")
         {
-            if (Input.GetKeyDown(DataManager.Instance.middle_right_punch1_Keycode) && !Input.GetKey(KeyCode.DownArrow))
+            if (Input.GetKeyDown(DataManager.Instance.middle_right_punch1_Keycode) && !Input.GetKey(KeyCode.DownArrow) && onTheGround)
             {
                 DataManager.Instance.IsP1Attacking = true;
                 DataManager.Instance.P1AttackName = "Mid punch right";
@@ -202,7 +273,7 @@ public class PlayerController : MonoBehaviour
         }
         if (gameObject.tag == "Opponent")
         {
-            if (Input.GetKeyDown(DataManager.Instance.middle_right_punch2_Keycode) && !Input.GetKey(KeyCode.Keypad2))
+            if (Input.GetKeyDown(DataManager.Instance.middle_right_punch2_Keycode) && !Input.GetKey(KeyCode.Keypad2) && onTheGround)
             {
                 DataManager.Instance.IsP2Attacking = true;
                 DataManager.Instance.P2AttackName = "Mid punch right";
@@ -311,6 +382,37 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+    }
+
+    private void FixedUpdate()
+    {
+        if (jump)
+        {
+            Jump();
+            jump = false;
+        }
+        if (jumpFwd)
+        {
+            JumpFWD();
+            jumpFwd = false;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        onTheGround = true;
+    }
+
+    private void Jump()
+    {
+        playerAnim.SetBool("Jump_Bool", true);
+        fighterRB.AddForce(Vector3.up * 6, ForceMode.Impulse);
+    }
+
+    private void JumpFWD()
+    {
+        playerAnim.SetBool("Jump_Bool", true);
+        fighterRB.AddForce(Vector3.up * 7, ForceMode.Impulse);
     }
 
     IEnumerator ResetAttack()
