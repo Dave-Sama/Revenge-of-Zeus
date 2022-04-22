@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     private List<string> freeOpponents;
     private AudioSource battleMusic;
     private bool raisedCounterOnDraw;
+    private GameObject pauseMenu;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +38,8 @@ public class GameManager : MonoBehaviour
         camera = GameObject.Find("Main Camera").GetComponent<Camera>();
         battleMusic = gameObject.GetComponent<AudioSource>();
         raisedCounterOnDraw = false;
+        pauseMenu = GameObject.Find("Pause Menu");
+        pauseMenu.SetActive(false);
         if (DataManager.Instance.playerWonCounter == 0 && DataManager.Instance.opponentWonCounter == 0)
         {
             DataManager.Instance.CurrentRound = 1;
@@ -96,6 +99,14 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // --------------------------- Activating Pause Menu -----------------------------------------------------
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Time.timeScale = 0;
+            pauseMenu.SetActive(true);
+        }
+
         // --------------------------- Setting the boundaries of the battle arena -----------------------------------------------------
 
         if (playerClone.transform.position.x < -4.21f) // --------put in comments when testing-----------
