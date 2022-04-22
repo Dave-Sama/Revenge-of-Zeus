@@ -42,10 +42,10 @@ public class HealthBar : MonoBehaviour
         //{
         //    FillHealthBack();
         //}
-        if (healthBarFront.tag == "Opponent" && healthBarBack.tag == "Opponent")
-        {
-            FillHealthBack();
-        }
+        //if (healthBarFront.tag == "Opponent" && healthBarBack.tag == "Opponent")
+        //{
+        //    FillHealthBack();
+        //}
     }
 
     void DrainHealth()

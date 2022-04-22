@@ -122,6 +122,8 @@ public class PlayerController : MonoBehaviour
 
             if (gameObject.tag == "Player")
             {
+                DataManager.Instance.P1Crouch = true;
+
                 if (Input.GetKeyDown(DataManager.Instance.middle_left_punch1_Keycode))
                 {
                     DataManager.Instance.IsP1Attacking = true;
@@ -132,6 +134,8 @@ public class PlayerController : MonoBehaviour
             }
             if (gameObject.tag == "Opponent")
             {
+                DataManager.Instance.P2Crouch = true;
+
                 if (Input.GetKeyDown(DataManager.Instance.middle_left_punch2_Keycode))
                 {
                     DataManager.Instance.IsP2Attacking = true;
@@ -189,6 +193,14 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            if(gameObject.tag == "Player")
+            {
+                DataManager.Instance.P1Crouch = false;
+            }
+            if(gameObject.tag == "Opponent")
+            {
+                DataManager.Instance.P2Crouch = false;
+            }
             playerAnim.SetBool("Crouch_Bool", false);
         }
 
@@ -355,10 +367,12 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(DataManager.Instance.block1_Keycode))
             {
+                DataManager.Instance.P1Block = true;
                 playerAnim.SetBool("Block_Bool", true);
             }
             else
             {
+                DataManager.Instance.P1Block = false;
                 playerAnim.SetBool("Block_Bool", false);
             }
             if (DataManager.Instance.IsP1Attacking)
@@ -370,10 +384,12 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(DataManager.Instance.block2_Keycode))
             {
+                DataManager.Instance.P2Block = true;
                 playerAnim.SetBool("Block_Bool", true);
             }
             else
             {
+                DataManager.Instance.P2Block = false;
                 playerAnim.SetBool("Block_Bool", false);
             }
             if (DataManager.Instance.IsP2Attacking)

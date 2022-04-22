@@ -30,6 +30,10 @@ public class DataManager : MonoBehaviour
     public GameObject P2Clone { get; set; } // The clone of the player 2 character after chosen in PvP mode
     public string PvPWinner { get; set; } // Who won the PvP match
     public string PvPLoser { get; set; } // Who lost the PvP match
+    public bool P1Crouch { get; set; } // Is P1 crouching (to prevent high punch damage)
+    public bool P2Crouch { get; set; } // Is P2 crouching (to prevent high punch damage)
+    public bool P1Block { get; set; } // Is P1 blocking
+    public bool P2Block { get; set; } // Is P2 blocking
 
 
     // Keycodes for player 1 control
