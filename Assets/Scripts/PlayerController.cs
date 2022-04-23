@@ -7,8 +7,8 @@ public class PlayerController : MonoBehaviour
     Animator playerAnim;
     Rigidbody fighterRB;
     bool jump;
-    bool jumpFwd;
     bool onTheGround;
+    bool isPressed;
     [SerializeField] AudioSource attackSound1;
     [SerializeField] AudioSource attackSound2;
 
@@ -18,8 +18,8 @@ public class PlayerController : MonoBehaviour
         playerAnim = gameObject.GetComponent<Animator>();
         fighterRB=gameObject.GetComponent<Rigidbody>();
         jump = false;
-        jumpFwd = false;
         onTheGround = true;
+        isPressed = false;
         attackSound1 = GameObject.Find("Attack Sound 1").GetComponent<AudioSource>();
         attackSound2 = GameObject.Find("Attack Sound 2").GetComponent<AudioSource>();
     }
@@ -27,6 +27,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       if(playerAnim.GetCurrentAnimatorStateInfo(0).IsName("KB_Idle_1")) // To not allow the inputs to be added to the input buffer
+        {
+            isPressed = false;
+        }
         //---------------------Walk Backwards---------------------------
         if ((gameObject.tag == "Player" && Input.GetKey(KeyCode.LeftArrow)) || (gameObject.tag == "Opponent" && Input.GetKey(KeyCode.Keypad6)))
         {
@@ -37,14 +41,15 @@ public class PlayerController : MonoBehaviour
         {
             playerAnim.SetFloat("Speed_Float", 1);
             transform.Translate(Vector3.forward * Time.deltaTime*0.5f);  // note to myself: there are 4 fucked up characters that need Vector3.forward*Time.deltaTime*1
-            if (onTheGround)
-            {
-                playerAnim.SetBool("Jump_Bool", false);
-            }
             if ((gameObject.tag == "Player" && Input.GetKeyDown(KeyCode.UpArrow)) || (gameObject.tag == "Opponent" && Input.GetKeyDown(KeyCode.Keypad8)))
             {
-                onTheGround=false;
-                jumpFwd = true;
+                onTheGround = false;
+                playerAnim.SetBool("Jump_Bool", true);
+            }
+            else
+            {
+                onTheGround = true;
+                playerAnim.SetBool("Jump_Bool", false);
             }
         }
         else
@@ -54,10 +59,7 @@ public class PlayerController : MonoBehaviour
         //---------------------Jump---------------------------
         if (onTheGround)
         {
-            if((gameObject.tag=="Player" && !Input.GetKey(KeyCode.RightArrow)) || (gameObject.tag == "Opponent" && !Input.GetKey(KeyCode.Keypad4)))
-            {
-                playerAnim.SetBool("Jump_Bool", false);
-            }
+            playerAnim.SetBool("Jump_Bool", false);
             if ((gameObject.tag == "Player" && Input.GetKeyDown(KeyCode.UpArrow) && !Input.GetKey(KeyCode.RightArrow)) || 
                 (gameObject.tag == "Opponent" && Input.GetKeyDown(KeyCode.Keypad8) && !Input.GetKey(KeyCode.Keypad4)))
             {
@@ -71,8 +73,9 @@ public class PlayerController : MonoBehaviour
             {
                 // ---------------------P1 Jump Punch---------------------------
 
-                if (Input.GetKeyDown(DataManager.Instance.middle_left_punch1_Keycode))
+                if (Input.GetKeyDown(DataManager.Instance.middle_left_punch1_Keycode) && !isPressed)
                 {
+                    isPressed = true;
                     DataManager.Instance.IsP1Attacking = true;
                     DataManager.Instance.P1AttackName = "Jump punch";
                     playerAnim.SetTrigger("JumpPunch_Trig");
@@ -81,8 +84,9 @@ public class PlayerController : MonoBehaviour
 
                 // ---------------------P1 Jump Kick---------------------------
 
-                if (Input.GetKeyDown(DataManager.Instance.middle_right_punch1_Keycode))
+                if (Input.GetKeyDown(DataManager.Instance.middle_right_punch1_Keycode) && !isPressed)
                 {
+                    isPressed = true;
                     DataManager.Instance.IsP1Attacking = true;
                     DataManager.Instance.P1AttackName = "Jump kick";
                     playerAnim.SetTrigger("JumpKick_Trig");
@@ -94,8 +98,9 @@ public class PlayerController : MonoBehaviour
             {
                 // ---------------------P2 Jump Punch---------------------------
 
-                if (Input.GetKeyDown(DataManager.Instance.middle_left_punch2_Keycode))
+                if (Input.GetKeyDown(DataManager.Instance.middle_left_punch2_Keycode) && !isPressed)
                 {
+                    isPressed = true;
                     DataManager.Instance.IsP2Attacking = true;
                     DataManager.Instance.P2AttackName = "Jump punch";
                     playerAnim.SetTrigger("JumpPunch_Trig");
@@ -104,8 +109,9 @@ public class PlayerController : MonoBehaviour
 
                 // ---------------------P2 Jump Kick---------------------------
 
-                if (Input.GetKeyDown(DataManager.Instance.middle_right_punch2_Keycode))
+                if (Input.GetKeyDown(DataManager.Instance.middle_right_punch2_Keycode) && !isPressed)
                 {
+                    isPressed = true;
                     DataManager.Instance.IsP2Attacking = true;
                     DataManager.Instance.P2AttackName = "Jump kick";
                     playerAnim.SetTrigger("JumpKick_Trig");
@@ -118,14 +124,20 @@ public class PlayerController : MonoBehaviour
         {
             playerAnim.SetBool("Crouch_Bool", true);
 
+            if (playerAnim.GetCurrentAnimatorStateInfo(0).IsName("KB_crouch_Idle")) // To not allow the inputs to be added to the input buffer
+            {
+                isPressed = false;
+            }
+
             // ---------------------Low Punch---------------------------
 
             if (gameObject.tag == "Player")
             {
                 DataManager.Instance.P1Crouch = true;
 
-                if (Input.GetKeyDown(DataManager.Instance.middle_left_punch1_Keycode))
+                if (Input.GetKeyDown(DataManager.Instance.middle_left_punch1_Keycode) && !isPressed)
                 {
+                    isPressed = true;
                     DataManager.Instance.IsP1Attacking = true;
                     DataManager.Instance.P1AttackName = "Low punch";
                     playerAnim.SetTrigger("LowPunch_Trig");
@@ -136,8 +148,9 @@ public class PlayerController : MonoBehaviour
             {
                 DataManager.Instance.P2Crouch = true;
 
-                if (Input.GetKeyDown(DataManager.Instance.middle_left_punch2_Keycode))
+                if (Input.GetKeyDown(DataManager.Instance.middle_left_punch2_Keycode) && !isPressed)
                 {
+                    isPressed = true;
                     DataManager.Instance.IsP2Attacking = true;
                     DataManager.Instance.P2AttackName = "Low punch";
                     playerAnim.SetTrigger("LowPunch_Trig");
@@ -149,8 +162,9 @@ public class PlayerController : MonoBehaviour
 
             if (gameObject.tag == "Player")
             {
-                if (Input.GetKeyDown(DataManager.Instance.middle_right_punch1_Keycode))
+                if (Input.GetKeyDown(DataManager.Instance.middle_right_punch1_Keycode) && !isPressed)
                 {
+                    isPressed = true;
                     DataManager.Instance.IsP1Attacking = true;
                     DataManager.Instance.P1AttackName = "Low kick";
                     playerAnim.SetTrigger("LowKick_Trig");
@@ -159,8 +173,9 @@ public class PlayerController : MonoBehaviour
             }
             if (gameObject.tag == "Opponent")
             {
-                if (Input.GetKeyDown(DataManager.Instance.middle_right_punch2_Keycode))
+                if (Input.GetKeyDown(DataManager.Instance.middle_right_punch2_Keycode) && !isPressed)
                 {
+                    isPressed = true;
                     DataManager.Instance.IsP2Attacking = true;
                     DataManager.Instance.P2AttackName = "Low kick";
                     playerAnim.SetTrigger("LowKick_Trig");
@@ -172,8 +187,9 @@ public class PlayerController : MonoBehaviour
 
             if (gameObject.tag == "Player")
             {
-                if (Input.GetKeyDown(DataManager.Instance.middle_kick1_Keycode))
+                if (Input.GetKeyDown(DataManager.Instance.middle_kick1_Keycode) && !isPressed)
                 {
+                    isPressed = true;
                     DataManager.Instance.IsP1Attacking = true;
                     DataManager.Instance.P1AttackName = "Uppercut";
                     playerAnim.SetTrigger("Uppercut_Trig");
@@ -182,8 +198,9 @@ public class PlayerController : MonoBehaviour
             }
             if (gameObject.tag == "Opponent")
             {
-                if (Input.GetKeyDown(DataManager.Instance.middle_kick2_Keycode))
+                if (Input.GetKeyDown(DataManager.Instance.middle_kick2_Keycode) && !isPressed)
                 {
+                    isPressed = true;
                     DataManager.Instance.IsP2Attacking = true;
                     DataManager.Instance.P2AttackName = "Uppercut";
                     playerAnim.SetTrigger("Uppercut_Trig");
@@ -208,8 +225,9 @@ public class PlayerController : MonoBehaviour
 
         if (gameObject.tag == "Player")
         {
-            if (Input.GetKeyDown(DataManager.Instance.upper_left_punch1_Keycode))
+            if (Input.GetKeyDown(DataManager.Instance.upper_left_punch1_Keycode) && !isPressed)
             {
+                isPressed = true;
                 DataManager.Instance.IsP1Attacking = true;
                 DataManager.Instance.P1AttackName = "Up punch left";
                 playerAnim.SetTrigger("UpPunchLeft_Trig");
@@ -219,8 +237,9 @@ public class PlayerController : MonoBehaviour
 
         if (gameObject.tag == "Opponent")
         {
-            if (Input.GetKeyDown(DataManager.Instance.upper_left_punch2_Keycode))
+            if (Input.GetKeyDown(DataManager.Instance.upper_left_punch2_Keycode) && !isPressed)
             {
+                isPressed = true;
                 DataManager.Instance.IsP2Attacking = true;
                 DataManager.Instance.P2AttackName = "Up punch left";
                 playerAnim.SetTrigger("UpPunchLeft_Trig");
@@ -230,8 +249,9 @@ public class PlayerController : MonoBehaviour
 
         if (gameObject.tag == "Player")
         {
-            if (Input.GetKeyDown(DataManager.Instance.upper_right_punch1_Keycode))
+            if (Input.GetKeyDown(DataManager.Instance.upper_right_punch1_Keycode) && !isPressed)
             {
+                isPressed = true;
                 DataManager.Instance.IsP1Attacking = true;
                 DataManager.Instance.P1AttackName = "Up punch right";
                 playerAnim.SetTrigger("UpPunchRight_Trig");
@@ -240,8 +260,9 @@ public class PlayerController : MonoBehaviour
         }
         if (gameObject.tag == "Opponent")
         {
-            if (Input.GetKeyDown(DataManager.Instance.upper_right_punch2_Keycode))
+            if (Input.GetKeyDown(DataManager.Instance.upper_right_punch2_Keycode) && !isPressed)
             {
+                isPressed = true;
                 DataManager.Instance.IsP2Attacking = true;
                 DataManager.Instance.P2AttackName = "Up punch right";
                 playerAnim.SetTrigger("UpPunchRight_Trig");
@@ -253,8 +274,9 @@ public class PlayerController : MonoBehaviour
 
         if (gameObject.tag == "Player")
         {
-            if (Input.GetKeyDown(DataManager.Instance.middle_left_punch1_Keycode) && !Input.GetKey(KeyCode.DownArrow) && onTheGround)
+            if (Input.GetKeyDown(DataManager.Instance.middle_left_punch1_Keycode) && !Input.GetKey(KeyCode.DownArrow) && onTheGround && !isPressed)
             {
+                isPressed = true;
                 DataManager.Instance.IsP1Attacking = true;
                 DataManager.Instance.P1AttackName = "Mid punch left";
                 playerAnim.SetTrigger("MidPunchLeft_Trig");
@@ -263,8 +285,9 @@ public class PlayerController : MonoBehaviour
         }
         if (gameObject.tag == "Opponent")
         {
-            if (Input.GetKeyDown(DataManager.Instance.middle_left_punch2_Keycode) && !Input.GetKey(KeyCode.Keypad2) && onTheGround)
+            if (Input.GetKeyDown(DataManager.Instance.middle_left_punch2_Keycode) && !Input.GetKey(KeyCode.Keypad2) && onTheGround && !isPressed)
             {
+                isPressed = true;
                 DataManager.Instance.IsP2Attacking = true;
                 DataManager.Instance.P2AttackName = "Mid punch left";
                 playerAnim.SetTrigger("MidPunchLeft_Trig");
@@ -275,8 +298,9 @@ public class PlayerController : MonoBehaviour
 
         if (gameObject.tag == "Player")
         {
-            if (Input.GetKeyDown(DataManager.Instance.middle_right_punch1_Keycode) && !Input.GetKey(KeyCode.DownArrow) && onTheGround)
+            if (Input.GetKeyDown(DataManager.Instance.middle_right_punch1_Keycode) && !Input.GetKey(KeyCode.DownArrow) && onTheGround && !isPressed)
             {
+                isPressed = true;
                 DataManager.Instance.IsP1Attacking = true;
                 DataManager.Instance.P1AttackName = "Mid punch right";
                 playerAnim.SetTrigger("MidPunchRight_Trig");
@@ -285,8 +309,9 @@ public class PlayerController : MonoBehaviour
         }
         if (gameObject.tag == "Opponent")
         {
-            if (Input.GetKeyDown(DataManager.Instance.middle_right_punch2_Keycode) && !Input.GetKey(KeyCode.Keypad2) && onTheGround)
+            if (Input.GetKeyDown(DataManager.Instance.middle_right_punch2_Keycode) && !Input.GetKey(KeyCode.Keypad2) && onTheGround && !isPressed)
             {
+                isPressed = true;
                 DataManager.Instance.IsP2Attacking = true;
                 DataManager.Instance.P2AttackName = "Mid punch right";
                 playerAnim.SetTrigger("MidPunchRight_Trig");
@@ -298,8 +323,9 @@ public class PlayerController : MonoBehaviour
 
         if (gameObject.tag == "Player")
         {
-            if (Input.GetKeyDown(DataManager.Instance.upper_kick1_Keycode))
+            if (Input.GetKeyDown(DataManager.Instance.upper_kick1_Keycode) && !isPressed)
             {
+                isPressed = true;
                 DataManager.Instance.IsP1Attacking = true;
                 DataManager.Instance.P1AttackName = "High kick";
                 playerAnim.SetTrigger("HighKick_Trig");
@@ -308,8 +334,9 @@ public class PlayerController : MonoBehaviour
         }
         if (gameObject.tag == "Opponent")
         {
-            if (Input.GetKeyDown(DataManager.Instance.upper_kick2_Keycode))
+            if (Input.GetKeyDown(DataManager.Instance.upper_kick2_Keycode) && !isPressed)
             {
+                isPressed = true;
                 DataManager.Instance.IsP2Attacking = true;
                 DataManager.Instance.P2AttackName = "High kick";
                 playerAnim.SetTrigger("HighKick_Trig");
@@ -321,8 +348,9 @@ public class PlayerController : MonoBehaviour
 
         if (gameObject.tag == "Player")
         {
-            if (Input.GetKeyDown(DataManager.Instance.middle_kick1_Keycode) && !Input.GetKey(KeyCode.DownArrow))
+            if (Input.GetKeyDown(DataManager.Instance.middle_kick1_Keycode) && !Input.GetKey(KeyCode.DownArrow) && !isPressed)
             {
+                isPressed = true;
                 DataManager.Instance.IsP1Attacking = true;
                 DataManager.Instance.P1AttackName = "Mid kick";
                 playerAnim.SetTrigger("MidKick_Trig");
@@ -331,8 +359,9 @@ public class PlayerController : MonoBehaviour
         }
         if (gameObject.tag == "Opponent")
         {
-            if (Input.GetKeyDown(DataManager.Instance.middle_kick2_Keycode) && !Input.GetKey(KeyCode.Keypad2))
+            if (Input.GetKeyDown(DataManager.Instance.middle_kick2_Keycode) && !Input.GetKey(KeyCode.Keypad2) && !isPressed)
             {
+                isPressed = true;
                 DataManager.Instance.IsP2Attacking = true;
                 DataManager.Instance.P2AttackName = "Mid kick";
                 playerAnim.SetTrigger("MidKick_Trig");
@@ -344,8 +373,9 @@ public class PlayerController : MonoBehaviour
 
         if (gameObject.tag == "Player")
         {
-            if (Input.GetKeyDown(DataManager.Instance.special_attack1_Keycode))
+            if (Input.GetKeyDown(DataManager.Instance.special_attack1_Keycode) && !isPressed)
             {
+                isPressed = true;
                 DataManager.Instance.IsP1Attacking = true;
                 DataManager.Instance.P1AttackName = "Special attack";
                 playerAnim.SetTrigger("SpecialAttack_Trig");
@@ -353,8 +383,9 @@ public class PlayerController : MonoBehaviour
         }
         if (gameObject.tag == "Opponent")
         {
-            if (Input.GetKeyDown(DataManager.Instance.special_attack2_Keycode))
+            if (Input.GetKeyDown(DataManager.Instance.special_attack2_Keycode) && !isPressed)
             {
+                isPressed = true;
                 DataManager.Instance.IsP2Attacking = true;
                 DataManager.Instance.P2AttackName = "Special attack";
                 playerAnim.SetTrigger("SpecialAttack_Trig");
@@ -407,11 +438,6 @@ public class PlayerController : MonoBehaviour
             Jump();
             jump = false;
         }
-        if (jumpFwd)
-        {
-            JumpFWD();
-            jumpFwd = false;
-        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -422,13 +448,7 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         playerAnim.SetBool("Jump_Bool", true);
-        fighterRB.AddForce(Vector3.up * 6, ForceMode.Impulse);
-    }
-
-    private void JumpFWD()
-    {
-        playerAnim.SetBool("Jump_Bool", true);
-        fighterRB.AddForce(Vector3.up * 7, ForceMode.Impulse);
+        fighterRB.AddForce(Vector3.up * 4.5f, ForceMode.Impulse);
     }
 
     IEnumerator ResetAttack()
