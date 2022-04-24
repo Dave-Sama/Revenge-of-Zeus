@@ -450,7 +450,6 @@ public class GameManager : MonoBehaviour
         if (winnerSound!=null)
         {
             winnerSound.Play();
-            Debug.Log("is playing: "+winnerSound.isPlaying);
         }
         else
         {

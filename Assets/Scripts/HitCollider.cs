@@ -27,11 +27,16 @@ public class HitCollider : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         int damage=0;
-
+        
         if(other.CompareTag("Opponent"))
         {
+            if (DataManager.Instance.P1AttackName == "")
+            {
+                Debug.Log("is key pressed: " + Input.GetKeyDown(DataManager.Instance.upper_left_punch1_Keycode));
+            }
             if ((DataManager.Instance.P1AttackName == "Up punch left" || DataManager.Instance.P1AttackName == "High kick") && DataManager.Instance.IsP1Attacking)
             {
+                Debug.Log("got a hit");
                 if(DataManager.Instance.P2Crouch)
                 {
                     damage = 0;

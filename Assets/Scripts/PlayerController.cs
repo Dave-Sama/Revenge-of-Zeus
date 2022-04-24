@@ -406,10 +406,6 @@ public class PlayerController : MonoBehaviour
                 DataManager.Instance.P1Block = false;
                 playerAnim.SetBool("Block_Bool", false);
             }
-            if (DataManager.Instance.IsP1Attacking)
-            {
-                StartCoroutine(ResetAttack());
-            }
         }
         if (gameObject.tag == "Opponent")
         {
@@ -423,10 +419,11 @@ public class PlayerController : MonoBehaviour
                 DataManager.Instance.P2Block = false;
                 playerAnim.SetBool("Block_Bool", false);
             }
-            if (DataManager.Instance.IsP2Attacking)
-            {
-                StartCoroutine(ResetAttack());
-            }
+        }
+
+        if (DataManager.Instance.IsP1Attacking)
+        {
+            StartCoroutine(ResetAttack());
         }
 
     }
@@ -453,7 +450,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator ResetAttack()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         if (gameObject.tag == "Player")
         {
             DataManager.Instance.IsP1Attacking = false;
