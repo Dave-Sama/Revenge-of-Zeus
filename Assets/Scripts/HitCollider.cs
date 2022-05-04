@@ -35,10 +35,13 @@ public class HitCollider : MonoBehaviour
         
         if(other.CompareTag("Opponent"))
         {
+<<<<<<< HEAD
             if(DataManager.Instance.IsP1Attacking)
             {
                 playersSP.value = playersSP.value + 0.5f;
             }
+=======
+>>>>>>> 6f0d715b3beae5c77c750d1a065298741b0816d1
             if (DataManager.Instance.P1AttackName == "")
             {
                 Debug.Log("is key pressed: " + Input.GetKeyDown(DataManager.Instance.upper_left_punch1_Keycode));
