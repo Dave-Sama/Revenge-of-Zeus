@@ -62,7 +62,7 @@ public class GameplayMode : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(6);
+            yield return new WaitForSeconds(0.5f); // return to 6 after done testing
             SceneLoader.Instance.LoadScene(2);
             break;
         }

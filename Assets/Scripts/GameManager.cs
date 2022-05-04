@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     private Animator opponentDeadAnim;
     private PlayerController playerController;
     private PlayerController opponentController;
+    private FightAgent opponentAgent;
     private List<string> freeOpponents;
     private AudioSource battleMusic;
     private bool raisedCounterOnDraw;
@@ -78,6 +79,9 @@ public class GameManager : MonoBehaviour
             DataManager.Instance.CurrentOpponent = opponentsNameText.text;
         }
 
+        
+        opponentsNameText.text = "Helios";// ---------------------------------For testing, delete later-------------------------
+
         Vector3 characterPosition = new Vector3(-2.75f, 0, 0);
         playerClone=InstantiateCharacter(playersNameText.text, characterPosition,true);
         opponentClone=InstantiateCharacter(opponentsNameText.text, characterPosition*(-1),false);
@@ -85,14 +89,16 @@ public class GameManager : MonoBehaviour
         opponentDeadAnim = opponentClone.GetComponent<Animator>();
         DataManager.Instance.IsPlayerDead = false;
         DataManager.Instance.IsOpponentDead = false;
-        rightWall.transform.position = new Vector3(camera.pixelWidth/2, rightWall.transform.position.y);
-        leftWall.transform.position = new Vector3(camera.pixelWidth / (-2), rightWall.transform.position.y);
+        //rightWall.transform.position = new Vector3(camera.pixelWidth/2, rightWall.transform.position.y);  // ---------------delete this later--------------------
+        //leftWall.transform.position = new Vector3(camera.pixelWidth / (-2), rightWall.transform.position.y); // ---------------delete this later--------------------
         WinningsToVictoryMarks(DataManager.Instance.playerWonCounter, playerVictoryMark);
         WinningsToVictoryMarks(DataManager.Instance.opponentWonCounter, opponentVictoryMark);
         playerController = playerClone.GetComponent<PlayerController>();
         playerController.enabled = false;
         opponentController = opponentClone.GetComponent<PlayerController>();
         opponentController.enabled = false;
+        opponentAgent=opponentClone.GetComponent<FightAgent>();
+        //opponentAgent.enabled = false;  // --------------------------------put in comments for testing----------------
         StartCoroutine(RoundReadyFight());
     }
 
@@ -387,11 +393,6 @@ public class GameManager : MonoBehaviour
                     float opponentRotationZ = character.transform.rotation.z;
                     float opponentRotationW = character.transform.rotation.w;
                     Quaternion opponentRotation = new Quaternion(opponentRotationX, opponentRotationY, opponentRotationZ, opponentRotationW);
-                    //if(DataManager.Instance.GameMode=="ML1" || DataManager.Instance.GameMode=="ML2")
-                    //{
-                    //    PlayerController controller = character.gameObject.GetComponent<PlayerController>();
-                    //    controller.enabled = false;
-                    //}
                     GameObject opponent;
                     opponent=Instantiate(character, characterPosition, opponentRotation);
                     opponent.tag = "Opponent";
@@ -421,6 +422,10 @@ public class GameManager : MonoBehaviour
         {
             opponentController.enabled = true;
         }
+        //else
+        //{
+        //    opponentAgent.enabled = true;
+        //}
         battleMusic.Play();
     }
 
@@ -450,7 +455,6 @@ public class GameManager : MonoBehaviour
         if (winnerSound!=null)
         {
             winnerSound.Play();
-            Debug.Log("is playing: "+winnerSound.isPlaying);
         }
         else
         {

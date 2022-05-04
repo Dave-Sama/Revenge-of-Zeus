@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class HitCollider : MonoBehaviour
 {
     AudioSource hitSound;
     AudioSource blockSound;
+    Slider playersSP;
+    Slider opponentsSP;
 
     // Start is called before the first frame update
     void Start()
@@ -15,7 +18,9 @@ public class HitCollider : MonoBehaviour
         {
             hitSound = GameObject.Find("Hit Sound").GetComponent<AudioSource>();
             blockSound = GameObject.Find("Block Sound").GetComponent<AudioSource>();
-        }  
+        }
+        playersSP = GameObject.FindGameObjectWithTag("PlayerSP").GetComponent<Slider>();
+        opponentsSP = GameObject.FindGameObjectWithTag("OpponentSP").GetComponent<Slider>();
     }
 
     // Update is called once per frame
@@ -27,11 +32,20 @@ public class HitCollider : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         int damage=0;
-
+        
         if(other.CompareTag("Opponent"))
         {
+            if(DataManager.Instance.IsP1Attacking)
+            {
+                playersSP.value = playersSP.value + 0.5f;
+            }
+            if (DataManager.Instance.P1AttackName == "")
+            {
+                Debug.Log("is key pressed: " + Input.GetKeyDown(DataManager.Instance.upper_left_punch1_Keycode));
+            }
             if ((DataManager.Instance.P1AttackName == "Up punch left" || DataManager.Instance.P1AttackName == "High kick") && DataManager.Instance.IsP1Attacking)
             {
+                Debug.Log("got a hit");
                 if(DataManager.Instance.P2Crouch)
                 {
                     damage = 0;
@@ -151,8 +165,9 @@ public class HitCollider : MonoBehaviour
                     DataManager.Instance.IsPlayer = false;
                 }
             }
-            if (DataManager.Instance.P1AttackName == "Special attack" && DataManager.Instance.IsP1Attacking)
+            if (DataManager.Instance.P1AttackName == "Special attack" && DataManager.Instance.IsP1Attacking && playersSP.value==playersSP.maxValue)
             {
+                playersSP.value = 0;
                 if (DataManager.Instance.P2Block)
                 {
                     damage = 0;
@@ -242,6 +257,10 @@ public class HitCollider : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
+            if(DataManager.Instance.IsP2Attacking)
+            {
+                opponentsSP.value = opponentsSP.value + 0.5f;
+            }
             if ((DataManager.Instance.P2AttackName == "Up punch left" || DataManager.Instance.P2AttackName == "High kick") && DataManager.Instance.IsP2Attacking)
             {
                 if(DataManager.Instance.P1Crouch)
@@ -369,8 +388,9 @@ public class HitCollider : MonoBehaviour
                     DataManager.Instance.IsPlayer = true;
                 }   
             }
-            if (DataManager.Instance.P2AttackName == "Special attack" && DataManager.Instance.IsP2Attacking)
+            if (DataManager.Instance.P2AttackName == "Special attack" && DataManager.Instance.IsP2Attacking && opponentsSP.value==opponentsSP.maxValue)
             {
+                opponentsSP.value = 0; 
                 if (DataManager.Instance.P1Block)
                 {
                     damage = 0;

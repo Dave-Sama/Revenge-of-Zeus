@@ -34,6 +34,7 @@ public class DataManager : MonoBehaviour
     public bool P2Crouch { get; set; } // Is P2 crouching (to prevent high punch damage)
     public bool P1Block { get; set; } // Is P1 blocking
     public bool P2Block { get; set; } // Is P2 blocking
+    public bool IsPlayerCrouching { get; set; } // Sends the data whether the player is crouching or not for the ML agent.
 
 
     // Keycodes for player 1 control

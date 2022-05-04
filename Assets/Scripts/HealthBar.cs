@@ -38,7 +38,7 @@ public class HealthBar : MonoBehaviour
             DataManager.Instance.PlayersDamage = 10;
             DrainHealth();
         }
-        //if (DataManager.Instance.IsPlayerDead && healthBarFront.tag == "Player" && healthBarBack.tag == "Player") //candidate for deletion
+        //if (DataManager.Instance.IsPlayerDead && healthBarFront.tag == "PlayerHP" && healthBarBack.tag == "Player") //candidate for deletion
         //{
         //    FillHealthBack();
         //}
@@ -50,7 +50,7 @@ public class HealthBar : MonoBehaviour
 
     void DrainHealth()
     {
-        if(healthBarFront.tag == "Player" && healthBarBack.tag == "Player")
+        if(healthBarFront.tag == "PlayerHP" && healthBarBack.tag == "Player")
         {
             if (DataManager.Instance.PlayersDamage != 0)
             {

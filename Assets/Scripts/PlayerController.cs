@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class PlayerController : MonoBehaviour
     bool isPressed;
     [SerializeField] AudioSource attackSound1;
     [SerializeField] AudioSource attackSound2;
+    Slider playersSP;
+    Slider opponentsSP;
 
     // Start is called before the first frame update
     void Start()
@@ -22,12 +25,20 @@ public class PlayerController : MonoBehaviour
         isPressed = false;
         attackSound1 = GameObject.Find("Attack Sound 1").GetComponent<AudioSource>();
         attackSound2 = GameObject.Find("Attack Sound 2").GetComponent<AudioSource>();
+        playersSP = GameObject.FindGameObjectWithTag("PlayerSP").GetComponent<Slider>();
+        opponentsSP = GameObject.FindGameObjectWithTag("OpponentSP").GetComponent<Slider>();
     }
 
     // Update is called once per frame
     void Update()
     {
-       if(playerAnim.GetCurrentAnimatorStateInfo(0).IsName("KB_Idle_1")) // To not allow the inputs to be added to the input buffer
+        // ----------------------------To not allow the inputs to be added to the input buffer-------------------------------------------------
+        if (playerAnim.GetCurrentAnimatorStateInfo(0).IsName("KB_Idle_1")
+            || playerAnim.GetCurrentAnimatorStateInfo(0).IsName("KB_Idle_2")
+            || playerAnim.GetCurrentAnimatorStateInfo(0).IsName("KB_Idle_3")
+            || playerAnim.GetCurrentAnimatorStateInfo(0).IsName("KB_Idle_4")
+            || playerAnim.GetCurrentAnimatorStateInfo(0).IsName("KB_Idle_5")
+            || playerAnim.GetCurrentAnimatorStateInfo(0).IsName("KB_Idle_6"))
         {
             isPressed = false;
         }
@@ -123,6 +134,7 @@ public class PlayerController : MonoBehaviour
         if ((gameObject.tag == "Player" && Input.GetKey(KeyCode.DownArrow)) || (gameObject.tag == "Opponent" && Input.GetKey(KeyCode.Keypad2)))
         {
             playerAnim.SetBool("Crouch_Bool", true);
+            DataManager.Instance.IsPlayerCrouching = true;
 
             if (playerAnim.GetCurrentAnimatorStateInfo(0).IsName("KB_crouch_Idle")) // To not allow the inputs to be added to the input buffer
             {
@@ -210,6 +222,9 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            DataManager.Instance.IsPlayerCrouching = false; // for the ML agent
+
+            // for the PvP
             if(gameObject.tag == "Player")
             {
                 DataManager.Instance.P1Crouch = false;
@@ -373,7 +388,7 @@ public class PlayerController : MonoBehaviour
 
         if (gameObject.tag == "Player")
         {
-            if (Input.GetKeyDown(DataManager.Instance.special_attack1_Keycode) && !isPressed)
+            if (Input.GetKeyDown(DataManager.Instance.special_attack1_Keycode) && !isPressed && playersSP.value==playersSP.maxValue)
             {
                 isPressed = true;
                 DataManager.Instance.IsP1Attacking = true;
@@ -383,7 +398,7 @@ public class PlayerController : MonoBehaviour
         }
         if (gameObject.tag == "Opponent")
         {
-            if (Input.GetKeyDown(DataManager.Instance.special_attack2_Keycode) && !isPressed)
+            if (Input.GetKeyDown(DataManager.Instance.special_attack2_Keycode) && !isPressed && opponentsSP.value==opponentsSP.maxValue)
             {
                 isPressed = true;
                 DataManager.Instance.IsP2Attacking = true;
@@ -406,10 +421,6 @@ public class PlayerController : MonoBehaviour
                 DataManager.Instance.P1Block = false;
                 playerAnim.SetBool("Block_Bool", false);
             }
-            if (DataManager.Instance.IsP1Attacking)
-            {
-                StartCoroutine(ResetAttack());
-            }
         }
         if (gameObject.tag == "Opponent")
         {
@@ -423,10 +434,11 @@ public class PlayerController : MonoBehaviour
                 DataManager.Instance.P2Block = false;
                 playerAnim.SetBool("Block_Bool", false);
             }
-            if (DataManager.Instance.IsP2Attacking)
-            {
-                StartCoroutine(ResetAttack());
-            }
+        }
+
+        if (DataManager.Instance.IsP1Attacking)
+        {
+            StartCoroutine(ResetAttack());
         }
 
     }
@@ -453,7 +465,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator ResetAttack()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         if (gameObject.tag == "Player")
         {
             DataManager.Instance.IsP1Attacking = false;
