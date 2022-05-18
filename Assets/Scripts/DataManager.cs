@@ -35,6 +35,10 @@ public class DataManager : MonoBehaviour
     public bool P1Block { get; set; } // Is P1 blocking
     public bool P2Block { get; set; } // Is P2 blocking
     public bool IsPlayerCrouching { get; set; } // Sends the data whether the player is crouching or not for the ML agent.
+    public int PlayersHP { get; set; } // Players current HP at the end of round, for the DNA class
+    public int OpponentsHP { get; set; } // Opponents current HP at the end of round, for the DNA class
+    public bool PlayerBeingHit { get; set; } // Notify the DNA class if the player is being hit (updated in hit collider, game manager and dna)
+    public bool OpponentBeingHit { get; set; } // Notify the DNA class if the opponent is being hit (updated in hit collider, game manager and dna)
 
 
     // Keycodes for player 1 control

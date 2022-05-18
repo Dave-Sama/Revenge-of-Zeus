@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
         raisedCounterOnDraw = false;
         pauseMenu = GameObject.Find("Pause Menu");
         pauseMenu.SetActive(false);
+        DataManager.Instance.OpponentBeingHit = false;
+        DataManager.Instance.PlayerBeingHit = false;
         if (DataManager.Instance.playerWonCounter == 0 && DataManager.Instance.opponentWonCounter == 0)
         {
             DataManager.Instance.CurrentRound = 1;
@@ -80,7 +82,7 @@ public class GameManager : MonoBehaviour
         }
 
         
-        opponentsNameText.text = "Helios";// ---------------------------------For testing, delete later-------------------------
+        //opponentsNameText.text = "Helios";// ---------------------------------For testing, delete later-------------------------
 
         Vector3 characterPosition = new Vector3(-2.75f, 0, 0);
         playerClone=InstantiateCharacter(playersNameText.text, characterPosition,true);

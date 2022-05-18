@@ -11,16 +11,23 @@ public class HitCollider : MonoBehaviour
     Slider playersSP;
     Slider opponentsSP;
 
+    // -------For training-------
+    [SerializeField] Actions actions;
+    [SerializeField] GAObj gaObj;
+
     // Start is called before the first frame update
     void Start()
     {
-        if(SceneManager.GetActiveScene().buildIndex != 4) // Scene index 4 = End of Match scene
+        if(SceneManager.GetActiveScene().name != "Training")
         {
-            hitSound = GameObject.Find("Hit Sound").GetComponent<AudioSource>();
-            blockSound = GameObject.Find("Block Sound").GetComponent<AudioSource>();
-        }
-        playersSP = GameObject.FindGameObjectWithTag("PlayerSP").GetComponent<Slider>();
-        opponentsSP = GameObject.FindGameObjectWithTag("OpponentSP").GetComponent<Slider>();
+            if (SceneManager.GetActiveScene().buildIndex != 4) // Scene index 4 = End of Match scene
+            {
+                hitSound = GameObject.Find("Hit Sound").GetComponent<AudioSource>();
+                blockSound = GameObject.Find("Block Sound").GetComponent<AudioSource>();
+            }
+            playersSP = GameObject.FindGameObjectWithTag("PlayerSP").GetComponent<Slider>();
+            opponentsSP = GameObject.FindGameObjectWithTag("OpponentSP").GetComponent<Slider>();
+        }  
     }
 
     // Update is called once per frame
@@ -33,448 +40,466 @@ public class HitCollider : MonoBehaviour
     {
         int damage=0;
         
-        if(other.CompareTag("Opponent"))
+        if(SceneManager.GetActiveScene().name == "Training")
         {
-            if(DataManager.Instance.IsP1Attacking)
+            if (other.CompareTag("Player") && actions.isAttacking)
             {
-                playersSP.value = playersSP.value + 0.5f;
-            }
-            if (DataManager.Instance.P1AttackName == "")
-            {
-                Debug.Log("is key pressed: " + Input.GetKeyDown(DataManager.Instance.upper_left_punch1_Keycode));
-            }
-            if ((DataManager.Instance.P1AttackName == "Up punch left" || DataManager.Instance.P1AttackName == "High kick") && DataManager.Instance.IsP1Attacking)
-            {
-                Debug.Log("got a hit");
-                if(DataManager.Instance.P2Crouch)
+                actions.isAttacking = false;
+                if (gaObj.PlayersHP > 0)
                 {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P1AttackName = "";
-                    DataManager.Instance.IsPlayer = false;
-                }
-                else if (DataManager.Instance.P2Block)
-                {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P1AttackName = "";
-                    blockSound.Play();
-                    DataManager.Instance.IsPlayer = false;
-                }
-                else
-                {
-                    damage = 1;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P1AttackName = "";
-                    hitSound.Play();
-                    Animator hitAnim = other.GetComponent<Animator>();
-                    hitAnim.SetTrigger("HighLeftHit_Trig");
-                    DataManager.Instance.IsPlayer = false;
-                }
-                
-            }
-            if (DataManager.Instance.P1AttackName == "Up punch right" && DataManager.Instance.IsP1Attacking)
-            {
-                if(DataManager.Instance.P2Crouch)
-                {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P1AttackName = "";
-                    DataManager.Instance.IsPlayer = false;
-                }
-                else if (DataManager.Instance.P2Block)
-                {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P1AttackName = "";
-                    blockSound.Play();
-                    DataManager.Instance.IsPlayer = false;
-                }
-                else
-                {
-                    damage = 1;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P1AttackName = "";
-                    hitSound.Play();
-                    Animator hitAnim = other.GetComponent<Animator>();
-                    hitAnim.SetTrigger("HighRightHit_Trig");
-                    DataManager.Instance.IsPlayer = false;
-                }
-                
-            }
-            if (DataManager.Instance.P1AttackName == "Mid kick" && DataManager.Instance.IsP1Attacking)
-            {
-                if (DataManager.Instance.P2Block)
-                {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P1AttackName = "";
-                    blockSound.Play();
-                    DataManager.Instance.IsPlayer = false;
-                }
-                else
-                {
-                    damage = 1;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P1AttackName = "";
-                    hitSound.Play();
-                    Animator hitAnim = other.GetComponent<Animator>();
-                    hitAnim.SetTrigger("HighRightHit_Trig");
-                    DataManager.Instance.IsPlayer = false;
+                    gaObj.PlayersHP -= 1;
+                    gaObj.hitDetected = true;
                 }
             }
-            if (DataManager.Instance.P1AttackName == "Mid punch left" && DataManager.Instance.IsP1Attacking)
-            {
-                if (DataManager.Instance.P2Block)
-                {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P1AttackName = "";
-                    blockSound.Play();
-                    DataManager.Instance.IsPlayer = false;
-                }
-                else
-                {
-                    damage = 2;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P1AttackName = "";
-                    hitSound.Play();
-                    Animator hitAnim = other.GetComponent<Animator>();
-                    hitAnim.SetTrigger("MidLeftHit_Trig");
-                    DataManager.Instance.IsPlayer = false;
-                }
-            }
-            if (DataManager.Instance.P1AttackName == "Mid punch right" && DataManager.Instance.IsP1Attacking)
-            {
-                if (DataManager.Instance.P2Block)
-                {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P1AttackName = "";
-                    blockSound.Play();
-                    DataManager.Instance.IsPlayer = false;
-                }
-                else
-                {
-                    damage = 2;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P1AttackName = "";
-                    hitSound.Play();
-                    Animator hitAnim = other.GetComponent<Animator>();
-                    hitAnim.SetTrigger("MidRightHit_Trig");
-                    DataManager.Instance.IsPlayer = false;
-                }
-            }
-            if (DataManager.Instance.P1AttackName == "Special attack" && DataManager.Instance.IsP1Attacking && playersSP.value==playersSP.maxValue)
-            {
-                playersSP.value = 0;
-                if (DataManager.Instance.P2Block)
-                {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P1AttackName = "";
-                    blockSound.Play();
-                    DataManager.Instance.IsPlayer = false;
-                }
-                else
-                {
-                    damage = 5;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P1AttackName = "";
-                    hitSound.Play();
-                    Animator hitAnim = other.GetComponent<Animator>();
-                    hitAnim.SetTrigger("SpecialAttackHit_Trig");
-                    DataManager.Instance.IsPlayer = false;
-                }
-            }
-            if (DataManager.Instance.P1AttackName == "Uppercut" && DataManager.Instance.IsP1Attacking)
-            {
-                if (DataManager.Instance.P2Block)
-                {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P1AttackName = "";
-                    blockSound.Play();
-                    DataManager.Instance.IsPlayer = false;
-                }
-                else
-                {
-                    damage = 1;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P1AttackName = "";
-                    hitSound.Play();
-                    Animator hitAnim = other.GetComponent<Animator>();
-                    hitAnim.SetTrigger("UppercutHit_Trig");
-                    DataManager.Instance.IsPlayer = false;
-                }
-                
-            }
-            if (DataManager.Instance.P1AttackName == "Low punch" && DataManager.Instance.IsP1Attacking)
-            {
-                if (DataManager.Instance.P2Block)
-                {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P1AttackName = "";
-                    blockSound.Play();
-                    DataManager.Instance.IsPlayer = false;
-                }
-                else
-                {
-                    damage = 1;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P1AttackName = "";
-                    hitSound.Play();
-                    Animator hitAnim = other.GetComponent<Animator>();
-                    hitAnim.SetTrigger("LowPunchHit_Trig");
-                    DataManager.Instance.IsPlayer = false;
-                }  
-            }
-            if (DataManager.Instance.P1AttackName == "Low kick" && DataManager.Instance.IsP1Attacking)
-            {
-                if (DataManager.Instance.P2Block)
-                {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P1AttackName = "";
-                    blockSound.Play();
-                    DataManager.Instance.IsPlayer = false;
-                }
-                else
-                {
-                    damage = 1;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P1AttackName = "";
-                    hitSound.Play();
-                    Animator hitAnim = other.GetComponent<Animator>();
-                    hitAnim.SetTrigger("LowKickHit_Trig");
-                    DataManager.Instance.IsPlayer = false;
-                }
-            }
-
-            DataManager.Instance.OpponentsDamage = damage;
         }
-
-        if (other.CompareTag("Player"))
+        else
         {
-            if(DataManager.Instance.IsP2Attacking)
+            if (other.CompareTag("Opponent"))
             {
-                opponentsSP.value = opponentsSP.value + 0.5f;
-            }
-            if ((DataManager.Instance.P2AttackName == "Up punch left" || DataManager.Instance.P2AttackName == "High kick") && DataManager.Instance.IsP2Attacking)
-            {
-                if(DataManager.Instance.P1Crouch)
+                if (DataManager.Instance.IsP1Attacking)
                 {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P2AttackName = "";
-                    DataManager.Instance.IsPlayer = true;
+                    playersSP.value = playersSP.value + 0.5f;
+                    DataManager.Instance.OpponentBeingHit = true;
                 }
-                else if(DataManager.Instance.P1Block)
+                if (DataManager.Instance.P1AttackName == "")
                 {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P2AttackName = "";
-                    blockSound.Play();
-                    DataManager.Instance.IsPlayer = true;
+                    Debug.Log("is key pressed: " + Input.GetKeyDown(DataManager.Instance.upper_left_punch1_Keycode));
                 }
-                else
+                if ((DataManager.Instance.P1AttackName == "Up punch left" || DataManager.Instance.P1AttackName == "High kick") && DataManager.Instance.IsP1Attacking)
                 {
-                    damage = 1;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P2AttackName = "";
-                    hitSound.Play();
-                    Animator hitAnim = other.GetComponent<Animator>();
-                    hitAnim.SetTrigger("HighLeftHit_Trig");
-                    DataManager.Instance.IsPlayer = true;
+                    Debug.Log("got a hit");
+                    if (DataManager.Instance.P2Crouch)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P1AttackName = "";
+                        DataManager.Instance.IsPlayer = false;
+                    }
+                    else if (DataManager.Instance.P2Block)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P1AttackName = "";
+                        blockSound.Play();
+                        DataManager.Instance.IsPlayer = false;
+                    }
+                    else
+                    {
+                        damage = 1;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P1AttackName = "";
+                        hitSound.Play();
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("HighLeftHit_Trig");
+                        DataManager.Instance.IsPlayer = false;
+                    }
+
                 }
-                
-            }
-            if (DataManager.Instance.P2AttackName == "Up punch right" && DataManager.Instance.IsP2Attacking)
-            {
-                if (DataManager.Instance.P1Crouch)
+                if (DataManager.Instance.P1AttackName == "Up punch right" && DataManager.Instance.IsP1Attacking)
                 {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P2AttackName = "";
-                    DataManager.Instance.IsPlayer = true;
+                    if (DataManager.Instance.P2Crouch)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P1AttackName = "";
+                        DataManager.Instance.IsPlayer = false;
+                    }
+                    else if (DataManager.Instance.P2Block)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P1AttackName = "";
+                        blockSound.Play();
+                        DataManager.Instance.IsPlayer = false;
+                    }
+                    else
+                    {
+                        damage = 1;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P1AttackName = "";
+                        hitSound.Play();
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("HighRightHit_Trig");
+                        DataManager.Instance.IsPlayer = false;
+                    }
+
                 }
-                else if (DataManager.Instance.P1Block)
+                if (DataManager.Instance.P1AttackName == "Mid kick" && DataManager.Instance.IsP1Attacking)
                 {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P2AttackName = "";
-                    blockSound.Play();
-                    DataManager.Instance.IsPlayer = true;
+                    if (DataManager.Instance.P2Block)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P1AttackName = "";
+                        blockSound.Play();
+                        DataManager.Instance.IsPlayer = false;
+                    }
+                    else
+                    {
+                        damage = 1;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P1AttackName = "";
+                        hitSound.Play();
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("HighRightHit_Trig");
+                        DataManager.Instance.IsPlayer = false;
+                    }
                 }
-                else
+                if (DataManager.Instance.P1AttackName == "Mid punch left" && DataManager.Instance.IsP1Attacking)
                 {
-                    damage = 1;
-                    DataManager.Instance.IsP2Attacking = false;
-                    DataManager.Instance.P2AttackName = "";
-                    hitSound.Play();
-                    Animator hitAnim = other.GetComponent<Animator>();
-                    hitAnim.SetTrigger("HighRightHit_Trig");
-                    DataManager.Instance.IsPlayer = true;
-                }    
-            }
-            if(DataManager.Instance.P2AttackName == "Mid kick" && DataManager.Instance.IsP2Attacking)
-            {
-                if (DataManager.Instance.P1Crouch)
-                {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P2AttackName = "";
-                    DataManager.Instance.IsPlayer = true;
+                    if (DataManager.Instance.P2Block)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P1AttackName = "";
+                        blockSound.Play();
+                        DataManager.Instance.IsPlayer = false;
+                    }
+                    else
+                    {
+                        damage = 2;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P1AttackName = "";
+                        hitSound.Play();
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("MidLeftHit_Trig");
+                        DataManager.Instance.IsPlayer = false;
+                    }
                 }
-                else if (DataManager.Instance.P1Block)
+                if (DataManager.Instance.P1AttackName == "Mid punch right" && DataManager.Instance.IsP1Attacking)
                 {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P2AttackName = "";
-                    blockSound.Play();
-                    DataManager.Instance.IsPlayer = true;
+                    if (DataManager.Instance.P2Block)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P1AttackName = "";
+                        blockSound.Play();
+                        DataManager.Instance.IsPlayer = false;
+                    }
+                    else
+                    {
+                        damage = 2;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P1AttackName = "";
+                        hitSound.Play();
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("MidRightHit_Trig");
+                        DataManager.Instance.IsPlayer = false;
+                    }
                 }
-                else
+                if (DataManager.Instance.P1AttackName == "Special attack" && DataManager.Instance.IsP1Attacking && playersSP.value == playersSP.maxValue)
                 {
-                    damage = 1;
-                    DataManager.Instance.IsP2Attacking = false;
-                    DataManager.Instance.P2AttackName = "";
-                    hitSound.Play();
-                    Animator hitAnim = other.GetComponent<Animator>();
-                    hitAnim.SetTrigger("HighRightHit_Trig");
-                    DataManager.Instance.IsPlayer = true;
-                }   
-            }
-            if (DataManager.Instance.P2AttackName == "Mid punch left" && DataManager.Instance.IsP2Attacking)
-            {
-                if (DataManager.Instance.P1Block)
-                {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P2AttackName = "";
-                    blockSound.Play();
-                    DataManager.Instance.IsPlayer = true;
+                    playersSP.value = 0;
+                    if (DataManager.Instance.P2Block)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P1AttackName = "";
+                        blockSound.Play();
+                        DataManager.Instance.IsPlayer = false;
+                    }
+                    else
+                    {
+                        damage = 5;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P1AttackName = "";
+                        hitSound.Play();
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("SpecialAttackHit_Trig");
+                        DataManager.Instance.IsPlayer = false;
+                    }
                 }
-                else
+                if (DataManager.Instance.P1AttackName == "Uppercut" && DataManager.Instance.IsP1Attacking)
                 {
-                    damage = 2;
-                    DataManager.Instance.IsP2Attacking = false;
-                    DataManager.Instance.P2AttackName = "";
-                    hitSound.Play();
-                    Animator hitAnim = other.GetComponent<Animator>();
-                    hitAnim.SetTrigger("MidLeftHit_Trig");
-                    DataManager.Instance.IsPlayer = true;
+                    if (DataManager.Instance.P2Block)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P1AttackName = "";
+                        blockSound.Play();
+                        DataManager.Instance.IsPlayer = false;
+                    }
+                    else
+                    {
+                        damage = 1;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P1AttackName = "";
+                        hitSound.Play();
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("UppercutHit_Trig");
+                        DataManager.Instance.IsPlayer = false;
+                    }
+
                 }
-            }
-            if (DataManager.Instance.P2AttackName == "Mid punch right" && DataManager.Instance.IsP2Attacking)
-            {
-                if (DataManager.Instance.P1Block)
+                if (DataManager.Instance.P1AttackName == "Low punch" && DataManager.Instance.IsP1Attacking)
                 {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P2AttackName = "";
-                    blockSound.Play();
-                    DataManager.Instance.IsPlayer = true;
+                    if (DataManager.Instance.P2Block)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P1AttackName = "";
+                        blockSound.Play();
+                        DataManager.Instance.IsPlayer = false;
+                    }
+                    else
+                    {
+                        damage = 1;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P1AttackName = "";
+                        hitSound.Play();
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("LowPunchHit_Trig");
+                        DataManager.Instance.IsPlayer = false;
+                    }
                 }
-                else
+                if (DataManager.Instance.P1AttackName == "Low kick" && DataManager.Instance.IsP1Attacking)
                 {
-                    damage = 2;
-                    DataManager.Instance.IsP2Attacking = false;
-                    DataManager.Instance.P2AttackName = "";
-                    hitSound.Play();
-                    Animator hitAnim = other.GetComponent<Animator>();
-                    hitAnim.SetTrigger("MidRightHit_Trig");
-                    DataManager.Instance.IsPlayer = true;
-                }   
-            }
-            if (DataManager.Instance.P2AttackName == "Special attack" && DataManager.Instance.IsP2Attacking && opponentsSP.value==opponentsSP.maxValue)
-            {
-                opponentsSP.value = 0; 
-                if (DataManager.Instance.P1Block)
-                {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P2AttackName = "";
-                    blockSound.Play();
-                    DataManager.Instance.IsPlayer = true;
+                    if (DataManager.Instance.P2Block)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P1AttackName = "";
+                        blockSound.Play();
+                        DataManager.Instance.IsPlayer = false;
+                    }
+                    else
+                    {
+                        damage = 1;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P1AttackName = "";
+                        hitSound.Play();
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("LowKickHit_Trig");
+                        DataManager.Instance.IsPlayer = false;
+                    }
                 }
-                else
-                {
-                    damage = 5;
-                    DataManager.Instance.IsP2Attacking = false;
-                    DataManager.Instance.P2AttackName = "";
-                    hitSound.Play();
-                    Animator hitAnim = other.GetComponent<Animator>();
-                    hitAnim.SetTrigger("SpecialAttackHit_Trig");
-                    DataManager.Instance.IsPlayer = true;
-                }
-            }
-            if (DataManager.Instance.P2AttackName == "Uppercut" && DataManager.Instance.IsP2Attacking)
-            {
-                if (DataManager.Instance.P1Block)
-                {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P2AttackName = "";
-                    blockSound.Play();
-                    DataManager.Instance.IsPlayer = true;
-                }
-                else
-                {
-                    damage = 1;
-                    DataManager.Instance.IsP2Attacking = false;
-                    DataManager.Instance.P2AttackName = "";
-                    hitSound.Play();
-                    Animator hitAnim = other.GetComponent<Animator>();
-                    hitAnim.SetTrigger("UppercutHit_Trig");
-                    DataManager.Instance.IsPlayer = true;
-                }
-            }
-            if (DataManager.Instance.P2AttackName == "Low punch" && DataManager.Instance.IsP2Attacking)
-            {
-                if (DataManager.Instance.P1Block)
-                {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P2AttackName = "";
-                    blockSound.Play();
-                    DataManager.Instance.IsPlayer = true;
-                }
-                else
-                {
-                    damage = 1;
-                    DataManager.Instance.IsP2Attacking = false;
-                    DataManager.Instance.P2AttackName = "";
-                    hitSound.Play();
-                    Animator hitAnim = other.GetComponent<Animator>();
-                    hitAnim.SetTrigger("LowPunchHit_Trig");
-                    DataManager.Instance.IsPlayer = true;
-                }
-            }
-            if (DataManager.Instance.P2AttackName == "Low kick" && DataManager.Instance.IsP2Attacking)
-            {
-                if (DataManager.Instance.P1Block)
-                {
-                    damage = 0;
-                    DataManager.Instance.IsP1Attacking = false;
-                    DataManager.Instance.P2AttackName = "";
-                    blockSound.Play();
-                    DataManager.Instance.IsPlayer = true;
-                }
-                else
-                {
-                    damage = 1;
-                    DataManager.Instance.IsP2Attacking = false;
-                    DataManager.Instance.P2AttackName = "";
-                    hitSound.Play();
-                    Animator hitAnim = other.GetComponent<Animator>();
-                    hitAnim.SetTrigger("LowKickHit_Trig");
-                    DataManager.Instance.IsPlayer = true;
-                }
+
+                DataManager.Instance.OpponentsDamage = damage;
             }
 
-            DataManager.Instance.PlayersDamage = damage;
+            if (other.CompareTag("Player"))
+            {
+                if (DataManager.Instance.IsP2Attacking)
+                {
+                    opponentsSP.value = opponentsSP.value + 0.5f;
+                    DataManager.Instance.PlayerBeingHit = true;
+                }
+                if ((DataManager.Instance.P2AttackName == "Up punch left" || DataManager.Instance.P2AttackName == "High kick") && DataManager.Instance.IsP2Attacking)
+                {
+                    if (DataManager.Instance.P1Crouch)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P2AttackName = "";
+                        DataManager.Instance.IsPlayer = true;
+                    }
+                    else if (DataManager.Instance.P1Block)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P2AttackName = "";
+                        blockSound.Play();
+                        DataManager.Instance.IsPlayer = true;
+                    }
+                    else
+                    {
+                        damage = 1;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P2AttackName = "";
+                        hitSound.Play();
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("HighLeftHit_Trig");
+                        DataManager.Instance.IsPlayer = true;
+                    }
+
+                }
+                if (DataManager.Instance.P2AttackName == "Up punch right" && DataManager.Instance.IsP2Attacking)
+                {
+                    if (DataManager.Instance.P1Crouch)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P2AttackName = "";
+                        DataManager.Instance.IsPlayer = true;
+                    }
+                    else if (DataManager.Instance.P1Block)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P2AttackName = "";
+                        blockSound.Play();
+                        DataManager.Instance.IsPlayer = true;
+                    }
+                    else
+                    {
+                        damage = 1;
+                        DataManager.Instance.IsP2Attacking = false;
+                        DataManager.Instance.P2AttackName = "";
+                        hitSound.Play();
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("HighRightHit_Trig");
+                        DataManager.Instance.IsPlayer = true;
+                    }
+                }
+                if (DataManager.Instance.P2AttackName == "Mid kick" && DataManager.Instance.IsP2Attacking)
+                {
+                    if (DataManager.Instance.P1Crouch)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P2AttackName = "";
+                        DataManager.Instance.IsPlayer = true;
+                    }
+                    else if (DataManager.Instance.P1Block)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P2AttackName = "";
+                        blockSound.Play();
+                        DataManager.Instance.IsPlayer = true;
+                    }
+                    else
+                    {
+                        damage = 1;
+                        DataManager.Instance.IsP2Attacking = false;
+                        DataManager.Instance.P2AttackName = "";
+                        hitSound.Play();
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("HighRightHit_Trig");
+                        DataManager.Instance.IsPlayer = true;
+                    }
+                }
+                if (DataManager.Instance.P2AttackName == "Mid punch left" && DataManager.Instance.IsP2Attacking)
+                {
+                    if (DataManager.Instance.P1Block)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P2AttackName = "";
+                        blockSound.Play();
+                        DataManager.Instance.IsPlayer = true;
+                    }
+                    else
+                    {
+                        damage = 2;
+                        DataManager.Instance.IsP2Attacking = false;
+                        DataManager.Instance.P2AttackName = "";
+                        hitSound.Play();
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("MidLeftHit_Trig");
+                        DataManager.Instance.IsPlayer = true;
+                    }
+                }
+                if (DataManager.Instance.P2AttackName == "Mid punch right" && DataManager.Instance.IsP2Attacking)
+                {
+                    if (DataManager.Instance.P1Block)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P2AttackName = "";
+                        blockSound.Play();
+                        DataManager.Instance.IsPlayer = true;
+                    }
+                    else
+                    {
+                        damage = 2;
+                        DataManager.Instance.IsP2Attacking = false;
+                        DataManager.Instance.P2AttackName = "";
+                        hitSound.Play();
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("MidRightHit_Trig");
+                        DataManager.Instance.IsPlayer = true;
+                    }
+                }
+                if (DataManager.Instance.P2AttackName == "Special attack" && DataManager.Instance.IsP2Attacking && opponentsSP.value == opponentsSP.maxValue)
+                {
+                    opponentsSP.value = 0;
+                    if (DataManager.Instance.P1Block)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P2AttackName = "";
+                        blockSound.Play();
+                        DataManager.Instance.IsPlayer = true;
+                    }
+                    else
+                    {
+                        damage = 5;
+                        DataManager.Instance.IsP2Attacking = false;
+                        DataManager.Instance.P2AttackName = "";
+                        hitSound.Play();
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("SpecialAttackHit_Trig");
+                        DataManager.Instance.IsPlayer = true;
+                    }
+                }
+                if (DataManager.Instance.P2AttackName == "Uppercut" && DataManager.Instance.IsP2Attacking)
+                {
+                    if (DataManager.Instance.P1Block)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P2AttackName = "";
+                        blockSound.Play();
+                        DataManager.Instance.IsPlayer = true;
+                    }
+                    else
+                    {
+                        damage = 1;
+                        DataManager.Instance.IsP2Attacking = false;
+                        DataManager.Instance.P2AttackName = "";
+                        hitSound.Play();
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("UppercutHit_Trig");
+                        DataManager.Instance.IsPlayer = true;
+                    }
+                }
+                if (DataManager.Instance.P2AttackName == "Low punch" && DataManager.Instance.IsP2Attacking)
+                {
+                    if (DataManager.Instance.P1Block)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P2AttackName = "";
+                        blockSound.Play();
+                        DataManager.Instance.IsPlayer = true;
+                    }
+                    else
+                    {
+                        damage = 1;
+                        DataManager.Instance.IsP2Attacking = false;
+                        DataManager.Instance.P2AttackName = "";
+                        hitSound.Play();
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("LowPunchHit_Trig");
+                        DataManager.Instance.IsPlayer = true;
+                    }
+                }
+                if (DataManager.Instance.P2AttackName == "Low kick" && DataManager.Instance.IsP2Attacking)
+                {
+                    if (DataManager.Instance.P1Block)
+                    {
+                        damage = 0;
+                        DataManager.Instance.IsP1Attacking = false;
+                        DataManager.Instance.P2AttackName = "";
+                        blockSound.Play();
+                        DataManager.Instance.IsPlayer = true;
+                    }
+                    else
+                    {
+                        damage = 1;
+                        DataManager.Instance.IsP2Attacking = false;
+                        DataManager.Instance.P2AttackName = "";
+                        hitSound.Play();
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("LowKickHit_Trig");
+                        DataManager.Instance.IsPlayer = true;
+                    }
+                }
+
+                DataManager.Instance.PlayersDamage = damage;
+            }
         }
+        
     }
 }

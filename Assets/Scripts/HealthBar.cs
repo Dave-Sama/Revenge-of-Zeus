@@ -86,7 +86,7 @@ public class HealthBar : MonoBehaviour
             }
         }
 
-        if(healthBarFront.tag=="Opponent" && healthBarBack.tag == "Opponent")
+        if(healthBarFront.tag=="OpponentHP" && healthBarBack.tag == "Opponent")
         {
             if (DataManager.Instance.OpponentsDamage != 0)
             {

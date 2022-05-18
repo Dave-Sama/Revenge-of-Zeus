@@ -30,6 +30,10 @@ public class PauseMenu : MonoBehaviour
         {
             ResetDownArrowClicked();
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            OnResume();
+        }
     }
 
     public void HighlightOneButton()
