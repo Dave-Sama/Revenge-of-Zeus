@@ -5,12 +5,14 @@ using UnityEngine;
 public class AnimationCallback : MonoBehaviour
 {
     public bool animationEnded = true; // true = permission to go to the next animation
+    public int blockCounter;
     [SerializeField] private int idleCounter = 0;
 
     private void Awake()
     {
         animationEnded = true;
         idleCounter = 0;
+        blockCounter = 0;
     }
 
     //void animBeganCallback()
@@ -29,6 +31,11 @@ public class AnimationCallback : MonoBehaviour
     {
         animationEnded = true;
         idleCounter++;
+    }
+    void IncreaseBlockCounter()
+    {
+        animationEnded = true;
+        blockCounter++;
     }
     public int getIdleCounter()
     {

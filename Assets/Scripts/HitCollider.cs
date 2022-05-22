@@ -12,8 +12,11 @@ public class HitCollider : MonoBehaviour
     Slider opponentsSP;
 
     // -------For training-------
-    [SerializeField] Actions actions;
-    [SerializeField] GAObj gaObj;
+    //[SerializeField] GAObj gaObj; // for the genetic algorithm
+    AI opponentAi; // for the agent
+    AI playerAi;
+    Actions playerActions;
+    Actions opponentActions;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +30,14 @@ public class HitCollider : MonoBehaviour
             }
             playersSP = GameObject.FindGameObjectWithTag("PlayerSP").GetComponent<Slider>();
             opponentsSP = GameObject.FindGameObjectWithTag("OpponentSP").GetComponent<Slider>();
-        }  
+        }
+        else
+        {
+            opponentAi=GameObject.FindGameObjectWithTag("Opponent").GetComponent<AI>();
+            playerAi = GameObject.FindGameObjectWithTag("Player").GetComponent<AI>();
+            opponentActions=GameObject.FindGameObjectWithTag("Opponent").GetComponent<Actions>();
+            playerActions=GameObject.FindGameObjectWithTag("Player").GetComponent<Actions>();
+        }
     }
 
     // Update is called once per frame
@@ -42,14 +52,23 @@ public class HitCollider : MonoBehaviour
         
         if(SceneManager.GetActiveScene().name == "Training")
         {
-            if (other.CompareTag("Player") && actions.isAttacking)
+            if (other.CompareTag("Player") && opponentAi.isAttacking)
             {
-                actions.isAttacking = false;
-                if (gaObj.PlayersHP > 0)
-                {
-                    gaObj.PlayersHP -= 1;
-                    gaObj.hitDetected = true;
-                }
+                Debug.Log("Hit");
+                //opponentActions.isAttacking = false;
+                playerAi.HP--;
+                playerAi.beingHit = true;
+                //if (gaObj.PlayersHP > 0)  ---------- this is for the genetic algorithm----------------
+                //{
+                //    gaObj.PlayersHP -= 1;
+                //    gaObj.hitDetected = true;
+                //}
+            }
+            if(other.CompareTag("Opponent") && playerAi.isAttacking)
+            {
+                //playerActions.isAttacking = false;
+                opponentAi.HP--;
+                opponentAi.beingHit = true;
             }
         }
         else

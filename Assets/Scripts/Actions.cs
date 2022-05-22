@@ -19,7 +19,7 @@ public class Actions : MonoBehaviour
     float sleep;
     public bool animationFinished { get; private set; }
     AnimationCallback animCallback;
-    public bool isAttacking { get; set; }
+    //public bool isAttacking;
     //[SerializeField] AudioSource attackSound1;
     //[SerializeField] AudioSource attackSound2;
     
@@ -37,6 +37,7 @@ public class Actions : MonoBehaviour
         sleep = 0;
         animationFinished = true;
         animCallback=gameObject.AddComponent<AnimationCallback>();
+        //isAttacking = false;
         //if (Instance == null)
         //{
         //    Instance = this;
@@ -97,13 +98,13 @@ public class Actions : MonoBehaviour
                 StayIdle();
                 MidKick();
                 break;
-            //case 9:
-            //    StayIdle();
-            //    SpecialAttack();
-            //    break;
-            //case 10:
-            //    Uppercut();
-            //    break;
+            case 9:
+                StayIdle();
+                Block();
+                break;   
+            case 10:
+                CancelBlock();
+                break;
             //case 11:
             //    StayIdle();
             //    Jump();
@@ -131,13 +132,11 @@ public class Actions : MonoBehaviour
             //    break;
             //case 18:
             //    StayIdle();
-            //    Block();
+            //    SpecialAttack();
             //    break;
             //case 19:
-            //    CancelBlock();
+            //    Uppercut();
             //    break;
-
-
         }
         //animatorState = anim.GetCurrentAnimatorStateInfo(0);
         //animatorClip = anim.GetCurrentAnimatorClipInfo(0);
@@ -163,17 +162,17 @@ public class Actions : MonoBehaviour
     {
         isWalking = false;
         anim.SetFloat("Speed_Float", 0);
-        isAttacking = false;
+        //isAttacking = false;
     }
     public void WalkBackwards()
     {
         anim.SetFloat("Speed_Float", -1);
-        isAttacking = false;
+        //isAttacking = false;
     }
 
     public void WalkForward()
     {
-        isAttacking = false;
+        //isAttacking = false;
         isWalking = true;
         anim.SetFloat("Speed_Float", 1);
         transform.Translate(Vector3.forward * Time.deltaTime * 0.5f);  // note to myself: there are 4 fucked up characters that need Vector3.forward*Time.deltaTime*1
@@ -254,7 +253,7 @@ public class Actions : MonoBehaviour
     }
     public void LeftUpperPunch()
     {
-        isAttacking = true;
+        //isAttacking = true;
         //DataManager.Instance.IsP2Attacking = true;
         //DataManager.Instance.P2AttackName = "Up punch left";
         anim.SetTrigger("UpPunchLeft_Trig");
@@ -262,6 +261,7 @@ public class Actions : MonoBehaviour
     }
     public void RightUpperPunch()
     {
+        //isAttacking = true;
         //DataManager.Instance.IsP2Attacking = true;
         //DataManager.Instance.P2AttackName = "Up punch right";
         anim.SetTrigger("UpPunchRight_Trig");
@@ -269,6 +269,7 @@ public class Actions : MonoBehaviour
     }
     public void LeftMidPunch()
     {
+        //isAttacking = true;
         //DataManager.Instance.IsP2Attacking = true;
         //DataManager.Instance.P2AttackName = "Mid punch left";
         anim.SetTrigger("MidPunchLeft_Trig");
@@ -276,6 +277,7 @@ public class Actions : MonoBehaviour
     }
     public void RightMidPunch()
     {
+        //isAttacking = true;
         //DataManager.Instance.IsP2Attacking = true;
         //DataManager.Instance.P2AttackName = "Mid punch right";
         anim.SetTrigger("MidPunchRight_Trig");
@@ -283,6 +285,7 @@ public class Actions : MonoBehaviour
     }
     public void HighKick()
     {
+        //isAttacking = true;
         //DataManager.Instance.IsP2Attacking = true;
         //DataManager.Instance.P2AttackName = "High kick";
         anim.SetTrigger("HighKick_Trig");
@@ -290,6 +293,7 @@ public class Actions : MonoBehaviour
     }
     public void MidKick()
     {
+        //isAttacking = true;
         //DataManager.Instance.IsP2Attacking = true;
         //DataManager.Instance.P2AttackName = "Mid kick";
         anim.SetTrigger("MidKick_Trig");
@@ -307,6 +311,7 @@ public class Actions : MonoBehaviour
     public void Block()
     {
         //DataManager.Instance.P2Block = true;
+        transform.Translate(Vector3.zero);
         anim.SetBool("Block_Bool", true);
     }
     public void CancelBlock()
