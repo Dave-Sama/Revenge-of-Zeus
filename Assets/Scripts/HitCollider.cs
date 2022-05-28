@@ -55,20 +55,129 @@ public class HitCollider : MonoBehaviour
             if (other.CompareTag("Player") && opponentAi.isAttacking)
             {
                 Debug.Log("Hit");
+                opponentAi.SP += 0.5f;
                 //opponentActions.isAttacking = false;
-                playerAi.HP--;
-                playerAi.beingHit = true;
+
                 //if (gaObj.PlayersHP > 0)  ---------- this is for the genetic algorithm----------------
                 //{
                 //    gaObj.PlayersHP -= 1;
                 //    gaObj.hitDetected = true;
                 //}
+                if (!playerAi.isBlocking && playerAi.isCrouching == 0)
+                {
+                    playerAi.HP--;
+                    playerAi.beingHit = true;
+                    Animator hitAnim = other.GetComponent<Animator>();
+                    switch (opponentAi.actionNum)
+                    {
+                        case 3:
+                            hitAnim.SetTrigger("HighLeftHit_Trig");
+                            break;
+                        case 4:
+                            hitAnim.SetTrigger("HighRightHit_Trig");
+                            break;
+                        case 5:
+                            hitAnim.SetTrigger("MidLeftHit_Trig");
+                            break;
+                        case 6:
+                            hitAnim.SetTrigger("MidRightHit_Trig");
+                            break;
+                        case 7:
+                            hitAnim.SetTrigger("HighLeftHit_Trig");
+                            break;
+                        case 8:
+                            hitAnim.SetTrigger("HighRightHit_Trig");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                if(!playerAi.isBlocking && playerAi.isCrouching == 1)
+                {
+                    if(opponentAi.actionNum == 5 || opponentAi.actionNum == 6 || opponentAi.actionNum == 8 || (opponentAi.actionNum >= 17 && opponentAi.actionNum <= 19))
+                    {
+                        playerAi.HP--;
+                        playerAi.beingHit = true;
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        switch (opponentAi.actionNum){
+                            case 5:
+                            case 17:
+                                hitAnim.SetTrigger("LowLeftHit_Trig");
+                                break;
+                            case 6:
+                            case 18:
+                                hitAnim.SetTrigger("LowRightHit_Trig");
+                                break;
+                            case 8:
+                            case 19:
+                                hitAnim.SetTrigger("LowPunchHit_Trig");
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
             }
             if(other.CompareTag("Opponent") && playerAi.isAttacking)
             {
-                //playerActions.isAttacking = false;
-                opponentAi.HP--;
-                opponentAi.beingHit = true;
+                //playerActions.isAttacking = false;             
+                playerAi.SP += 0.5f;
+
+                if (!opponentAi.isBlocking)
+                {
+                    opponentAi.HP--;
+                    opponentAi.beingHit = true;
+                    Animator hitAnim = other.GetComponent<Animator>();
+                    switch (playerAi.actionNum)
+                    {
+                        case 3:
+                            hitAnim.SetTrigger("HighLeftHit_Trig");
+                            break;
+                        case 4:
+                            hitAnim.SetTrigger("HighRightHit_Trig");
+                            break;
+                        case 5:
+                            hitAnim.SetTrigger("MidLeftHit_Trig");
+                            break;
+                        case 6:
+                            hitAnim.SetTrigger("MidRightHit_Trig");
+                            break;
+                        case 7:
+                            hitAnim.SetTrigger("HighLeftHit_Trig");
+                            break;
+                        case 8:
+                            hitAnim.SetTrigger("HighRightHit_Trig");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                if (!opponentAi.isBlocking && opponentAi.isCrouching == 1)
+                {
+                    if (playerAi.actionNum == 5 || playerAi.actionNum == 6 || playerAi.actionNum == 8 || (playerAi.actionNum >= 17 && playerAi.actionNum <= 19))
+                    {
+                        opponentAi.HP--;
+                        opponentAi.beingHit = true;
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        switch (playerAi.actionNum)
+                        {
+                            case 5:
+                            case 17:
+                                hitAnim.SetTrigger("LowLeftHit_Trig");
+                                break;
+                            case 6:
+                            case 18:
+                                hitAnim.SetTrigger("LowRightHit_Trig");
+                                break;
+                            case 8:
+                            case 19:
+                                hitAnim.SetTrigger("LowPunchHit_Trig");
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
             }
         }
         else

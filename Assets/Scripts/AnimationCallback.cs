@@ -6,6 +6,7 @@ public class AnimationCallback : MonoBehaviour
 {
     public bool animationEnded = true; // true = permission to go to the next animation
     public int blockCounter;
+    public int crouchCounter;
     [SerializeField] private int idleCounter = 0;
 
     private void Awake()
@@ -13,6 +14,7 @@ public class AnimationCallback : MonoBehaviour
         animationEnded = true;
         idleCounter = 0;
         blockCounter = 0;
+        crouchCounter = 0;
     }
 
     //void animBeganCallback()
@@ -36,6 +38,11 @@ public class AnimationCallback : MonoBehaviour
     {
         animationEnded = true;
         blockCounter++;
+    }
+    void IncreaseCrouchCounter()
+    {
+        animationEnded = true;
+        crouchCounter++;
     }
     public int getIdleCounter()
     {

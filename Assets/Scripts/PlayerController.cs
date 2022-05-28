@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerAnim = gameObject.GetComponent<Animator>();
-        fighterRB=gameObject.GetComponent<Rigidbody>();
+        fighterRB = gameObject.GetComponent<Rigidbody>();
         jump = false;
         onTheGround = true;
         isPressed = false;

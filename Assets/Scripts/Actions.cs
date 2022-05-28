@@ -9,20 +9,22 @@ public class Actions : MonoBehaviour
     Animator anim;
     AnimatorStateInfo animatorState;
     AnimatorClipInfo[] animatorClip;
-    bool onTheGround;
-    bool isWalking;
+    public bool onTheGround;
+    public bool isWalking;
     bool jump;
     bool isCrouching;
     bool instatiated;
     int opponentsSP;
     float time;
     float sleep;
+    bool isJumping;
     public bool animationFinished { get; private set; }
     AnimationCallback animCallback;
+    Rigidbody fighterRB;
     //public bool isAttacking;
     //[SerializeField] AudioSource attackSound1;
     //[SerializeField] AudioSource attackSound2;
-    
+
 
     void Start()
     {
@@ -36,7 +38,9 @@ public class Actions : MonoBehaviour
         time = 0;
         sleep = 0;
         animationFinished = true;
-        animCallback=gameObject.AddComponent<AnimationCallback>();
+        animCallback = gameObject.GetComponent<AnimationCallback>();
+        fighterRB = gameObject.GetComponent<Rigidbody>();
+        isJumping = false;
         //isAttacking = false;
         //if (Instance == null)
         //{
@@ -72,31 +76,32 @@ public class Actions : MonoBehaviour
                 break;
             case 2:
                 StayIdle();
+                isJumping = false;
                 WalkForward();
                 break;
             case 3:
                 StayIdle();
-                LeftUpperPunch(); // Temporarily swapped between jump and left upper punch (cases 3 and 11)
+                LeftUpperPunch(); // A
                 break;
             case 4:
                 StayIdle();
-                RightUpperPunch();  
+                RightUpperPunch();  // S
                 break;
             case 5:
                 StayIdle();
-                LeftMidPunch();
+                LeftMidPunch(); // Z
                 break;
             case 6:
                 StayIdle();
-                RightMidPunch();
+                RightMidPunch(); // X
                 break;
             case 7:
                 StayIdle();
-                HighKick();
+                HighKick(); // D
                 break;
             case 8:
                 StayIdle();
-                MidKick();
+                MidKick(); // C
                 break;
             case 9:
                 StayIdle();
@@ -105,62 +110,48 @@ public class Actions : MonoBehaviour
             case 10:
                 CancelBlock();
                 break;
-            //case 11:
-            //    StayIdle();
-            //    Jump();
-            //    break;
-            //case 12:
-            //    StayIdle();
-            //    AirPunch();
-            //    break;
-            //case 13:
-            //    StayIdle();
-            //    AirKick();
-            //    break;
-            //case 14:
-            //    StayIdle();
-            //    Crouch();
-            //    break;
-            //case 15:
-            //    StandUp();   
-            //    break;
-            //case 16:
-            //    LowPunch();
-            //    break;
-            //case 17:
-            //    LowKick();
-            //    break;
-            //case 18:
-            //    StayIdle();
-            //    SpecialAttack();
-            //    break;
-            //case 19:
-            //    Uppercut();
-            //    break;
+            case 11:
+                StayIdle();
+                Jump();
+                break;
+            case 12: // jump forward
+                StayIdle();
+                isJumping = true;
+                WalkForward();
+                break;
+            case 13:
+                StayIdle();
+                AirPunch();
+                break;
+            case 14:
+                StayIdle();
+                AirKick();
+                break;
+            case 15:
+                StayIdle();
+                Crouch();
+                break;
+            case 16:
+                StandUp();
+                break;
+            case 17:
+                LowPunch();
+                break;
+            case 18:
+                LowKick();
+                break;
+            case 19:
+                Uppercut();
+                break;
+            case 20:
+                StayIdle();
+                SpecialAttack();
+                break;
         }
-        //animatorState = anim.GetCurrentAnimatorStateInfo(0);
-        //animatorClip = anim.GetCurrentAnimatorClipInfo(0);
-        //time = animatorClip[0].clip.length * animatorState.normalizedTime;
-        //time = animatorClip[0].clip.length * (1 / animatorState.speedMultiplier);
-        //time = anim.playbackTime * (1 / anim.speed);
-        //Debug.Log("Animation name: " + animatorClip[0].clip.name + " time: " + time);
-        //if (sleep < time)
-        //{
-        //    animationFinished = false;
-        //    sleep += Time.deltaTime;
-        //}
-        //if (sleep >= time)
-        //{
-        //    animationFinished = true;
-        //    sleep = 0;
-        //}
-        //animationFinished = false;
-        //StartCoroutine(Delay());
-        //animationFinished = true;
     }
     public void StayIdle()
     {
-        isWalking = false;
+        //isWalking = false;
         anim.SetFloat("Speed_Float", 0);
         //isAttacking = false;
     }
@@ -173,27 +164,39 @@ public class Actions : MonoBehaviour
     public void WalkForward()
     {
         //isAttacking = false;
-        isWalking = true;
-        anim.SetFloat("Speed_Float", 1);
-        transform.Translate(Vector3.forward * Time.deltaTime * 0.5f);  // note to myself: there are 4 fucked up characters that need Vector3.forward*Time.deltaTime*1
-    }
-    public void Jump()
-    {
-        if (isWalking)
+        //isWalking = true;
+        if (onTheGround)
         {
-            if (onTheGround)
-            {
-                anim.SetBool("Jump_Bool", false);
-            }
+            anim.SetFloat("Speed_Float", 1);
+            transform.Translate(Vector3.forward * Time.deltaTime * 0.5f);  // note to myself: there are 4 fucked up characters that need Vector3.forward*Time.deltaTime*1
+            Debug.Log("Walking forward");
+        }
+        if (isJumping)
+        {
             onTheGround = false;
-            anim.SetBool("Jump_Bool", true);
+            anim.SetTrigger("Jump_Trig");
         }
         else
         {
+            onTheGround = true;
+            //anim.SetBool("Jump_Bool", false);
+        }
+       
+    }
+    public void Jump()
+    {
+        if (onTheGround)
+        {
+            //anim.SetBool("Jump_Bool", false);
             onTheGround = false;
             jump = true;
         }
     }
+    //public void JumpForward()
+    //{
+    //    isJumping = true;
+    //    WalkForward();
+    //}
     public void AirPunch()
     {
         if (jump)
@@ -227,6 +230,7 @@ public class Actions : MonoBehaviour
         {
             //DataManager.Instance.IsP2Attacking = true;
             //DataManager.Instance.P2AttackName = "Low punch";
+            ResetAllTriggers();
             anim.SetTrigger("LowPunch_Trig");
             //attackSound2.Play();
         }
@@ -237,6 +241,7 @@ public class Actions : MonoBehaviour
         {
             //DataManager.Instance.IsP2Attacking = true;
             //DataManager.Instance.P2AttackName = "Low kick";
+            ResetAllTriggers();
             anim.SetTrigger("LowKick_Trig");
             //attackSound1.Play();
         }
@@ -247,6 +252,7 @@ public class Actions : MonoBehaviour
         {
             //DataManager.Instance.IsP2Attacking = true;
             //DataManager.Instance.P2AttackName = "Uppercut";
+            ResetAllTriggers();
             anim.SetTrigger("Uppercut_Trig");
             //attackSound1.Play();
         }
@@ -323,13 +329,28 @@ public class Actions : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         onTheGround = true;
+        //anim.SetBool("Jump_Bool", false);
     }
     private void FixedUpdate()
     {
         if (jump)
         {
-            Jump();
+            //anim.SetBool("Jump_Bool", true);
+            anim.SetTrigger("Jump_Trig");
+            fighterRB.AddForce(Vector3.up * 4.5f, ForceMode.Impulse);
+            onTheGround = false;
             jump = false;
+        }
+    }
+
+    private void ResetAllTriggers()
+    {
+        foreach (var param in anim.parameters)
+        {
+            if (param.type == AnimatorControllerParameterType.Trigger)
+            {
+                anim.ResetTrigger(param.name);
+            }
         }
     }
 
