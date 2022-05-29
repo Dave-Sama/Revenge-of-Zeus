@@ -29,6 +29,7 @@ public class Actions : MonoBehaviour
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();
+        Debug.Log(anim);
         opponentsSP = 0;
         onTheGround = true;
         isWalking = false;
@@ -68,7 +69,8 @@ public class Actions : MonoBehaviour
         {
             case 0: 
                 StayIdle();
-                animCallback.animationEnded = true;
+                if(anim != null && animCallback != null)
+                    animCallback.animationEnded = true;
                 break;
             case 1:
                 StayIdle();
@@ -152,7 +154,8 @@ public class Actions : MonoBehaviour
     public void StayIdle()
     {
         //isWalking = false;
-        anim.SetFloat("Speed_Float", 0);
+        if(anim != null)
+            anim.SetFloat("Speed_Float", 0);
         //isAttacking = false;
     }
     public void WalkBackwards()

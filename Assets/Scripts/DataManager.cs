@@ -34,11 +34,15 @@ public class DataManager : MonoBehaviour
     public bool P2Crouch { get; set; } // Is P2 crouching (to prevent high punch damage)
     public bool P1Block { get; set; } // Is P1 blocking
     public bool P2Block { get; set; } // Is P2 blocking
-    public bool IsPlayerCrouching { get; set; } // Sends the data whether the player is crouching or not for the ML agent.
-    public int PlayersHP { get; set; } // Players current HP at the end of round, for the DNA class
-    public int OpponentsHP { get; set; } // Opponents current HP at the end of round, for the DNA class
-    public bool PlayerBeingHit { get; set; } // Notify the DNA class if the player is being hit (updated in hit collider, game manager and dna)
-    public bool OpponentBeingHit { get; set; } // Notify the DNA class if the opponent is being hit (updated in hit collider, game manager and dna)
+    public int IsPlayerCrouching { get; set; } // Sends the data whether the player is crouching or not for the ML agent.
+    public float PlayersHP { get; set; } // Players current HP for the ML agent (through the AI class)
+    public float OpponentsHP { get; set; } // Opponents current HP for the ML agent - maybe I can delete it, not sure yet (?)
+    public bool PlayerBeingHit { get; set; } // Notify the ML agent if the player is being hit (updated in hit collider, game manager and dna)
+    public bool OpponentBeingHit { get; set; } // Notify the ML agent if the opponent is being hit (updated in hit collider, game manager and dna) - maybe I can delete it, not sure yet (?)
+    public int PlayerActionNum { get; set; } // conversion of the players actions to numbers so the agent can keep observing them
+    public int PlayerSpecialAttack { get; set; } // notifies the agent when the player uses special attack
+    public float PlayersSP { get; set; } // updates the ML agent (through the AI class) about the sp
+    public float OpponentsSP { get; set; } // updates the ML agent (through the AI class) about the sp
 
 
     // Keycodes for player 1 control

@@ -41,31 +41,37 @@ public class PlayerController : MonoBehaviour
             || playerAnim.GetCurrentAnimatorStateInfo(0).IsName("KB_Idle_6"))
         {
             isPressed = false;
+            DataManager.Instance.PlayerActionNum = 0;
         }
         //---------------------Walk Backwards---------------------------
         if ((gameObject.tag == "Player" && Input.GetKey(KeyCode.LeftArrow)) || (gameObject.tag == "Opponent" && Input.GetKey(KeyCode.Keypad6)))
         {
             playerAnim.SetFloat("Speed_Float", -1);
+            DataManager.Instance.PlayerActionNum = 1;
         }
         //---------------------Walk Forward---------------------------
         else if ((gameObject.tag == "Player" && Input.GetKey(KeyCode.RightArrow)) || (gameObject.tag == "Opponent" && Input.GetKey(KeyCode.Keypad4)))
         {
             playerAnim.SetFloat("Speed_Float", 1);
             transform.Translate(Vector3.forward * Time.deltaTime*0.5f);  // note to myself: there are 4 fucked up characters that need Vector3.forward*Time.deltaTime*1
+            DataManager.Instance.PlayerActionNum = 2;
             if ((gameObject.tag == "Player" && Input.GetKeyDown(KeyCode.UpArrow)) || (gameObject.tag == "Opponent" && Input.GetKeyDown(KeyCode.Keypad8)))
             {
                 onTheGround = false;
                 playerAnim.SetBool("Jump_Bool", true);
+                DataManager.Instance.PlayerActionNum = 12;
             }
             else
             {
                 onTheGround = true;
                 playerAnim.SetBool("Jump_Bool", false);
+                DataManager.Instance.PlayerActionNum = 2;
             }
         }
         else
         {
             playerAnim.SetFloat("Speed_Float", 0);
+            DataManager.Instance.PlayerActionNum = 0;
         }
         //---------------------Jump---------------------------
         if (onTheGround)
@@ -89,6 +95,7 @@ public class PlayerController : MonoBehaviour
                     isPressed = true;
                     DataManager.Instance.IsP1Attacking = true;
                     DataManager.Instance.P1AttackName = "Jump punch";
+                    DataManager.Instance.PlayerActionNum = 13;
                     playerAnim.SetTrigger("JumpPunch_Trig");
                     attackSound2.Play();
                 }
@@ -100,6 +107,7 @@ public class PlayerController : MonoBehaviour
                     isPressed = true;
                     DataManager.Instance.IsP1Attacking = true;
                     DataManager.Instance.P1AttackName = "Jump kick";
+                    DataManager.Instance.PlayerActionNum = 14;
                     playerAnim.SetTrigger("JumpKick_Trig");
                     attackSound1.Play();
                 }
@@ -134,7 +142,8 @@ public class PlayerController : MonoBehaviour
         if ((gameObject.tag == "Player" && Input.GetKey(KeyCode.DownArrow)) || (gameObject.tag == "Opponent" && Input.GetKey(KeyCode.Keypad2)))
         {
             playerAnim.SetBool("Crouch_Bool", true);
-            DataManager.Instance.IsPlayerCrouching = true;
+            DataManager.Instance.IsPlayerCrouching = 1;
+            DataManager.Instance.PlayerActionNum = 15;
 
             if (playerAnim.GetCurrentAnimatorStateInfo(0).IsName("KB_crouch_Idle")) // To not allow the inputs to be added to the input buffer
             {
@@ -152,6 +161,7 @@ public class PlayerController : MonoBehaviour
                     isPressed = true;
                     DataManager.Instance.IsP1Attacking = true;
                     DataManager.Instance.P1AttackName = "Low punch";
+                    DataManager.Instance.PlayerActionNum = 17;
                     playerAnim.SetTrigger("LowPunch_Trig");
                     attackSound2.Play();
                 }
@@ -179,6 +189,7 @@ public class PlayerController : MonoBehaviour
                     isPressed = true;
                     DataManager.Instance.IsP1Attacking = true;
                     DataManager.Instance.P1AttackName = "Low kick";
+                    DataManager.Instance.PlayerActionNum = 18;
                     playerAnim.SetTrigger("LowKick_Trig");
                     attackSound1.Play();
                 }
@@ -204,6 +215,7 @@ public class PlayerController : MonoBehaviour
                     isPressed = true;
                     DataManager.Instance.IsP1Attacking = true;
                     DataManager.Instance.P1AttackName = "Uppercut";
+                    DataManager.Instance.PlayerActionNum = 19;
                     playerAnim.SetTrigger("Uppercut_Trig");
                     attackSound1.Play();
                 }
@@ -222,10 +234,11 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            DataManager.Instance.IsPlayerCrouching = false; // for the ML agent
+            DataManager.Instance.IsPlayerCrouching = 0; // for the ML agent
+            DataManager.Instance.PlayerActionNum = 16;
 
             // for the PvP
-            if(gameObject.tag == "Player")
+            if (gameObject.tag == "Player")
             {
                 DataManager.Instance.P1Crouch = false;
             }
@@ -245,6 +258,7 @@ public class PlayerController : MonoBehaviour
                 isPressed = true;
                 DataManager.Instance.IsP1Attacking = true;
                 DataManager.Instance.P1AttackName = "Up punch left";
+                DataManager.Instance.PlayerActionNum = 3;
                 playerAnim.SetTrigger("UpPunchLeft_Trig");
                 attackSound2.Play();
             }
@@ -269,6 +283,7 @@ public class PlayerController : MonoBehaviour
                 isPressed = true;
                 DataManager.Instance.IsP1Attacking = true;
                 DataManager.Instance.P1AttackName = "Up punch right";
+                DataManager.Instance.PlayerActionNum = 4;
                 playerAnim.SetTrigger("UpPunchRight_Trig");
                 attackSound1.Play();
             }
@@ -294,6 +309,7 @@ public class PlayerController : MonoBehaviour
                 isPressed = true;
                 DataManager.Instance.IsP1Attacking = true;
                 DataManager.Instance.P1AttackName = "Mid punch left";
+                DataManager.Instance.PlayerActionNum = 5;
                 playerAnim.SetTrigger("MidPunchLeft_Trig");
                 attackSound2.Play();
             }
@@ -318,6 +334,7 @@ public class PlayerController : MonoBehaviour
                 isPressed = true;
                 DataManager.Instance.IsP1Attacking = true;
                 DataManager.Instance.P1AttackName = "Mid punch right";
+                DataManager.Instance.PlayerActionNum = 6;
                 playerAnim.SetTrigger("MidPunchRight_Trig");
                 attackSound1.Play();
             }
@@ -343,6 +360,7 @@ public class PlayerController : MonoBehaviour
                 isPressed = true;
                 DataManager.Instance.IsP1Attacking = true;
                 DataManager.Instance.P1AttackName = "High kick";
+                DataManager.Instance.PlayerActionNum = 7;
                 playerAnim.SetTrigger("HighKick_Trig");
                 attackSound1.Play();
             }
@@ -368,6 +386,7 @@ public class PlayerController : MonoBehaviour
                 isPressed = true;
                 DataManager.Instance.IsP1Attacking = true;
                 DataManager.Instance.P1AttackName = "Mid kick";
+                DataManager.Instance.PlayerActionNum = 8;
                 playerAnim.SetTrigger("MidKick_Trig");
                 attackSound2.Play();
             }
@@ -393,7 +412,13 @@ public class PlayerController : MonoBehaviour
                 isPressed = true;
                 DataManager.Instance.IsP1Attacking = true;
                 DataManager.Instance.P1AttackName = "Special attack";
+                DataManager.Instance.PlayerActionNum = 20;
+                DataManager.Instance.PlayerSpecialAttack = 1;
                 playerAnim.SetTrigger("SpecialAttack_Trig");
+            }
+            else
+            {
+                DataManager.Instance.PlayerSpecialAttack = 0;
             }
         }
         if (gameObject.tag == "Opponent")
@@ -414,11 +439,13 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(DataManager.Instance.block1_Keycode))
             {
                 DataManager.Instance.P1Block = true;
+                DataManager.Instance.PlayerActionNum = 9;
                 playerAnim.SetBool("Block_Bool", true);
             }
             else
             {
                 DataManager.Instance.P1Block = false;
+                DataManager.Instance.PlayerActionNum = 10;
                 playerAnim.SetBool("Block_Bool", false);
             }
         }
@@ -455,12 +482,14 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         onTheGround = true;
+        DataManager.Instance.PlayerActionNum = 0;
     }
 
     private void Jump()
     {
         playerAnim.SetBool("Jump_Bool", true);
         fighterRB.AddForce(Vector3.up * 4.5f, ForceMode.Impulse);
+        DataManager.Instance.PlayerActionNum = 11;
     }
 
     IEnumerator ResetAttack()

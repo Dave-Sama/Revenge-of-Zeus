@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FightAgent : Agent
 {
@@ -21,8 +22,8 @@ public class FightAgent : Agent
 
     public override void Initialize()
     {
-        ai=gameObject.GetComponent<AI>();
-        animCallback=gameObject.GetComponent<AnimationCallback>();
+        ai = gameObject.GetComponent<AI>();
+        animCallback = gameObject.GetComponent<AnimationCallback>();
         if (this.tag == "Player")
         {
             rival = GameObject.FindGameObjectWithTag("Opponent");
@@ -31,12 +32,12 @@ public class FightAgent : Agent
         {
             rival = GameObject.FindGameObjectWithTag("Player");
         }
-        rivalAI=rival.GetComponent<AI>();
+        rivalAI = rival.GetComponent<AI>();
         hittingBetweenBlocks = 0;
         distanceCounter = 0;
         crouchAttacks = 0;
         canCrouchAttack = false;
-        actions =gameObject.GetComponent<Actions>();
+        actions = gameObject.GetComponent<Actions>();
         //rb = gameObject.GetComponent<Rigidbody>();
     }
 
@@ -53,7 +54,10 @@ public class FightAgent : Agent
         //}
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         ai.HP = 10;
-        rivalAI.HP = 10;
+        if (SceneManager.GetActiveScene().name == "Training")
+        {
+            rivalAI.HP = 10;
+        }  
         //ai.SP = 0;
         //rivalAI.SP = 0;
         hittingBetweenBlocks = 0;
@@ -80,6 +84,8 @@ public class FightAgent : Agent
         sensor.AddObservation(ai.specialAttack);
         sensor.AddObservation(rivalAI.specialAttack);
         sensor.AddObservation(hittingBetweenBlocks);
+        sensor.AddObservation(ai.beingHit);
+        sensor.AddObservation(rivalAI.beingHit);
     }
 
     // take that action vector and convert each action to "fighting action"

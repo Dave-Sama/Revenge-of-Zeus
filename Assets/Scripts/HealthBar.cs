@@ -22,6 +22,10 @@ public class HealthBar : MonoBehaviour
     void Update()
     {
         DrainHealth();
+        if (healthBarFront.tag == "PlayerHP")
+            DataManager.Instance.PlayersHP = healthBarFront.value;
+        if(healthBarFront.tag == "OpponentHP")
+            DataManager.Instance.OpponentsHP=healthBarFront.value;
         if (Input.GetKeyDown(KeyCode.Space)) // for testing
         {
             DataManager.Instance.PlayersDamage = 10;
@@ -38,11 +42,11 @@ public class HealthBar : MonoBehaviour
             DataManager.Instance.PlayersDamage = 10;
             DrainHealth();
         }
-        //if (DataManager.Instance.IsPlayerDead && healthBarFront.tag == "PlayerHP" && healthBarBack.tag == "Player") //candidate for deletion
+        //if (DataManager.Instance.IsPlayerDead && healthBarFront.tag == "PlayerHP" && healthBarBack.tag == "PlayerDamage") //candidate for deletion
         //{
         //    FillHealthBack();
         //}
-        //if (healthBarFront.tag == "Opponent" && healthBarBack.tag == "Opponent")
+        //if (healthBarFront.tag == "Opponent" && healthBarBack.tag == "OpponentDamage")
         //{
         //    FillHealthBack();
         //}
@@ -50,7 +54,7 @@ public class HealthBar : MonoBehaviour
 
     void DrainHealth()
     {
-        if(healthBarFront.tag == "PlayerHP" && healthBarBack.tag == "Player")
+        if(healthBarFront.tag == "PlayerHP" && healthBarBack.tag == "PlayerDamage")
         {
             if (DataManager.Instance.PlayersDamage != 0)
             {
@@ -86,7 +90,7 @@ public class HealthBar : MonoBehaviour
             }
         }
 
-        if(healthBarFront.tag=="OpponentHP" && healthBarBack.tag == "Opponent")
+        if(healthBarFront.tag=="OpponentHP" && healthBarBack.tag == "OpponentDamage")
         {
             if (DataManager.Instance.OpponentsDamage != 0)
             {
