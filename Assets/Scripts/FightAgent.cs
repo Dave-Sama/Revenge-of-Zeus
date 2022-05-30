@@ -91,23 +91,81 @@ public class FightAgent : Agent
     // take that action vector and convert each action to "fighting action"
     public override void OnActionReceived(float[] vectorAction)
     {
+        if (!ai.startFight)
+        {
+            return;
+        }
+        if (animCallback.blockMode) // when blocking animation begins, the agent is locked on blockmode. when the animation ends, blockmode is off
+        {
+            return;
+        }
+        if (animCallback.crouchMode)
+        {
+            if(animCallback.animationEnded)
+            {
+                ai.lowAttacks = Mathf.RoundToInt(vectorAction[6]); // continue to crouch, stand up, low punch, low kick, uppercut
+                if (ai.lowAttacks == 0) { ai.actionNum = 15; }
+                if (ai.lowAttacks == 1) 
+                { 
+                    ai.actionNum = 16;
+                    animCallback.crouchCounter = 0;
+                    ai.lowAttacks = -1;
+                }
+                if (ai.lowAttacks == 2) { ai.actionNum = 17; }
+                if (ai.lowAttacks == 3) { ai.actionNum = 18; }
+                if (ai.lowAttacks == 4) { ai.actionNum = 19; }
+                animCallback.animationEnded = false;
+            }
+            return;
+        }
         float distance = Vector3.Distance(transform.position, rival.transform.position);
-        Debug.Log(animCallback.animationEnded);
         if (animCallback.animationEnded)
         {
             if (distance <= 1.7f)
             {
                 if (!ai.isBlocking)
                 {
-                    ai.actionNum = Mathf.RoundToInt(vectorAction[0]); // punches, kicks and all those stuff
+                    ai.actionNum = Mathf.RoundToInt(vectorAction[0]); // punches, kicks and all those stuff and the decision to block
                     ai.isJumping = Mathf.RoundToInt(vectorAction[3]); // jump or not
                     ai.isCrouching = Mathf.RoundToInt(vectorAction[4]);
                     ai.specialAttack = Mathf.RoundToInt(vectorAction[5]);
+                    if (ai.isCrouching == 1 && ai.actionNum == 0)
+                    {
+                        ai.isJumping = 0;
+                        ai.specialAttack = 0;
+                        ai.actionNum = 15;
+                    }
+                    if (ai.isCrouching == 1 && ai.actionNum != 0)
+                    {
+                        ai.isCrouching = 0;
+                        animCallback.crouchMode = false;
+                    }
+                    if ((ai.actionNum == 0) && ai.isJumping == 1) // jump in place
+                    {
+                        ai.actionNum = 11;
+                    }
+                    if (ai.actionNum == 2 && ai.isJumping == 1) // jump forward
+                    {
+                        ai.actionNum = 12;
+                    }
+                    if (ai.isJumping == 1 && ai.actionNum == 5) // air punch
+                    {
+                        ai.actionNum = 13;
+                    }
+                    if (ai.isJumping == 1 && ai.actionNum == 6) // air kick
+                    {
+                        ai.actionNum = 14;
+                    }
+                    if (ai.specialAttack == 1 && ai.actionNum == 0)
+                    {
+                        ai.actionNum = 20;
+                    }
+
 
                 }
                 else if (hittingBetweenBlocks == 5)
                 {
-                    doOrCancelBlock = Mathf.RoundToInt(vectorAction[2]); // blocking
+                    doOrCancelBlock = Mathf.RoundToInt(vectorAction[2]); // continue blocking or cancel the block
                     if (doOrCancelBlock == 0) { ai.actionNum = 9; }
                     if (doOrCancelBlock == 1) { ai.actionNum = 10; }
                     ai.isJumping = 0;
@@ -126,6 +184,17 @@ public class FightAgent : Agent
                     ai.isJumping = Mathf.RoundToInt(vectorAction[3]); // jump or not
                     ai.isCrouching = Mathf.RoundToInt(vectorAction[4]); // crouch or not
                     ai.specialAttack = Mathf.RoundToInt(vectorAction[5]);
+                    if (ai.isCrouching == 1 && ai.actionNum == 0)
+                    {
+                        ai.isJumping = 0;
+                        ai.specialAttack = 0;
+                        ai.actionNum = 15;
+                    }
+                    if (ai.isCrouching == 1 && ai.actionNum != 0)
+                    {
+                        ai.isCrouching = 0;
+                        animCallback.crouchMode = false;
+                    }
                 }
                 else
                 {
@@ -335,6 +404,10 @@ public class FightAgent : Agent
         if (ai.specialAttack == 1)
         {
             ai.SP = 0;
+        }
+        if(!animCallback.crouchMode && ai.actionNum>=17 && ai.actionNum <= 19)
+        {
+            AddReward(-0.3f);
         }
     }
 

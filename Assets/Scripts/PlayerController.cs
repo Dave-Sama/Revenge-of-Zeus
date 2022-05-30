@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -482,7 +483,10 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         onTheGround = true;
-        DataManager.Instance.PlayerActionNum = 0;
+        if (SceneManager.GetActiveScene().name != "Training")
+        {
+            DataManager.Instance.PlayerActionNum = 0;
+        }
     }
 
     private void Jump()

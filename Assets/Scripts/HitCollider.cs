@@ -54,7 +54,6 @@ public class HitCollider : MonoBehaviour
         {
             if (other.CompareTag("Player") && opponentAi.isAttacking)
             {
-                Debug.Log("Hit");
                 opponentAi.SP += 0.5f;
                 //opponentActions.isAttacking = false;
 

@@ -17,6 +17,8 @@ public class AI : MonoBehaviour
     public int isJumping;
     public int isCrouching;
     public int specialAttack;
+    public bool startFight;
+    public int lowAttacks;
     bool crouch;
     public TextMeshProUGUI HPText;
     public TextMeshProUGUI SPText;
@@ -129,6 +131,7 @@ public class AI : MonoBehaviour
         }
 
         animCallback =gameObject.GetComponent<AnimationCallback>();
+        lowAttacks = -1;
     }
 
     // Update is called once per frame
@@ -153,51 +156,54 @@ public class AI : MonoBehaviour
             beingHit = DataManager.Instance.OpponentBeingHit;
 
         }
+        if (SP >= 5)
+        {
+            SP = 5;
+        }
         if(SceneManager.GetActiveScene().name == "Training" || (SceneManager.GetActiveScene().name != "Training" && gameObject.tag == "Opponent"))
         {
-            if ((actionNum != 2 && actionNum != 12) && isJumping == 1) // jump in place
-            {
-                actionNum = 11;
-            }
-            if (actionNum == 2 && isJumping == 1) // jump forward
-            {
-                actionNum = 12;
-            }
-            if (isJumping == 1 && actionNum == 5) // air punch
-            {
-                actionNum = 13;
-            }
-            if (isJumping == 1 && actionNum == 6) // air kick
-            {
-                actionNum = 14;
-            }
-            if (isCrouching == 1 && actionNum == 0)
-            {
-                actionNum = 15;
-                crouch = true;
-            }
-            if ((isCrouching == 0 && crouch))
-            {
-                actionNum = 16;
-                crouch = false;
-                animCallback.crouchCounter = 0;
-            }
-            if (crouch && actionNum == 5) // low punch
-            {
-                actionNum = 17;
-            }
-            if (crouch && actionNum == 6) // low kick
-            {
-                actionNum = 18;
-            }
-            if (crouch && actionNum == 8) // uppercut
-            {
-                actionNum = 19;
-            }
-            if (specialAttack == 1)
-            {
-                actionNum = 20;
-            }
+            //if ((actionNum != 2 && actionNum != 12) && isJumping == 1) // jump in place
+            //{
+            //    actionNum = 11;
+            //}
+            //if (actionNum == 2 && isJumping == 1) // jump forward
+            //{
+            //    actionNum = 12;
+            //}
+            //if (isJumping == 1 && actionNum == 5) // air punch
+            //{
+            //    actionNum = 13;
+            //}
+            //if (isJumping == 1 && actionNum == 6) // air kick
+            //{
+            //    actionNum = 14;
+            //}
+            //if ((isCrouching == 1 && actionNum == 0) || lowAttacks == 0) // crouch or continue to crouch
+            //{
+            //    actionNum = 15;
+            //}
+            //if (lowAttacks == 1) // stand up
+            //{
+            //    actionNum = 16;
+            //    animCallback.crouchCounter = 0;
+            //    lowAttacks = -1;
+            //}
+            //if (lowAttacks == 2) // low punch
+            //{
+            //    actionNum = 17;
+            //}
+            //if (lowAttacks == 3) // low kick
+            //{
+            //    actionNum = 18;
+            //}
+            //if (lowAttacks == 4) // uppercut
+            //{
+            //    actionNum = 19;
+            //}
+            //if (specialAttack == 1)
+            //{
+            //    actionNum = 20;
+            //}
         }
         
 

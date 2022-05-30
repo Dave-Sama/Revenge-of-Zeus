@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class Actions : MonoBehaviour
 {
     //public static Actions Instance { get; private set; }
@@ -14,7 +14,6 @@ public class Actions : MonoBehaviour
     bool jump;
     bool isCrouching;
     bool instatiated;
-    int opponentsSP;
     float time;
     float sleep;
     bool isJumping;
@@ -22,15 +21,14 @@ public class Actions : MonoBehaviour
     AnimationCallback animCallback;
     Rigidbody fighterRB;
     //public bool isAttacking;
-    //[SerializeField] AudioSource attackSound1;
-    //[SerializeField] AudioSource attackSound2;
+    AudioSource attackSound1;
+    AudioSource attackSound2;
 
 
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();
         Debug.Log(anim);
-        opponentsSP = 0;
         onTheGround = true;
         isWalking = false;
         jump = false;
@@ -42,6 +40,11 @@ public class Actions : MonoBehaviour
         animCallback = gameObject.GetComponent<AnimationCallback>();
         fighterRB = gameObject.GetComponent<Rigidbody>();
         isJumping = false;
+        if(SceneManager.GetActiveScene().name != "Training" && gameObject.tag== "Opponent")
+        {
+            attackSound1 = GameObject.Find("Attack Sound 1").GetComponent<AudioSource>();
+            attackSound2 = GameObject.Find("Attack Sound 2").GetComponent<AudioSource>();
+        }
         //isAttacking = false;
         //if (Instance == null)
         //{
@@ -108,9 +111,13 @@ public class Actions : MonoBehaviour
             case 9:
                 StayIdle();
                 Block();
+                //if (anim != null && animCallback != null)
+                //    animCallback.animationEnded = true;
                 break;   
             case 10:
                 CancelBlock();
+                //if (anim != null && animCallback != null)
+                //    animCallback.animationEnded = true;
                 break;
             case 11:
                 StayIdle();
@@ -204,18 +211,25 @@ public class Actions : MonoBehaviour
     {
         if (jump)
         {
-            //DataManager.Instance.IsP2Attacking = true;
-            //DataManager.Instance.P2AttackName = "Jump punch";
+            if(SceneManager.GetActiveScene().name != "Training" && gameObject.tag == "Opponent")
+            {
+                DataManager.Instance.IsP2Attacking = true;
+                DataManager.Instance.P2AttackName = "Jump punch";
+                attackSound2.Play();
+            }
             anim.SetTrigger("JumpPunch_Trig");
-            //attackSound2.Play();
         }
     }
     public void AirKick()
     {
-        //DataManager.Instance.IsP2Attacking = true;
-        //DataManager.Instance.P2AttackName = "Jump kick";
+        if (SceneManager.GetActiveScene().name != "Training" && gameObject.tag == "Opponent")
+        {
+            DataManager.Instance.IsP2Attacking = true;
+            DataManager.Instance.P2AttackName = "Jump kick";
+            attackSound1.Play();
+        }
         anim.SetTrigger("JumpKick_Trig");
-        //attackSound1.Play();
+        
     }
     public void Crouch()
     {
@@ -231,102 +245,130 @@ public class Actions : MonoBehaviour
     {
         if (isCrouching)
         {
-            //DataManager.Instance.IsP2Attacking = true;
-            //DataManager.Instance.P2AttackName = "Low punch";
+            if (SceneManager.GetActiveScene().name != "Training" && gameObject.tag == "Opponent")
+            {
+                DataManager.Instance.IsP2Attacking = true;
+                DataManager.Instance.P2AttackName = "Low punch";
+                attackSound2.Play();
+            }
             ResetAllTriggers();
             anim.SetTrigger("LowPunch_Trig");
-            //attackSound2.Play();
+            
         }
     }
     public void LowKick()
     {
         if (isCrouching)
         {
-            //DataManager.Instance.IsP2Attacking = true;
-            //DataManager.Instance.P2AttackName = "Low kick";
+            if (SceneManager.GetActiveScene().name != "Training" && gameObject.tag == "Opponent")
+            {
+                DataManager.Instance.IsP2Attacking = true;
+                DataManager.Instance.P2AttackName = "Low kick";
+                attackSound1.Play();
+            }
             ResetAllTriggers();
-            anim.SetTrigger("LowKick_Trig");
-            //attackSound1.Play();
+            anim.SetTrigger("LowKick_Trig");  
         }
     }
     public void Uppercut()
     {
         if (isCrouching)
         {
-            //DataManager.Instance.IsP2Attacking = true;
-            //DataManager.Instance.P2AttackName = "Uppercut";
+            if (SceneManager.GetActiveScene().name != "Training" && gameObject.tag == "Opponent")
+            {
+                DataManager.Instance.IsP2Attacking = true;
+                DataManager.Instance.P2AttackName = "Uppercut";
+                attackSound1.Play();
+            }
             ResetAllTriggers();
             anim.SetTrigger("Uppercut_Trig");
-            //attackSound1.Play();
         }
     }
     public void LeftUpperPunch()
     {
-        //isAttacking = true;
-        //DataManager.Instance.IsP2Attacking = true;
-        //DataManager.Instance.P2AttackName = "Up punch left";
+        if (SceneManager.GetActiveScene().name != "Training" && gameObject.tag == "Opponent")
+        {
+            DataManager.Instance.IsP2Attacking = true;
+            DataManager.Instance.P2AttackName = "Up punch left";
+            attackSound2.Play();
+        }
         anim.SetTrigger("UpPunchLeft_Trig");
-        //attackSound2.Play();
     }
     public void RightUpperPunch()
     {
-        //isAttacking = true;
-        //DataManager.Instance.IsP2Attacking = true;
-        //DataManager.Instance.P2AttackName = "Up punch right";
+        if (SceneManager.GetActiveScene().name != "Training" && gameObject.tag == "Opponent")
+        {
+            DataManager.Instance.IsP2Attacking = true;
+            DataManager.Instance.P2AttackName = "Up punch right";
+            attackSound1.Play();
+        }
         anim.SetTrigger("UpPunchRight_Trig");
-        //attackSound1.Play();
     }
     public void LeftMidPunch()
     {
-        //isAttacking = true;
-        //DataManager.Instance.IsP2Attacking = true;
-        //DataManager.Instance.P2AttackName = "Mid punch left";
-        anim.SetTrigger("MidPunchLeft_Trig");
-        //attackSound2.Play();
+        if (SceneManager.GetActiveScene().name != "Training" && gameObject.tag == "Opponent")
+        {
+            DataManager.Instance.IsP2Attacking = true;
+            DataManager.Instance.P2AttackName = "Mid punch left";
+            attackSound2.Play();
+        }
+            anim.SetTrigger("MidPunchLeft_Trig");
     }
     public void RightMidPunch()
     {
-        //isAttacking = true;
-        //DataManager.Instance.IsP2Attacking = true;
-        //DataManager.Instance.P2AttackName = "Mid punch right";
-        anim.SetTrigger("MidPunchRight_Trig");
-        //attackSound1.Play();
+        if (SceneManager.GetActiveScene().name != "Training" && gameObject.tag == "Opponent")
+        {
+            DataManager.Instance.IsP2Attacking = true;
+            DataManager.Instance.P2AttackName = "Mid punch right";
+            attackSound1.Play();
+        }
+            anim.SetTrigger("MidPunchRight_Trig");
     }
     public void HighKick()
     {
-        //isAttacking = true;
-        //DataManager.Instance.IsP2Attacking = true;
-        //DataManager.Instance.P2AttackName = "High kick";
-        anim.SetTrigger("HighKick_Trig");
-        //attackSound1.Play();
+        if (SceneManager.GetActiveScene().name != "Training" && gameObject.tag == "Opponent")
+        {
+            DataManager.Instance.IsP2Attacking = true;
+            DataManager.Instance.P2AttackName = "High kick";
+            attackSound1.Play();
+        }
+            anim.SetTrigger("HighKick_Trig");
     }
     public void MidKick()
     {
-        //isAttacking = true;
-        //DataManager.Instance.IsP2Attacking = true;
-        //DataManager.Instance.P2AttackName = "Mid kick";
-        anim.SetTrigger("MidKick_Trig");
-        //attackSound2.Play();
+        if (SceneManager.GetActiveScene().name != "Training" && gameObject.tag == "Opponent")
+        {
+            DataManager.Instance.IsP2Attacking = true;
+            DataManager.Instance.P2AttackName = "Mid kick";
+            attackSound2.Play();
+        }
+            anim.SetTrigger("MidKick_Trig");
     }
     public void SpecialAttack()
     {
-        if(opponentsSP == 10)
+        if (SceneManager.GetActiveScene().name != "Training" && gameObject.tag == "Opponent")
         {
-            //DataManager.Instance.IsP2Attacking = true;
-            //DataManager.Instance.P2AttackName = "Special attack";
-            anim.SetTrigger("SpecialAttack_Trig");
+            DataManager.Instance.IsP2Attacking = true;
+            DataManager.Instance.P2AttackName = "Special attack";
         }
+        anim.SetTrigger("SpecialAttack_Trig");
     }
     public void Block()
     {
-        //DataManager.Instance.P2Block = true;
+        if (SceneManager.GetActiveScene().name != "Training" && gameObject.tag == "Opponent")
+        {
+            DataManager.Instance.P2Block = true;
+        }
         transform.Translate(Vector3.zero);
         anim.SetBool("Block_Bool", true);
     }
     public void CancelBlock()
     {
-        //DataManager.Instance.P2Block = false;
-        anim.SetBool("Block_Bool", false);
+        if (SceneManager.GetActiveScene().name != "Training" && gameObject.tag == "Opponent")
+        {
+            DataManager.Instance.P2Block = false;
+        }
+            anim.SetBool("Block_Bool", false);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -356,15 +398,5 @@ public class Actions : MonoBehaviour
             }
         }
     }
-
-    //IEnumerator Delay()
-    //{
-    //    animatorState = anim.GetCurrentAnimatorStateInfo(0);
-    //    animatorClip=anim.GetCurrentAnimatorClipInfo(0);
-    //    float time = animatorClip[0].clip.length * animatorState.normalizedTime;
-    //    animationFinished = false;
-    //    yield return new WaitForSeconds(time);
-    //    animationFinished = true;
-    //}
 
 }
