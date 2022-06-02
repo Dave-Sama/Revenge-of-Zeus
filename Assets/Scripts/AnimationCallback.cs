@@ -45,12 +45,16 @@ public class AnimationCallback : MonoBehaviour
     void IncreaseBlockCounter()
     {
         animationEnded = true;
-        blockMode = false;
         blockCounter++;
     }
     void StartBlocking()
     {
         blockMode = true;
+    }
+    void EndBlocking()
+    {
+        animationEnded = true;
+        blockMode = false;
     }
     void IncreaseCrouchCounter()
     {
