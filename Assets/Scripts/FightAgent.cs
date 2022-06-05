@@ -19,6 +19,7 @@ public class FightAgent : Agent
     Animator anim;
     int crouchAttacks;
     bool canCrouchAttack;
+    bool actionNum10;
     //Rigidbody rb;
 
     public override void Initialize()
@@ -40,6 +41,7 @@ public class FightAgent : Agent
         crouchAttacks = 0;
         canCrouchAttack = false;
         actions = gameObject.GetComponent<Actions>();
+        actionNum10 = false;
         //rb = gameObject.GetComponent<Rigidbody>();
     }
 
@@ -108,7 +110,14 @@ public class FightAgent : Agent
             {
                 doOrCancelBlock = Mathf.RoundToInt(vectorAction[2]); // continue blocking or cancel the block
                 if (doOrCancelBlock == 0) { ai.actionNum = 9; }
-                if (doOrCancelBlock == 1) { ai.actionNum = 10; }
+                if (doOrCancelBlock == 1) { 
+                    if(!actionNum10)
+                    {
+                        ai.actionNum = 10;
+                        actionNum10 = true;
+                    }
+                        
+                }
                 animCallback.animationEnded = false;
             }
             if (ai.actionNum == 9)
@@ -117,6 +126,7 @@ public class FightAgent : Agent
                 ai.isBlocking = true;
                 ai.isJumping = 0;
                 ai.isCrouching = 0;
+                actionNum10 = false;
             }
             if (ai.actionNum == 10)
             {
@@ -345,6 +355,7 @@ public class FightAgent : Agent
             //rb.constraints = RigidbodyConstraints.FreezePositionX;
             ai.isAttacking = false;
             ai.isBlocking = true;
+            actionNum10 = false;
         }
         if (ai.actionNum == 10)
         {
@@ -355,6 +366,7 @@ public class FightAgent : Agent
             ai.isBlocking = false;
             hittingBetweenBlocks = 0;
             animCallback.blockCounter = 0;
+            actionNum10 = true;
             ai.actionNum = 0;
             anim.Rebind();
             anim.Update(0f);
