@@ -44,12 +44,6 @@ public class GameplayMode : MonoBehaviour
         DataManager.Instance.GameMode = "ML1";
         StartCoroutine(LoadAfterAudioStops());
     }
-    public void ML2()
-    {
-        introSong.Stop();
-        buttonClick.Play();
-        DataManager.Instance.GameMode = "ML2";
-    }
     public void PvP()
     {
         introSong.Stop();

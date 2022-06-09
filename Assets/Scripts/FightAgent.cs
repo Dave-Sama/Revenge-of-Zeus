@@ -70,27 +70,30 @@ public class FightAgent : Agent
     }
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(transform.position); //try putting the isAttacking as an observation too
-        sensor.AddObservation(rival.transform.position);
-        sensor.AddObservation(ai.HP);
-        sensor.AddObservation(rivalAI.HP);
-        sensor.AddObservation(ai.isAttacking);
-        sensor.AddObservation(rivalAI.isAttacking);
-        sensor.AddObservation(animCallback.blockCounter);
-        sensor.AddObservation(animCallback.crouchCounter);
-        sensor.AddObservation(ai.isBlocking);
-        sensor.AddObservation(rivalAI.isBlocking);
-        sensor.AddObservation(ai.isJumping);
-        sensor.AddObservation(actions.onTheGround);
-        sensor.AddObservation(ai.isCrouching);
-        sensor.AddObservation(rivalAI.isCrouching);
-        sensor.AddObservation(rivalAI.actionNum);
-        sensor.AddObservation(ai.SP);
-        sensor.AddObservation(ai.specialAttack);
-        sensor.AddObservation(rivalAI.specialAttack);
-        sensor.AddObservation(hittingBetweenBlocks);
-        sensor.AddObservation(ai.beingHit);
-        sensor.AddObservation(rivalAI.beingHit);
+        if(gameObject!=null && rival != null)
+        {
+            sensor.AddObservation(transform.position); //try putting the isAttacking as an observation too
+            sensor.AddObservation(rival.transform.position);
+            sensor.AddObservation(ai.HP);
+            sensor.AddObservation(rivalAI.HP);
+            sensor.AddObservation(ai.isAttacking);
+            sensor.AddObservation(rivalAI.isAttacking);
+            sensor.AddObservation(animCallback.blockCounter);
+            sensor.AddObservation(animCallback.crouchCounter);
+            sensor.AddObservation(ai.isBlocking);
+            sensor.AddObservation(rivalAI.isBlocking);
+            sensor.AddObservation(ai.isJumping);
+            sensor.AddObservation(actions.onTheGround);
+            sensor.AddObservation(ai.isCrouching);
+            sensor.AddObservation(rivalAI.isCrouching);
+            sensor.AddObservation(rivalAI.actionNum);
+            sensor.AddObservation(ai.SP);
+            sensor.AddObservation(ai.specialAttack);
+            sensor.AddObservation(rivalAI.specialAttack);
+            sensor.AddObservation(hittingBetweenBlocks);
+            sensor.AddObservation(ai.beingHit);
+            sensor.AddObservation(rivalAI.beingHit);
+        }
     }
 
     // take that action vector and convert each action to "fighting action"
