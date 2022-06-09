@@ -178,7 +178,7 @@ public class Actions : MonoBehaviour
         if (onTheGround)
         {
             anim.SetFloat("Speed_Float", 1);
-            transform.Translate(Vector3.forward * Time.deltaTime * 0.5f);  // note to myself: there are 4 fucked up characters that need Vector3.forward*Time.deltaTime*1
+            //transform.Translate(Vector3.forward * Time.deltaTime * 0.5f);  // note to myself: there are 4 fucked up characters that need Vector3.forward*Time.deltaTime*1
             Debug.Log("Walking forward");
         }
         if (isJumping)

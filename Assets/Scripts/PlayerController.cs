@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         else if ((gameObject.tag == "Player" && Input.GetKey(KeyCode.RightArrow)) || (gameObject.tag == "Opponent" && Input.GetKey(KeyCode.Keypad4)))
         {
             playerAnim.SetFloat("Speed_Float", 1);
-            transform.Translate(Vector3.forward * Time.deltaTime*0.5f);  // note to myself: there are 4 fucked up characters that need Vector3.forward*Time.deltaTime*1
+            //transform.Translate(Vector3.forward * Time.deltaTime*0.5f);  // note to myself: there are 4 fucked up characters that need Vector3.forward*Time.deltaTime*1
             DataManager.Instance.PlayerActionNum = 2;
             if ((gameObject.tag == "Player" && Input.GetKeyDown(KeyCode.UpArrow)) || (gameObject.tag == "Opponent" && Input.GetKeyDown(KeyCode.Keypad8)))
             {
@@ -464,10 +464,10 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (DataManager.Instance.IsP1Attacking)
-        {
-            StartCoroutine(ResetAttack());
-        }
+        //if (DataManager.Instance.IsP1Attacking)
+        //{
+        //    StartCoroutine(ResetAttack());
+        //}
 
     }
 
@@ -496,19 +496,19 @@ public class PlayerController : MonoBehaviour
         DataManager.Instance.PlayerActionNum = 11;
     }
 
-    IEnumerator ResetAttack()
-    {
-        yield return new WaitForSeconds(1);
-        if (gameObject.tag == "Player")
-        {
-            DataManager.Instance.IsP1Attacking = false;
-            DataManager.Instance.P1AttackName = "";
-        }
-        if (gameObject.tag == "Opponent")
-        {
-            DataManager.Instance.IsP2Attacking = false;
-            DataManager.Instance.P2AttackName = "";
-        }
+    //IEnumerator ResetAttack()
+    //{
+    //    yield return new WaitForSeconds(1);
+    //    if (gameObject.tag == "Player")
+    //    {
+    //        DataManager.Instance.IsP1Attacking = false;
+    //        DataManager.Instance.P1AttackName = "";
+    //    }
+    //    if (gameObject.tag == "Opponent")
+    //    {
+    //        DataManager.Instance.IsP2Attacking = false;
+    //        DataManager.Instance.P2AttackName = "";
+    //    }
 
-    }
+    //}
 }

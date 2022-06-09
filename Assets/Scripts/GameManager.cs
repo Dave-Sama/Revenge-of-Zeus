@@ -21,16 +21,17 @@ public class GameManager : MonoBehaviour
     private GameObject playerClone;
     private GameObject opponentClone;
     private Camera camera;
-    private Animator playerDeadAnim;
-    private Animator opponentDeadAnim;
+    private Animator playerAnim;
+    private Animator opponentAnim;
     private PlayerController playerController;
     private PlayerController opponentController;
-    private FightAgent opponentAgent;
+    private AI opponentAI;
     private List<string> freeOpponents;
     private AudioSource battleMusic;
     private bool raisedCounterOnDraw;
     private GameObject pauseMenu;
-
+    private Quaternion playerRotation;
+    private Quaternion opponentRotation;
     // Start is called before the first frame update
     void Start()
     {
@@ -87,8 +88,22 @@ public class GameManager : MonoBehaviour
         Vector3 characterPosition = new Vector3(-2.75f, 0, 0);
         playerClone=InstantiateCharacter(playersNameText.text, characterPosition,true);
         opponentClone=InstantiateCharacter(opponentsNameText.text, characterPosition*(-1),false);
-        playerDeadAnim = playerClone.GetComponent<Animator>(); // --------put in comments when testing-----------
-        opponentDeadAnim = opponentClone.GetComponent<Animator>();
+        playerAnim = playerClone.GetComponent<Animator>(); // --------put in comments when testing-----------
+        opponentAnim = opponentClone.GetComponent<Animator>();
+        if (DataManager.Instance.GameMode == "PvP")
+        {
+            string playerControllerName = playersNameText.text + "PvP";
+            string opponentControllerName = opponentsNameText.text + "PvP";
+            playerAnim.runtimeAnimatorController = Resources.Load("Animations/Playable_Characters/" + playerControllerName) as RuntimeAnimatorController;
+            opponentAnim.runtimeAnimatorController = Resources.Load("Animations/Playable_Characters/" + opponentControllerName) as RuntimeAnimatorController;
+        }
+        else
+        {
+            string playerControllerName = playersNameText.text + "PvP";
+            string opponentControllerName = opponentsNameText.text + "NPC";
+            playerAnim.runtimeAnimatorController = Resources.Load("Animations/Playable_Characters/" + playerControllerName) as RuntimeAnimatorController;
+            opponentAnim.runtimeAnimatorController = Resources.Load("Animations/NPC/" + opponentControllerName) as RuntimeAnimatorController;
+        }
         DataManager.Instance.IsPlayerDead = false;
         DataManager.Instance.IsOpponentDead = false;
         //rightWall.transform.position = new Vector3(camera.pixelWidth/2, rightWall.transform.position.y);  // ---------------delete this later--------------------
@@ -99,14 +114,20 @@ public class GameManager : MonoBehaviour
         playerController.enabled = false;
         opponentController = opponentClone.GetComponent<PlayerController>();
         opponentController.enabled = false;
-        opponentAgent=opponentClone.GetComponent<FightAgent>();
-        //opponentAgent.enabled = false;  // --------------------------------put in comments for testing----------------
+        opponentAI = opponentClone.GetComponent<AI>();
+        playerRotation=playerClone.transform.rotation;
+        opponentRotation=opponentClone.transform.rotation;
         StartCoroutine(RoundReadyFight());
     }
 
     // Update is called once per frame
     void Update()
     {
+        // --------------------------- Fixing the low kick rotation bug -----------------------------------------------------
+
+        playerClone.transform.rotation = playerRotation;
+        opponentClone.transform.rotation = opponentRotation;
+
         // --------------------------- Activating Pause Menu -----------------------------------------------------
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -131,8 +152,8 @@ public class GameManager : MonoBehaviour
 
         if (DataManager.Instance.IsPlayerDead && DataManager.Instance.IsOpponentDead)
         {
-            playerDeadAnim.SetTrigger("Dead_Trig");
-            opponentDeadAnim.SetTrigger("Dead_Trig");
+            playerAnim.SetTrigger("Dead_Trig");
+            opponentAnim.SetTrigger("Dead_Trig");
             StartCoroutine(WinnerAnnouncement(""));
             if (DataManager.Instance.CurrentRound == 3)
             {
@@ -216,7 +237,7 @@ public class GameManager : MonoBehaviour
 
         if (DataManager.Instance.IsPlayerDead && !DataManager.Instance.IsOpponentDead) // --------put in comments when testing-----------
         {
-            playerDeadAnim.SetTrigger("Dead_Trig");
+            playerAnim.SetTrigger("Dead_Trig");
             StartCoroutine(WinnerAnnouncement(opponentsNameText.text));
 
             if (DataManager.Instance.CurrentRound == 3)
@@ -272,7 +293,7 @@ public class GameManager : MonoBehaviour
 
         if (DataManager.Instance.IsOpponentDead && !DataManager.Instance.IsPlayerDead)
         {
-            opponentDeadAnim.SetTrigger("Dead_Trig");
+            opponentAnim.SetTrigger("Dead_Trig");
             StartCoroutine(WinnerAnnouncement(playersNameText.text));
             if (DataManager.Instance.CurrentRound == 3)
             {
@@ -424,10 +445,10 @@ public class GameManager : MonoBehaviour
         {
             opponentController.enabled = true;
         }
-        //else
-        //{
-        //    opponentAgent.enabled = true;
-        //}
+        else
+        {
+            opponentAI.startFight = true;
+        }
         battleMusic.Play();
     }
 

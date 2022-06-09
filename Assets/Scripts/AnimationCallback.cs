@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class AnimationCallback : MonoBehaviour
 {
     public bool animationEnded = true; // true = permission to go to the next animation
@@ -35,6 +35,19 @@ public class AnimationCallback : MonoBehaviour
     {
         animationEnded=true;
         idleCounter = 0;
+        if (SceneManager.GetActiveScene().name != "Training")
+        {
+            if (gameObject.tag == "Player")
+            {
+                DataManager.Instance.IsP1Attacking = false;
+                DataManager.Instance.P1AttackName = "";
+            }
+            if (gameObject.tag == "Opponent")
+            {
+                DataManager.Instance.IsP2Attacking = false;
+                DataManager.Instance.P2AttackName = "";
+            }
+        }
         //Debug.Log("Animation ended");
     }
     void IncreaseIdleCounter()
