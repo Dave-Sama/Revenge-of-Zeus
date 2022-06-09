@@ -35,7 +35,10 @@ public class FightAgent : Agent
         {
             rival = GameObject.FindGameObjectWithTag("Player");
         }
-        rivalAI = rival.GetComponent<AI>();
+        if (rival != null)
+        {
+            rivalAI = rival.GetComponent<AI>();
+        }
         hittingBetweenBlocks = 0;
         distanceCounter = 0;
         crouchAttacks = 0;

@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
         }
 
 
-        opponentsNameText.text = "Helios";// ---------------------------------For testing, delete later-------------------------
+        //opponentsNameText.text = "Helios";// ---------------------------------For testing, delete later-------------------------
 
         Vector3 characterPosition = new Vector3(-2.75f, 0, 0);
         playerClone=InstantiateCharacter(playersNameText.text, characterPosition,true);

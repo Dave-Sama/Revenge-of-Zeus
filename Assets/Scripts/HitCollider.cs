@@ -27,9 +27,9 @@ public class HitCollider : MonoBehaviour
             {
                 hitSound = GameObject.Find("Hit Sound").GetComponent<AudioSource>();
                 blockSound = GameObject.Find("Block Sound").GetComponent<AudioSource>();
+                playersSP = GameObject.FindGameObjectWithTag("PlayerSP").GetComponent<Slider>();
+                opponentsSP = GameObject.FindGameObjectWithTag("OpponentSP").GetComponent<Slider>();
             }
-            playersSP = GameObject.FindGameObjectWithTag("PlayerSP").GetComponent<Slider>();
-            opponentsSP = GameObject.FindGameObjectWithTag("OpponentSP").GetComponent<Slider>();
         }
         else
         {

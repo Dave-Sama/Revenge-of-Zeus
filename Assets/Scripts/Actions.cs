@@ -42,8 +42,11 @@ public class Actions : MonoBehaviour
         isJumping = false;
         if(SceneManager.GetActiveScene().name != "Training" && gameObject.tag== "Opponent")
         {
-            attackSound1 = GameObject.Find("Attack Sound 1").GetComponent<AudioSource>();
-            attackSound2 = GameObject.Find("Attack Sound 2").GetComponent<AudioSource>();
+            if(GameObject.Find("Attack Sound 1")!=null && GameObject.Find("Attack Sound 2") != null)
+            {
+                attackSound1 = GameObject.Find("Attack Sound 1").GetComponent<AudioSource>();
+                attackSound2 = GameObject.Find("Attack Sound 2").GetComponent<AudioSource>();
+            }
         }
         //isAttacking = false;
         //if (Instance == null)
@@ -215,7 +218,8 @@ public class Actions : MonoBehaviour
             {
                 DataManager.Instance.IsP2Attacking = true;
                 DataManager.Instance.P2AttackName = "Jump punch";
-                attackSound2.Play();
+                if(attackSound2!=null)
+                    attackSound2.Play();
             }
             anim.SetTrigger("JumpPunch_Trig");
         }
@@ -226,7 +230,8 @@ public class Actions : MonoBehaviour
         {
             DataManager.Instance.IsP2Attacking = true;
             DataManager.Instance.P2AttackName = "Jump kick";
-            attackSound1.Play();
+            if(attackSound1!=null)
+                attackSound1.Play();
         }
         anim.SetTrigger("JumpKick_Trig");
         
@@ -249,7 +254,8 @@ public class Actions : MonoBehaviour
             {
                 DataManager.Instance.IsP2Attacking = true;
                 DataManager.Instance.P2AttackName = "Low punch";
-                attackSound2.Play();
+                if(attackSound2!=null)
+                    attackSound2.Play();
             }
             ResetAllTriggers();
             anim.SetTrigger("LowPunch_Trig");
@@ -264,7 +270,8 @@ public class Actions : MonoBehaviour
             {
                 DataManager.Instance.IsP2Attacking = true;
                 DataManager.Instance.P2AttackName = "Low kick";
-                attackSound1.Play();
+                if(attackSound1!=null)
+                    attackSound1.Play();
             }
             ResetAllTriggers();
             anim.SetTrigger("LowKick_Trig");  
@@ -278,7 +285,8 @@ public class Actions : MonoBehaviour
             {
                 DataManager.Instance.IsP2Attacking = true;
                 DataManager.Instance.P2AttackName = "Uppercut";
-                attackSound1.Play();
+                if(attackSound1 != null)
+                    attackSound1.Play();
             }
             ResetAllTriggers();
             anim.SetTrigger("Uppercut_Trig");
@@ -290,7 +298,8 @@ public class Actions : MonoBehaviour
         {
             DataManager.Instance.IsP2Attacking = true;
             DataManager.Instance.P2AttackName = "Up punch left";
-            attackSound2.Play();
+            if(attackSound2!=null)
+                attackSound2.Play();
         }
         anim.SetTrigger("UpPunchLeft_Trig");
     }
@@ -300,7 +309,8 @@ public class Actions : MonoBehaviour
         {
             DataManager.Instance.IsP2Attacking = true;
             DataManager.Instance.P2AttackName = "Up punch right";
-            attackSound1.Play();
+            if(attackSound1!=null)
+                attackSound1.Play();
         }
         anim.SetTrigger("UpPunchRight_Trig");
     }
@@ -310,7 +320,8 @@ public class Actions : MonoBehaviour
         {
             DataManager.Instance.IsP2Attacking = true;
             DataManager.Instance.P2AttackName = "Mid punch left";
-            attackSound2.Play();
+            if(attackSound2!=null)
+                attackSound2.Play();
         }
             anim.SetTrigger("MidPunchLeft_Trig");
     }
@@ -320,7 +331,8 @@ public class Actions : MonoBehaviour
         {
             DataManager.Instance.IsP2Attacking = true;
             DataManager.Instance.P2AttackName = "Mid punch right";
-            attackSound1.Play();
+            if(attackSound1!=null)
+                attackSound1.Play();
         }
             anim.SetTrigger("MidPunchRight_Trig");
     }
@@ -330,7 +342,8 @@ public class Actions : MonoBehaviour
         {
             DataManager.Instance.IsP2Attacking = true;
             DataManager.Instance.P2AttackName = "High kick";
-            attackSound1.Play();
+            if(attackSound1!=null)
+                attackSound1.Play();
         }
             anim.SetTrigger("HighKick_Trig");
     }
@@ -340,7 +353,8 @@ public class Actions : MonoBehaviour
         {
             DataManager.Instance.IsP2Attacking = true;
             DataManager.Instance.P2AttackName = "Mid kick";
-            attackSound2.Play();
+            if(attackSound2!=null)
+                attackSound2.Play();
         }
             anim.SetTrigger("MidKick_Trig");
     }
