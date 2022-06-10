@@ -382,30 +382,36 @@ public class FightAgent : Agent
         if (rivalAI.HP == 0) // winning the battle
         {
             AddReward(0.3f);
-            if (gameObject.tag == "Opponent")
+            if(SceneManager.GetActiveScene().name == "Training")
             {
-                transform.position = new Vector3(3.29f, transform.position.y, transform.position.z);
-                rival.transform.position = new Vector3(-2.68f, this.transform.position.y, this.transform.position.z);
-            }
-            if (gameObject.tag == "Player")
-            {
-                rival.transform.position = new Vector3(3.29f, transform.position.y, transform.position.z);
-                transform.position = new Vector3(-2.68f, this.transform.position.y, this.transform.position.z);
+                if (gameObject.tag == "Opponent")
+                {
+                    transform.position = new Vector3(3.29f, transform.position.y, transform.position.z);
+                    rival.transform.position = new Vector3(-2.68f, this.transform.position.y, this.transform.position.z);
+                }
+                if (gameObject.tag == "Player")
+                {
+                    rival.transform.position = new Vector3(3.29f, transform.position.y, transform.position.z);
+                    transform.position = new Vector3(-2.68f, this.transform.position.y, this.transform.position.z);
+                }
             }
             EndEpisode();
         }
         if (ai.HP == 0) // losing the battle
         {
             AddReward(-0.3f);
-            if (gameObject.tag == "Opponent")
+            if (SceneManager.GetActiveScene().name == "Training")
             {
-                transform.position = new Vector3(3.29f, transform.position.y, transform.position.z);
-                rival.transform.position = new Vector3(-2.68f, this.transform.position.y, this.transform.position.z);
-            }
-            if (gameObject.tag == "Player")
-            {
-                rival.transform.position = new Vector3(3.29f, transform.position.y, transform.position.z);
-                transform.position = new Vector3(-2.68f, this.transform.position.y, this.transform.position.z);
+                if (gameObject.tag == "Opponent")
+                {
+                    transform.position = new Vector3(3.29f, transform.position.y, transform.position.z);
+                    rival.transform.position = new Vector3(-2.68f, this.transform.position.y, this.transform.position.z);
+                }
+                if (gameObject.tag == "Player")
+                {
+                    rival.transform.position = new Vector3(3.29f, transform.position.y, transform.position.z);
+                    transform.position = new Vector3(-2.68f, this.transform.position.y, this.transform.position.z);
+                }
             }
             EndEpisode();
         }

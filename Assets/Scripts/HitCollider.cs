@@ -85,7 +85,12 @@ public class HitCollider : MonoBehaviour
                             hitAnim.SetTrigger("HighLeftHit_Trig");
                             break;
                         case 8:
+                        case 13: 
+                        case 14:
                             hitAnim.SetTrigger("HighRightHit_Trig");
+                            break;
+                        case 18:
+                            hitAnim.SetTrigger("LowKickHit_Trig");
                             break;
                         default:
                             break;
@@ -116,13 +121,22 @@ public class HitCollider : MonoBehaviour
                         }
                     }
                 }
+                if (playerAi.isBlocking)
+                {        
+                    if(opponentAi.actionNum == 18)
+                    {
+                        playerAi.beingHit = true;
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("LowKickHit_Trig");
+                    }
+                }
             }
             if(other.CompareTag("Opponent") && playerAi.isAttacking)
             {
                 //playerActions.isAttacking = false;             
                 playerAi.SP += 0.5f;
 
-                if (!opponentAi.isBlocking)
+                if (!opponentAi.isBlocking && opponentAi.isCrouching == 0)
                 {
                     opponentAi.HP--;
                     opponentAi.beingHit = true;
@@ -145,7 +159,12 @@ public class HitCollider : MonoBehaviour
                             hitAnim.SetTrigger("HighLeftHit_Trig");
                             break;
                         case 8:
+                        case 13:
+                        case 14:
                             hitAnim.SetTrigger("HighRightHit_Trig");
+                            break;
+                        case 18:
+                            hitAnim.SetTrigger("LowKickHit_Trig");
                             break;
                         default:
                             break;
@@ -175,6 +194,15 @@ public class HitCollider : MonoBehaviour
                             default:
                                 break;
                         }
+                    }
+                }
+                if (opponentAi.isBlocking)
+                {
+                    if(playerAi.actionNum == 18)
+                    {
+                        opponentAi.beingHit = true;
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("LowKickHit_Trig");
                     }
                 }
             }
@@ -222,7 +250,8 @@ public class HitCollider : MonoBehaviour
                     }
 
                 }
-                if (DataManager.Instance.P1AttackName == "Up punch right" && DataManager.Instance.IsP1Attacking)
+                if ((DataManager.Instance.P1AttackName == "Up punch right" || DataManager.Instance.P1AttackName == "Jump punch" || DataManager.Instance.P1AttackName == "Jump kick")
+                    && DataManager.Instance.IsP1Attacking)
                 {
                     if (DataManager.Instance.P2Crouch)
                     {
@@ -387,6 +416,8 @@ public class HitCollider : MonoBehaviour
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P1AttackName = "";
                         blockSound.Play();
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("LowKickHit_Trig");
                         DataManager.Instance.IsPlayer = false;
                     }
                     else
@@ -440,7 +471,8 @@ public class HitCollider : MonoBehaviour
                     }
 
                 }
-                if (DataManager.Instance.P2AttackName == "Up punch right" && DataManager.Instance.IsP2Attacking)
+                if ((DataManager.Instance.P2AttackName == "Up punch right" || DataManager.Instance.P2AttackName == "Jump punch" || DataManager.Instance.P2AttackName == "Jump kick") 
+                    && DataManager.Instance.IsP2Attacking)
                 {
                     if (DataManager.Instance.P1Crouch)
                     {
@@ -610,6 +642,8 @@ public class HitCollider : MonoBehaviour
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P2AttackName = "";
                         blockSound.Play();
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("LowKickHit_Trig");
                         DataManager.Instance.IsPlayer = true;
                     }
                     else

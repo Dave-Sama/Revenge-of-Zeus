@@ -49,6 +49,18 @@ public class PlayerController : MonoBehaviour
         {
             playerAnim.SetFloat("Speed_Float", -1);
             DataManager.Instance.PlayerActionNum = 1;
+            if ((gameObject.tag == "Player" && Input.GetKeyDown(KeyCode.UpArrow)) || (gameObject.tag == "Opponent" && Input.GetKeyDown(KeyCode.Keypad8)))
+            {
+                onTheGround = false;
+                playerAnim.SetBool("Jump_Bool", true);
+                //DataManager.Instance.PlayerActionNum = 12;
+            }
+            else
+            {
+                onTheGround = true;
+                playerAnim.SetBool("Jump_Bool", false);
+                //DataManager.Instance.PlayerActionNum = 2;
+            }
         }
         //---------------------Walk Forward---------------------------
         else if ((gameObject.tag == "Player" && Input.GetKey(KeyCode.RightArrow)) || (gameObject.tag == "Opponent" && Input.GetKey(KeyCode.Keypad4)))
@@ -78,8 +90,8 @@ public class PlayerController : MonoBehaviour
         if (onTheGround)
         {
             playerAnim.SetBool("Jump_Bool", false);
-            if ((gameObject.tag == "Player" && Input.GetKeyDown(KeyCode.UpArrow) && !Input.GetKey(KeyCode.RightArrow)) || 
-                (gameObject.tag == "Opponent" && Input.GetKeyDown(KeyCode.Keypad8) && !Input.GetKey(KeyCode.Keypad4)))
+            if ((gameObject.tag == "Player" && Input.GetKeyDown(KeyCode.UpArrow) && !Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow)) || 
+                (gameObject.tag == "Opponent" && Input.GetKeyDown(KeyCode.Keypad8) && !Input.GetKey(KeyCode.Keypad4) && !Input.GetKey(KeyCode.Keypad6)))
             {
                 onTheGround = false;
                 jump = true;
