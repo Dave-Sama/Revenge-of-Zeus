@@ -89,8 +89,17 @@ public class HitCollider : MonoBehaviour
                         case 14:
                             hitAnim.SetTrigger("HighRightHit_Trig");
                             break;
+                        case 17:
+                            hitAnim.SetTrigger("LowPunchHit_Trig");
+                            break;
                         case 18:
                             hitAnim.SetTrigger("LowKickHit_Trig");
+                            break;
+                        case 19:
+                            hitAnim.SetTrigger("UppercutHit_Trig");
+                            break;
+                        case 20:
+                            hitAnim.SetTrigger("SpecialAttackHit_Trig");
                             break;
                         default:
                             break;
@@ -163,8 +172,17 @@ public class HitCollider : MonoBehaviour
                         case 14:
                             hitAnim.SetTrigger("HighRightHit_Trig");
                             break;
+                        case 17:
+                            hitAnim.SetTrigger("LowPunchHit_Trig");
+                            break;
                         case 18:
                             hitAnim.SetTrigger("LowKickHit_Trig");
+                            break;
+                        case 19:
+                            hitAnim.SetTrigger("UppercutHit_Trig");
+                            break;
+                        case 20:
+                            hitAnim.SetTrigger("SpecialAttackHit_Trig");
                             break;
                         default:
                             break;
