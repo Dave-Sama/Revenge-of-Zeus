@@ -218,7 +218,8 @@ public class AI : MonoBehaviour
             //    actionNum = 20;
             //}
         }
-        
+
+
 
         if (SceneManager.GetActiveScene().name == "Training")
         {
@@ -231,9 +232,8 @@ public class AI : MonoBehaviour
                 actions.IntToAction(actionNum);
             }
         }
-            
 
-        if(SceneManager.GetActiveScene().name == "Training")
+        if (SceneManager.GetActiveScene().name == "Training")
         {
             HPText.text = HP.ToString();
             SPText.text = SP.ToString();

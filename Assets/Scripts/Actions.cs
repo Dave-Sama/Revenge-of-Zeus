@@ -415,6 +415,9 @@ public class Actions : MonoBehaviour
         {
             if (param.type == AnimatorControllerParameterType.Trigger)
             {
+                if (param.name!= "HighLeftHit_Trig" && param.name!= "HighRightHit_Trig" && param.name!= "MidLeftHit_Trig" && param.name!= "MidRightHit_Trig"
+                    && param.name!= "LowLeftHit_Trig" && param.name!= "LowRightHit_Trig" && param.name != "SpecialAttackHit_Trig" && param.name!= "UppercutHit_Trig"
+                    && param.name!= "LowPunchHit_Trig" && param.name!= "LowKickHit_Trig" && param.name != "Dead_Trig")
                 anim.ResetTrigger(param.name);
             }
         }

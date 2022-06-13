@@ -25,7 +25,7 @@ public class FightAgent : Agent
     public override void Initialize()
     {
         ai = gameObject.GetComponent<AI>();
-        anim=gameObject.GetComponent<Animator>();
+        anim = gameObject.GetComponent<Animator>();
         animCallback = gameObject.GetComponent<AnimationCallback>();
         if (this.tag == "Player")
         {
@@ -73,7 +73,7 @@ public class FightAgent : Agent
     }
     public override void CollectObservations(VectorSensor sensor)
     {
-        if(gameObject!=null && rival != null)
+        if (gameObject != null && rival != null)
         {
             sensor.AddObservation(transform.position); //try putting the isAttacking as an observation too
             sensor.AddObservation(rival.transform.position);
@@ -110,7 +110,7 @@ public class FightAgent : Agent
 
         float distance = Vector3.Distance(transform.position, rival.transform.position);
 
-        if(SceneManager.GetActiveScene().name != "Training" && rivalAI.HP == 0)
+        if (SceneManager.GetActiveScene().name != "Training" && rivalAI.HP == 0)
         {
             ai.startFight = false;
             ai.actionNum = 0;
@@ -145,13 +145,14 @@ public class FightAgent : Agent
             {
                 doOrCancelBlock = Mathf.RoundToInt(vectorAction[2]); // continue blocking or cancel the block
                 if (doOrCancelBlock == 0) { ai.actionNum = 9; }
-                if (doOrCancelBlock == 1) { 
-                    if(!actionNum10)
+                if (doOrCancelBlock == 1)
+                {
+                    if (!actionNum10)
                     {
                         ai.actionNum = 10;
                         actionNum10 = true;
                     }
-                        
+
                 }
                 animCallback.animationEnded = false;
             }
@@ -304,9 +305,9 @@ public class FightAgent : Agent
                         {
                             ai.actionNum = 20;
                         }
-                        if(ai.actionNum == 9)
+                        if (ai.actionNum == 9)
                         {
-                            if(ai.permissionToBlock && ai.isCrouching == 0)
+                            if (ai.permissionToBlock && ai.isCrouching == 0)
                             {
                                 ai.isBlocking = true;
                             }
@@ -323,15 +324,15 @@ public class FightAgent : Agent
                         //{
                         //    return;
                         //}
-                    //    if (hittingBetweenBlocks == 150 && ai.actionNum == 9 && ai.isCrouching == 0)
-                    //    {
-                    //        ai.isBlocking = true;
-                    //    }
+                        //    if (hittingBetweenBlocks == 150 && ai.actionNum == 9 && ai.isCrouching == 0)
+                        //    {
+                        //        ai.isBlocking = true;
+                        //    }
 
-                }
+                    }
                     else
                     {
-                        if(ai.permissionToBlock)
+                        if (ai.permissionToBlock)
                             animCallback.blockMode = true;
                         else
                         {
@@ -357,19 +358,20 @@ public class FightAgent : Agent
                     {
                         ai.actionNum = Mathf.RoundToInt(vectorAction[1]); // idle, walking forwards/backwards
                         ai.isJumping = Mathf.RoundToInt(vectorAction[3]); // jump or not
-                        ai.isCrouching = Mathf.RoundToInt(vectorAction[4]); // crouch or not
+                        ai.isCrouching = 0;
+                        //ai.isCrouching = Mathf.RoundToInt(vectorAction[4]); // crouch or not
                         ai.specialAttack = Mathf.RoundToInt(vectorAction[5]);
-                        if (ai.isCrouching == 1 && ai.actionNum == 0)
-                        {
-                            ai.isJumping = 0;
-                            ai.specialAttack = 0;
-                            ai.actionNum = 15;
-                        }
-                        if (ai.isCrouching == 1 && ai.actionNum != 0)
-                        {
-                            ai.isCrouching = 0;
-                            animCallback.crouchMode = false;
-                        }
+                        //if (ai.isCrouching == 1 && ai.actionNum == 0)
+                        //{
+                        //    ai.isJumping = 0;
+                        //    ai.specialAttack = 0;
+                        //    ai.actionNum = 15;
+                        //}
+                        //if (ai.isCrouching == 1 && ai.actionNum != 0)
+                        //{
+                        //    ai.isCrouching = 0;
+                        //    animCallback.crouchMode = false;
+                        //}
                         if ((ai.actionNum == 0) && ai.isJumping == 1 && ai.isCrouching == 0) // jump in place
                         {
                             ai.actionNum = 11;
@@ -386,7 +388,7 @@ public class FightAgent : Agent
                     }
                     else
                     {
-                        if(ai.permissionToBlock)
+                        if (ai.permissionToBlock)
                             animCallback.blockMode = true;
                         else
                         {
@@ -443,7 +445,7 @@ public class FightAgent : Agent
         if (rivalAI.HP == 0) // winning the battle
         {
             AddReward(0.3f);
-            if(SceneManager.GetActiveScene().name == "Training")
+            if (SceneManager.GetActiveScene().name == "Training")
             {
                 if (gameObject.tag == "Opponent")
                 {
@@ -479,7 +481,7 @@ public class FightAgent : Agent
         if (rivalAI.beingHit) // hit the rival
         {
             AddReward(0.2f);
-            rivalAI.beingHit = false;
+            //rivalAI.beingHit = false;
         }
         if (ai.beingHit) // being hit yourself
         {
@@ -518,7 +520,7 @@ public class FightAgent : Agent
         {
             AddReward(-0.3f);
         }
-        if(ai.isBlocking && !ai.permissionToBlock)
+        if (ai.isBlocking && !ai.permissionToBlock)
         {
             AddReward(-0.5f);
         }
@@ -538,7 +540,7 @@ public class FightAgent : Agent
         {
             AddReward(-0.2f);
         }
-        if(distance > 1.7f && ai.isAttacking) // punishment for attacking in a long distance
+        if (distance > 1.7f && ai.isAttacking) // punishment for attacking in a long distance
         {
             AddReward(-0.3f);
         }

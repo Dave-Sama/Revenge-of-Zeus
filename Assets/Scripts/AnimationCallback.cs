@@ -32,6 +32,10 @@ public class AnimationCallback : MonoBehaviour
     void AnimBeginCallback()
     {
         animationEnded = false;
+    }
+    void StartAttacking()
+    {
+        animationEnded = false;
         ai.isAttacking = true;
     }
     void animEndCallback()
@@ -86,6 +90,11 @@ public class AnimationCallback : MonoBehaviour
     {
         animationEnded = true;
         crouchMode = false;
+    }
+    void HitCallback()
+    {
+        animationEnded = false;
+        ai.isAttacking = false;
     }
     public int getIdleCounter()
     {

@@ -250,7 +250,7 @@ public class HitCollider : MonoBehaviour
                     }
                     else if (DataManager.Instance.P2Block)
                     {
-                        damage = 0;
+                        damage = 1;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P1AttackName = "";
                         blockSound.Play();
@@ -258,7 +258,7 @@ public class HitCollider : MonoBehaviour
                     }
                     else
                     {
-                        damage = 1;
+                        damage = 3;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P1AttackName = "";
                         hitSound.Play();
@@ -280,7 +280,7 @@ public class HitCollider : MonoBehaviour
                     }
                     else if (DataManager.Instance.P2Block)
                     {
-                        damage = 0;
+                        damage = 1;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P1AttackName = "";
                         blockSound.Play();
@@ -288,7 +288,7 @@ public class HitCollider : MonoBehaviour
                     }
                     else
                     {
-                        damage = 1;
+                        damage = 3;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P1AttackName = "";
                         hitSound.Play();
@@ -302,7 +302,7 @@ public class HitCollider : MonoBehaviour
                 {
                     if (DataManager.Instance.P2Block)
                     {
-                        damage = 0;
+                        damage = 2;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P1AttackName = "";
                         blockSound.Play();
@@ -310,7 +310,7 @@ public class HitCollider : MonoBehaviour
                     }
                     else
                     {
-                        damage = 1;
+                        damage = 4;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P1AttackName = "";
                         hitSound.Play();
@@ -323,7 +323,7 @@ public class HitCollider : MonoBehaviour
                 {
                     if (DataManager.Instance.P2Block)
                     {
-                        damage = 0;
+                        damage = 2;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P1AttackName = "";
                         blockSound.Play();
@@ -331,7 +331,7 @@ public class HitCollider : MonoBehaviour
                     }
                     else
                     {
-                        damage = 2;
+                        damage = 3;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P1AttackName = "";
                         hitSound.Play();
@@ -344,7 +344,7 @@ public class HitCollider : MonoBehaviour
                 {
                     if (DataManager.Instance.P2Block)
                     {
-                        damage = 0;
+                        damage = 2;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P1AttackName = "";
                         blockSound.Play();
@@ -352,7 +352,7 @@ public class HitCollider : MonoBehaviour
                     }
                     else
                     {
-                        damage = 2;
+                        damage = 3;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P1AttackName = "";
                         hitSound.Play();
@@ -366,7 +366,7 @@ public class HitCollider : MonoBehaviour
                     playersSP.value = 0;
                     if (DataManager.Instance.P2Block)
                     {
-                        damage = 0;
+                        damage = 4;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P1AttackName = "";
                         blockSound.Play();
@@ -374,7 +374,7 @@ public class HitCollider : MonoBehaviour
                     }
                     else
                     {
-                        damage = 5;
+                        damage = 7;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P1AttackName = "";
                         hitSound.Play();
@@ -387,15 +387,17 @@ public class HitCollider : MonoBehaviour
                 {
                     if (DataManager.Instance.P2Block)
                     {
-                        damage = 0;
+                        damage = 1;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P1AttackName = "";
                         blockSound.Play();
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("UppercutHit_Trig");
                         DataManager.Instance.IsPlayer = false;
                     }
                     else
                     {
-                        damage = 1;
+                        damage = 3;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P1AttackName = "";
                         hitSound.Play();
@@ -409,7 +411,7 @@ public class HitCollider : MonoBehaviour
                 {
                     if (DataManager.Instance.P2Block)
                     {
-                        damage = 0;
+                        damage = 1;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P1AttackName = "";
                         blockSound.Play();
@@ -417,7 +419,7 @@ public class HitCollider : MonoBehaviour
                     }
                     else
                     {
-                        damage = 1;
+                        damage = 3;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P1AttackName = "";
                         hitSound.Play();
@@ -430,7 +432,7 @@ public class HitCollider : MonoBehaviour
                 {
                     if (DataManager.Instance.P2Block)
                     {
-                        damage = 0;
+                        damage = 2;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P1AttackName = "";
                         blockSound.Play();
@@ -440,7 +442,7 @@ public class HitCollider : MonoBehaviour
                     }
                     else
                     {
-                        damage = 1;
+                        damage = 3;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P1AttackName = "";
                         hitSound.Play();
@@ -471,7 +473,7 @@ public class HitCollider : MonoBehaviour
                     }
                     else if (DataManager.Instance.P1Block)
                     {
-                        damage = 0;
+                        damage = 1;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P2AttackName = "";
                         blockSound.Play();
@@ -479,7 +481,7 @@ public class HitCollider : MonoBehaviour
                     }
                     else
                     {
-                        damage = 1;
+                        damage = 3;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P2AttackName = "";
                         hitSound.Play();
@@ -501,7 +503,7 @@ public class HitCollider : MonoBehaviour
                     }
                     else if (DataManager.Instance.P1Block)
                     {
-                        damage = 0;
+                        damage = 1;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P2AttackName = "";
                         blockSound.Play();
@@ -509,7 +511,7 @@ public class HitCollider : MonoBehaviour
                     }
                     else
                     {
-                        damage = 1;
+                        damage = 3;
                         DataManager.Instance.IsP2Attacking = false;
                         DataManager.Instance.P2AttackName = "";
                         hitSound.Play();
@@ -529,7 +531,7 @@ public class HitCollider : MonoBehaviour
                     }
                     else if (DataManager.Instance.P1Block)
                     {
-                        damage = 0;
+                        damage = 2;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P2AttackName = "";
                         blockSound.Play();
@@ -537,7 +539,7 @@ public class HitCollider : MonoBehaviour
                     }
                     else
                     {
-                        damage = 1;
+                        damage = 4;
                         DataManager.Instance.IsP2Attacking = false;
                         DataManager.Instance.P2AttackName = "";
                         hitSound.Play();
@@ -550,7 +552,7 @@ public class HitCollider : MonoBehaviour
                 {
                     if (DataManager.Instance.P1Block)
                     {
-                        damage = 0;
+                        damage = 2;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P2AttackName = "";
                         blockSound.Play();
@@ -558,7 +560,7 @@ public class HitCollider : MonoBehaviour
                     }
                     else
                     {
-                        damage = 2;
+                        damage = 3;
                         DataManager.Instance.IsP2Attacking = false;
                         DataManager.Instance.P2AttackName = "";
                         hitSound.Play();
@@ -571,7 +573,7 @@ public class HitCollider : MonoBehaviour
                 {
                     if (DataManager.Instance.P1Block)
                     {
-                        damage = 0;
+                        damage = 2;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P2AttackName = "";
                         blockSound.Play();
@@ -579,7 +581,7 @@ public class HitCollider : MonoBehaviour
                     }
                     else
                     {
-                        damage = 2;
+                        damage = 3;
                         DataManager.Instance.IsP2Attacking = false;
                         DataManager.Instance.P2AttackName = "";
                         hitSound.Play();
@@ -593,7 +595,7 @@ public class HitCollider : MonoBehaviour
                     opponentsSP.value = 0;
                     if (DataManager.Instance.P1Block)
                     {
-                        damage = 0;
+                        damage = 4;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P2AttackName = "";
                         blockSound.Play();
@@ -601,7 +603,7 @@ public class HitCollider : MonoBehaviour
                     }
                     else
                     {
-                        damage = 5;
+                        damage = 7;
                         DataManager.Instance.IsP2Attacking = false;
                         DataManager.Instance.P2AttackName = "";
                         hitSound.Play();
@@ -614,15 +616,17 @@ public class HitCollider : MonoBehaviour
                 {
                     if (DataManager.Instance.P1Block)
                     {
-                        damage = 0;
+                        damage = 1;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P2AttackName = "";
                         blockSound.Play();
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("UppercutHit_Trig");
                         DataManager.Instance.IsPlayer = true;
                     }
                     else
                     {
-                        damage = 1;
+                        damage = 3;
                         DataManager.Instance.IsP2Attacking = false;
                         DataManager.Instance.P2AttackName = "";
                         hitSound.Play();
@@ -635,7 +639,7 @@ public class HitCollider : MonoBehaviour
                 {
                     if (DataManager.Instance.P1Block)
                     {
-                        damage = 0;
+                        damage = 1;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P2AttackName = "";
                         blockSound.Play();
@@ -643,7 +647,7 @@ public class HitCollider : MonoBehaviour
                     }
                     else
                     {
-                        damage = 1;
+                        damage = 3;
                         DataManager.Instance.IsP2Attacking = false;
                         DataManager.Instance.P2AttackName = "";
                         hitSound.Play();
@@ -656,7 +660,7 @@ public class HitCollider : MonoBehaviour
                 {
                     if (DataManager.Instance.P1Block)
                     {
-                        damage = 0;
+                        damage = 2;
                         DataManager.Instance.IsP1Attacking = false;
                         DataManager.Instance.P2AttackName = "";
                         blockSound.Play();
@@ -666,7 +670,7 @@ public class HitCollider : MonoBehaviour
                     }
                     else
                     {
-                        damage = 1;
+                        damage = 3;
                         DataManager.Instance.IsP2Attacking = false;
                         DataManager.Instance.P2AttackName = "";
                         hitSound.Play();
