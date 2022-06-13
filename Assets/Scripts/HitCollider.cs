@@ -64,7 +64,7 @@ public class HitCollider : MonoBehaviour
                 //}
                 if (!playerAi.isBlocking && playerAi.isCrouching == 0)
                 {
-                    playerAi.HP--;
+                    playerAi.HP=playerAi.HP-3;
                     playerAi.beingHit = true;
                     Animator hitAnim = other.GetComponent<Animator>();
                     switch (opponentAi.actionNum)
@@ -109,7 +109,7 @@ public class HitCollider : MonoBehaviour
                 {
                     if(opponentAi.actionNum == 5 || opponentAi.actionNum == 6 || opponentAi.actionNum == 8 || (opponentAi.actionNum >= 17 && opponentAi.actionNum <= 19))
                     {
-                        playerAi.HP--;
+                        playerAi.HP = playerAi.HP - 3;
                         playerAi.beingHit = true;
                         Animator hitAnim = other.GetComponent<Animator>();
                         switch (opponentAi.actionNum){
@@ -131,12 +131,19 @@ public class HitCollider : MonoBehaviour
                     }
                 }
                 if (playerAi.isBlocking)
-                {        
+                {
+                    playerAi.HP--;
                     if(opponentAi.actionNum == 18)
                     {
                         playerAi.beingHit = true;
                         Animator hitAnim = other.GetComponent<Animator>();
                         hitAnim.SetTrigger("LowKickHit_Trig");
+                    }
+                    if(opponentAi.actionNum == 19)
+                    {
+                        playerAi.beingHit = true;
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("UppercutHit_Trig");
                     }
                 }
             }
@@ -147,7 +154,7 @@ public class HitCollider : MonoBehaviour
 
                 if (!opponentAi.isBlocking && opponentAi.isCrouching == 0)
                 {
-                    opponentAi.HP--;
+                    opponentAi.HP=opponentAi.HP-3;
                     opponentAi.beingHit = true;
                     Animator hitAnim = other.GetComponent<Animator>();
                     switch (playerAi.actionNum)
@@ -192,7 +199,7 @@ public class HitCollider : MonoBehaviour
                 {
                     if (playerAi.actionNum == 5 || playerAi.actionNum == 6 || playerAi.actionNum == 8 || (playerAi.actionNum >= 17 && playerAi.actionNum <= 19))
                     {
-                        opponentAi.HP--;
+                        opponentAi.HP=opponentAi.HP-3;
                         opponentAi.beingHit = true;
                         Animator hitAnim = other.GetComponent<Animator>();
                         switch (playerAi.actionNum)
@@ -216,11 +223,18 @@ public class HitCollider : MonoBehaviour
                 }
                 if (opponentAi.isBlocking)
                 {
+                    opponentAi.HP--;
                     if(playerAi.actionNum == 18)
                     {
                         opponentAi.beingHit = true;
                         Animator hitAnim = other.GetComponent<Animator>();
                         hitAnim.SetTrigger("LowKickHit_Trig");
+                    }
+                    if (playerAi.actionNum == 19)
+                    {
+                        opponentAi.beingHit = true;
+                        Animator hitAnim = other.GetComponent<Animator>();
+                        hitAnim.SetTrigger("UppercutHit_Trig");
                     }
                 }
             }

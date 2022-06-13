@@ -13,7 +13,7 @@ public class FightAgent : Agent
     GameObject rival;
     int doOrCancelBlock;
     AnimationCallback animCallback;
-    public int hittingBetweenBlocks; // reducing the block spamming
+    //public int hittingBetweenBlocks; // reducing the block spamming
     public int distanceCounter; // this counter is for not wasting too much time
     Actions actions;
     Animator anim;
@@ -39,7 +39,7 @@ public class FightAgent : Agent
         {
             rivalAI = rival.GetComponent<AI>();
         }
-        hittingBetweenBlocks = 0;
+        //hittingBetweenBlocks = 0;
         distanceCounter = 0;
         crouchAttacks = 0;
         canCrouchAttack = false;
@@ -60,14 +60,14 @@ public class FightAgent : Agent
         //    transform.position = new Vector3(3.29f, transform.position.y, transform.position.z);
         //}
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        ai.HP = 10;
+        ai.HP = 20;
         if (SceneManager.GetActiveScene().name == "Training")
         {
-            rivalAI.HP = 10;
+            rivalAI.HP = 20;
         }
         //ai.SP = 0;
         //rivalAI.SP = 0;
-        hittingBetweenBlocks = 0;
+        //hittingBetweenBlocks = 0;
         ai.isBlocking = false;
         if (ai.actionNum == 9 && animCallback.animationEnded) { ai.actionNum = 10; }
     }
@@ -169,7 +169,7 @@ public class FightAgent : Agent
                 ai.permissionToBlock = false;
                 ai.isAttacking = false;
                 ai.isBlocking = false;
-                hittingBetweenBlocks = 0;
+                //hittingBetweenBlocks = 0;
                 animCallback.blockCounter = 0;
                 animCallback.blockMode = false;
                 ai.actionNum = 0;
@@ -413,12 +413,12 @@ public class FightAgent : Agent
 
         // I put those if sections in here and not in the AI script just to syncronize the time betwwen the action num and is attacking
         if (ai.actionNum >= 0 && ai.actionNum <= 2) ai.isAttacking = false;
-        if (!animCallback.blockMode && (ai.actionNum >= 3 && ai.actionNum <= 8) || (ai.actionNum >= 13 && ai.actionNum <= 14) || (ai.actionNum >= 17 && ai.actionNum <= 19) || ai.actionNum == 20)
-        {
-            //ai.isAttacking = true;
-            hittingBetweenBlocks++;
-            if (hittingBetweenBlocks > 150) { hittingBetweenBlocks = 150; } // if the agent will try to attack before blocking at the beginning of the battle
-        }
+        //if (!animCallback.blockMode && (ai.actionNum >= 3 && ai.actionNum <= 8) || (ai.actionNum >= 13 && ai.actionNum <= 14) || (ai.actionNum >= 17 && ai.actionNum <= 19) || ai.actionNum == 20)
+        //{
+        //    //ai.isAttacking = true;
+        //    hittingBetweenBlocks++;
+        //    if (hittingBetweenBlocks > 150) { hittingBetweenBlocks = 150; } // if the agent will try to attack before blocking at the beginning of the battle
+        //}
         if (ai.actionNum == 9)
         {
             //rb.constraints = RigidbodyConstraints.FreezePositionX;
@@ -433,7 +433,7 @@ public class FightAgent : Agent
             //rb.constraints = RigidbodyConstraints.FreezeRotation;
             ai.isAttacking = false;
             ai.isBlocking = false;
-            hittingBetweenBlocks = 0;
+            //hittingBetweenBlocks = 0;
             animCallback.blockCounter = 0;
             actionNum10 = true;
             ai.actionNum = 0;
@@ -511,11 +511,11 @@ public class FightAgent : Agent
         {
             AddReward(0.1f);
         }
-        if (ai.isBlocking && hittingBetweenBlocks < 150)
-        {
-            AddReward(-0.5f);
-            EndEpisode();
-        }
+        //if (ai.isBlocking && hittingBetweenBlocks < 150)
+        //{
+        //    AddReward(-0.5f);
+        //    EndEpisode();
+        //}
         if (rivalAI.isBlocking && ai.isBlocking)
         {
             AddReward(-0.3f);

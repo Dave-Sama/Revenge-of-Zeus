@@ -45,7 +45,7 @@ public class AI : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Training")
         {
-            HP = 10;
+            HP = 20;
         }
         else
         {
