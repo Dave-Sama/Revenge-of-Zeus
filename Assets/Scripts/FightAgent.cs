@@ -5,6 +5,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.Barracuda;
 
 public class FightAgent : Agent
 {
@@ -20,10 +21,29 @@ public class FightAgent : Agent
     int crouchAttacks;
     bool canCrouchAttack;
     bool actionNum10;
+    [SerializeField] NNModel easy;
+    [SerializeField] NNModel medium;
+    [SerializeField] NNModel hard;
     //Rigidbody rb;
 
     public override void Initialize()
     {
+        if(SceneManager.GetActiveScene().name != "Training")
+        {
+            if (DataManager.Instance.AgentName == "Easy")
+            {
+                SetModel("FightToSurvive", easy);
+            }
+            if (DataManager.Instance.AgentName == "Medium")
+            {
+                SetModel("FightToSurvive", medium);
+            }
+            if (DataManager.Instance.AgentName == "Hard")
+            {
+                SetModel("FightToSurvive", hard);
+            }
+        }
+
         ai = gameObject.GetComponent<AI>();
         anim = gameObject.GetComponent<Animator>();
         animCallback = gameObject.GetComponent<AnimationCallback>();

@@ -43,6 +43,7 @@ public class DataManager : MonoBehaviour
     public int PlayerSpecialAttack { get; set; } // notifies the agent when the player uses special attack
     public float PlayersSP { get; set; } // updates the ML agent (through the AI class) about the sp
     public float OpponentsSP { get; set; } // updates the ML agent (through the AI class) about the sp
+    public string AgentName { get; set; } // for choosing the right model at the menu
 
 
     // Keycodes for player 1 control

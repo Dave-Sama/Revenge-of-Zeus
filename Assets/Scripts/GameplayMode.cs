@@ -7,12 +7,15 @@ public class GameplayMode : MonoBehaviour
 {
     [SerializeField] private GameObject menuButtonSet;
     [SerializeField] private AudioSource introSong;
+    [SerializeField] private GameObject gameplayPanel;
+    [SerializeField] private GameObject agentPanel;
     private AudioSource buttonClick; // Not the regular click but the voice that saying "Welcome to the olympus tournament"
 
     // Start is called before the first frame update
     void Start()
     {
         buttonClick = GameObject.Find("Gameplay Button Set").GetComponent<AudioSource>();
+        agentPanel.SetActive(false);
         DataManager.Instance.downArrowPressed = true;
     }
 
@@ -39,10 +42,9 @@ public class GameplayMode : MonoBehaviour
 
     public void ML1()
     {
-        introSong.Stop();
-        buttonClick.Play();
-        DataManager.Instance.GameMode = "ML1";
-        StartCoroutine(LoadAfterAudioStops());
+       DataManager.Instance.GameMode = "ML1";
+       gameplayPanel.SetActive(false);
+       agentPanel.SetActive(true);
     }
     public void PvP()
     {
@@ -52,6 +54,27 @@ public class GameplayMode : MonoBehaviour
         StartCoroutine(LoadAfterAudioStops());
     }
 
+    public void Easy()
+    {
+        introSong.Stop();
+        buttonClick.Play();
+        DataManager.Instance.AgentName = "Easy";
+        StartCoroutine(LoadAfterAudioStops());
+    }
+    public void Medium()
+    {
+        introSong.Stop();
+        buttonClick.Play();
+        DataManager.Instance.AgentName = "Medium";
+        StartCoroutine(LoadAfterAudioStops());
+    }
+    public void Hard()
+    {
+        introSong.Stop();
+        buttonClick.Play();
+        DataManager.Instance.AgentName = "Hard";
+        StartCoroutine(LoadAfterAudioStops());
+    }
     IEnumerator LoadAfterAudioStops()
     {
         while (true)
