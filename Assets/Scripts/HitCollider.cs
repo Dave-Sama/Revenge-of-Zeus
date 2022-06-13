@@ -361,7 +361,7 @@ public class HitCollider : MonoBehaviour
                         DataManager.Instance.IsPlayer = false;
                     }
                 }
-                if (DataManager.Instance.P1AttackName == "Special attack" && DataManager.Instance.IsP1Attacking && playersSP.value == playersSP.maxValue)
+                if (DataManager.Instance.P1AttackName == "Special attack" && DataManager.Instance.IsP1Attacking)
                 {
                     playersSP.value = 0;
                     if (DataManager.Instance.P2Block)
@@ -588,7 +588,7 @@ public class HitCollider : MonoBehaviour
                         DataManager.Instance.IsPlayer = true;
                     }
                 }
-                if (DataManager.Instance.P2AttackName == "Special attack" && DataManager.Instance.IsP2Attacking && opponentsSP.value == opponentsSP.maxValue)
+                if (DataManager.Instance.P2AttackName == "Special attack" && DataManager.Instance.IsP2Attacking)
                 {
                     opponentsSP.value = 0;
                     if (DataManager.Instance.P1Block)

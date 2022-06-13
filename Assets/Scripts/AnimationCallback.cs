@@ -9,10 +9,12 @@ public class AnimationCallback : MonoBehaviour
     public int crouchCounter;
     public bool blockMode;
     public bool crouchMode;
+    AI ai;
     [SerializeField] private int idleCounter = 0;
 
     private void Awake()
     {
+        ai=gameObject.GetComponent<AI>();
         animationEnded = true;
         idleCounter = 0;
         blockCounter = 0;
@@ -30,6 +32,7 @@ public class AnimationCallback : MonoBehaviour
     void AnimBeginCallback()
     {
         animationEnded = false;
+        ai.isAttacking = true;
     }
     void animEndCallback()
     {
@@ -48,6 +51,7 @@ public class AnimationCallback : MonoBehaviour
                 DataManager.Instance.P2AttackName = "";
             }
         }
+        ai.isAttacking = false;
         //Debug.Log("Animation ended");
     }
     void IncreaseIdleCounter()

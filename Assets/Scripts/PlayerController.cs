@@ -427,6 +427,7 @@ public class PlayerController : MonoBehaviour
                 DataManager.Instance.P1AttackName = "Special attack";
                 DataManager.Instance.PlayerActionNum = 20;
                 DataManager.Instance.PlayerSpecialAttack = 1;
+                playersSP.value = 0;
                 playerAnim.SetTrigger("SpecialAttack_Trig");
             }
             else
@@ -441,6 +442,7 @@ public class PlayerController : MonoBehaviour
                 isPressed = true;
                 DataManager.Instance.IsP2Attacking = true;
                 DataManager.Instance.P2AttackName = "Special attack";
+                opponentsSP.value = 0;
                 playerAnim.SetTrigger("SpecialAttack_Trig");
             }
         }

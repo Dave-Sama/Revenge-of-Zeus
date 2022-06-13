@@ -19,13 +19,18 @@ public class AI : MonoBehaviour
     public int specialAttack;
     public bool startFight;
     public int lowAttacks;
+    public bool permissionToBlock;
     bool crouch;
+    Quaternion rotation;
     public TextMeshProUGUI HPText;
     public TextMeshProUGUI SPText;
 
     // Start is called before the first frame update
     void Start()
     {
+        rotation=gameObject.transform.rotation;
+        permissionToBlock=true;
+
         if (SceneManager.GetActiveScene().name == "Training" || gameObject.tag == "Opponent")
         {
             actionNum = 0;
@@ -137,6 +142,10 @@ public class AI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(SceneManager.GetActiveScene().name == "Training")
+        {
+            gameObject.transform.rotation = rotation;
+        }
         if(SceneManager.GetActiveScene().name != "Training" && gameObject.tag == "Player")
         {
             HP = DataManager.Instance.PlayersHP;
@@ -159,6 +168,10 @@ public class AI : MonoBehaviour
         if (SP >= 5)
         {
             SP = 5;
+        }
+        if (!permissionToBlock)
+        {
+            StartCoroutine(BlockCooldown());
         }
         if(SceneManager.GetActiveScene().name == "Training" || (SceneManager.GetActiveScene().name != "Training" && gameObject.tag == "Opponent"))
         {
@@ -224,6 +237,13 @@ public class AI : MonoBehaviour
         {
             HPText.text = HP.ToString();
             SPText.text = SP.ToString();
+        }
+
+        IEnumerator BlockCooldown()
+        {
+            permissionToBlock = false;
+            yield return new WaitForSeconds(10);
+            permissionToBlock = true;
         }
     }
 }

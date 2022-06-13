@@ -301,6 +301,7 @@ public class Actions : MonoBehaviour
             if(attackSound2!=null)
                 attackSound2.Play();
         }
+        ResetAllTriggers();
         anim.SetTrigger("UpPunchLeft_Trig");
     }
     public void RightUpperPunch()
@@ -312,6 +313,7 @@ public class Actions : MonoBehaviour
             if(attackSound1!=null)
                 attackSound1.Play();
         }
+        ResetAllTriggers();
         anim.SetTrigger("UpPunchRight_Trig");
     }
     public void LeftMidPunch()
@@ -323,7 +325,8 @@ public class Actions : MonoBehaviour
             if(attackSound2!=null)
                 attackSound2.Play();
         }
-            anim.SetTrigger("MidPunchLeft_Trig");
+        ResetAllTriggers();
+        anim.SetTrigger("MidPunchLeft_Trig");
     }
     public void RightMidPunch()
     {
@@ -334,7 +337,8 @@ public class Actions : MonoBehaviour
             if(attackSound1!=null)
                 attackSound1.Play();
         }
-            anim.SetTrigger("MidPunchRight_Trig");
+        ResetAllTriggers();
+        anim.SetTrigger("MidPunchRight_Trig");
     }
     public void HighKick()
     {
@@ -345,7 +349,8 @@ public class Actions : MonoBehaviour
             if(attackSound1!=null)
                 attackSound1.Play();
         }
-            anim.SetTrigger("HighKick_Trig");
+        ResetAllTriggers();
+        anim.SetTrigger("HighKick_Trig");
     }
     public void MidKick()
     {
@@ -356,7 +361,8 @@ public class Actions : MonoBehaviour
             if(attackSound2!=null)
                 attackSound2.Play();
         }
-            anim.SetTrigger("MidKick_Trig");
+        ResetAllTriggers();
+        anim.SetTrigger("MidKick_Trig");
     }
     public void SpecialAttack()
     {
@@ -365,6 +371,7 @@ public class Actions : MonoBehaviour
             DataManager.Instance.IsP2Attacking = true;
             DataManager.Instance.P2AttackName = "Special attack";
         }
+        ResetAllTriggers();
         anim.SetTrigger("SpecialAttack_Trig");
     }
     public void Block()
