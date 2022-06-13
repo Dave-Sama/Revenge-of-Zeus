@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject buttonSet;
     [SerializeField] private GameObject exitGameMessage;
     [SerializeField] private GameObject gameplayModeWindow;
+    [SerializeField] private GameObject agentWindow;
     [SerializeField] private GameObject settingsWindow;
     private Button startButton;
     private TextMeshProUGUI title;
@@ -20,6 +21,7 @@ public class MainMenu : MonoBehaviour
     private EventSystem eventSystem;
     private Button noButton; // Refers to the "No" button of the exit menu
     private Button ML1Button;
+    public Button EasyButton;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +30,10 @@ public class MainMenu : MonoBehaviour
         pressToContinueText = GameObject.Find("Press Any Key Text").GetComponent<TextMeshProUGUI>();
         eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
         downArrowClicked = false;
-        InitializeControllers();
+        if(!DataManager.Instance.EnteredTheGame)
+        {
+            InitializeControllers();
+        }       
     }
 
     // Update is called once per frame
@@ -52,11 +57,17 @@ public class MainMenu : MonoBehaviour
             ML1Button.Select();
             downArrowClicked = true;
         }
-        if (!gameplayModeWindow.activeInHierarchy && !DataManager.Instance.downArrowPressed)
+        if (agentWindow.activeInHierarchy && Input.GetKeyDown(KeyCode.DownArrow) && !DataManager.Instance.downArrowPressed)
+        {
+            EasyButton.Select();
+            DataManager.Instance.downArrowPressed = true;
+        }
+        if (!gameplayModeWindow.activeInHierarchy && !agentWindow.activeInHierarchy && !DataManager.Instance.downArrowPressed)
         {
             downArrowClicked = false;
             DataManager.Instance.downArrowPressed = true;
         }
+
 
     }
 
@@ -71,6 +82,7 @@ public class MainMenu : MonoBehaviour
             pressToContinueText.gameObject.SetActive(false);
             buttonSet.SetActive(true);
             startButton = GameObject.Find("Start Button").GetComponent<Button>();
+            DataManager.Instance.EnteredTheGame = true;
         }
     }
 

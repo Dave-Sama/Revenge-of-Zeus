@@ -44,6 +44,8 @@ public class DataManager : MonoBehaviour
     public float PlayersSP { get; set; } // updates the ML agent (through the AI class) about the sp
     public float OpponentsSP { get; set; } // updates the ML agent (through the AI class) about the sp
     public string AgentName { get; set; } // for choosing the right model at the menu
+    public AudioClip CurrentSong { get; set; } // the song in the current fight (must be the same for all rounds)
+    public bool EnteredTheGame { get; set; } // to not initialize the controls when returning to the menu
 
 
     // Keycodes for player 1 control

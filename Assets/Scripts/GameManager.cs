@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI fightText;
     [SerializeField] private GameObject[] playerVictoryMark; // the blue little circles that appear when the player wins the current round
     [SerializeField] private GameObject[] opponentVictoryMark; // the blue little circles that appear when the opponent wins the current round
+    [SerializeField] private AudioClip[] fightOST;
     private GameObject rightWall;
     private GameObject leftWall;
     private GameObject playerClone;
@@ -449,6 +450,16 @@ public class GameManager : MonoBehaviour
         {
             opponentAI.startFight = true;
         }
+        if(DataManager.Instance.CurrentRound == 1)
+        {
+            int index = Random.Range(0, 7);
+            DataManager.Instance.CurrentSong = fightOST[index];
+            battleMusic.clip = fightOST[index];
+        }
+        else
+        {
+            battleMusic.clip = DataManager.Instance.CurrentSong;
+        }
         battleMusic.Play();
     }
 
@@ -507,24 +518,24 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ResetScene()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(5);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     IEnumerator GoToEndOfMatchScene()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(5);
         SceneLoader.Instance.LoadScene(4); // Scene index 4 = End of Match scene
     }
 
     IEnumerator GoToGameOverScene()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(5);
         SceneLoader.Instance.LoadScene(5); // Scene index 5 = Game Over scene
     }
     IEnumerator GoToWinnerScene()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(5);
         SceneLoader.Instance.LoadScene(6); // Scene index 6 = Winner scene
     }
 }

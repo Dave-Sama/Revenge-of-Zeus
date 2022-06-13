@@ -36,6 +36,8 @@ public class GameplayMode : MonoBehaviour
     public void CloseWindow()
     {
         DataManager.Instance.downArrowPressed = false;
+        gameplayPanel.SetActive(true);
+        agentPanel.SetActive(false);
         menuButtonSet.SetActive(true);
         gameObject.SetActive(false);
     }
@@ -43,7 +45,8 @@ public class GameplayMode : MonoBehaviour
     public void ML1()
     {
        DataManager.Instance.GameMode = "ML1";
-       gameplayPanel.SetActive(false);
+        DataManager.Instance.downArrowPressed = false;
+        gameplayPanel.SetActive(false);
        agentPanel.SetActive(true);
     }
     public void PvP()
@@ -79,7 +82,7 @@ public class GameplayMode : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.5f); // return to 6 after done testing
+            yield return new WaitForSeconds(2.2f); // return to 6 after done testing
             SceneLoader.Instance.LoadScene(2);
             break;
         }
