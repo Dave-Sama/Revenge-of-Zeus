@@ -155,7 +155,13 @@ public class GameManager : MonoBehaviour
         {
             playerAnim.SetTrigger("Dead_Trig");
             opponentAnim.SetTrigger("Dead_Trig");
-            StartCoroutine(WinnerAnnouncement(""));
+            playerController.enabled = false;
+            opponentAI.startFight = false;
+            if (DataManager.Instance.GameMode == "PvP")
+            {
+                opponentController.enabled = false;
+            }
+                StartCoroutine(WinnerAnnouncement(""));
             if (DataManager.Instance.CurrentRound == 3)
             {
                 if (DataManager.Instance.GameMode == "ML1" || DataManager.Instance.GameMode == "ML2") // Goes to the next battle (same as if the player won)
@@ -239,6 +245,15 @@ public class GameManager : MonoBehaviour
         if (DataManager.Instance.IsPlayerDead && !DataManager.Instance.IsOpponentDead) // --------put in comments when testing-----------
         {
             playerAnim.SetTrigger("Dead_Trig");
+            playerController.enabled = false;
+            opponentAI.actionNum = 0;
+            opponentAI.startFight = false;
+            opponentAnim.Rebind();
+            opponentAnim.Update(0);
+            if (DataManager.Instance.GameMode == "PvP")
+            {
+                opponentController.enabled = false;
+            }
             StartCoroutine(WinnerAnnouncement(opponentsNameText.text));
 
             if (DataManager.Instance.CurrentRound == 3)
@@ -295,6 +310,14 @@ public class GameManager : MonoBehaviour
         if (DataManager.Instance.IsOpponentDead && !DataManager.Instance.IsPlayerDead)
         {
             opponentAnim.SetTrigger("Dead_Trig");
+            playerAnim.Rebind();
+            playerAnim.Update(0);
+            playerController.enabled = false;
+            opponentAI.startFight = false;
+            if (DataManager.Instance.GameMode == "PvP")
+            {
+                opponentController.enabled = false;
+            }
             StartCoroutine(WinnerAnnouncement(playersNameText.text));
             if (DataManager.Instance.CurrentRound == 3)
             {

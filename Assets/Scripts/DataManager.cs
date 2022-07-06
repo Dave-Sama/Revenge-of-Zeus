@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
     public static DataManager Instance;
+    public GameObject savedPanel;
     public string GameMode { get; set; }
     public string PlayersCharacter { get; set; }
     public string OpponentsCharacter { get; set; }
@@ -93,11 +95,101 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    void Update()
-        /*
-         * Update is called once per frame
-         */
+    [System.Serializable]
+    public class SaveData
     {
-        
+        //player 1
+        public KeyCode upper_left_punch1_Keycode;
+        public KeyCode upper_right_punch1_Keycode;
+        public KeyCode upper_kick1_Keycode;
+        public KeyCode middle_left_punch1_Keycode;
+        public KeyCode middle_right_punch1_Keycode;
+        public KeyCode middle_kick1_Keycode;
+        public KeyCode special_attack1_Keycode;
+        public KeyCode jump1_Keycode;
+        public KeyCode bend1_Keycode;
+        public KeyCode block1_Keycode;
+
+        //player 2
+        public KeyCode upper_left_punch2_Keycode;
+        public KeyCode upper_right_punch2_Keycode;
+        public KeyCode upper_kick2_Keycode;
+        public KeyCode middle_left_punch2_Keycode;
+        public KeyCode middle_right_punch2_Keycode;
+        public KeyCode middle_kick2_Keycode;
+        public KeyCode special_attack2_Keycode;
+        public KeyCode jump2_Keycode;
+        public KeyCode bend2_Keycode;
+        public KeyCode block2_Keycode;
+    }
+
+    public void SaveSettings()
+    {
+        SaveData data = new SaveData();
+        //player 1
+        data.upper_left_punch1_Keycode = upper_left_punch1_Keycode;
+        data.upper_right_punch1_Keycode = upper_right_punch1_Keycode;
+        data.upper_kick1_Keycode = upper_kick1_Keycode;
+        data.middle_left_punch1_Keycode = middle_left_punch1_Keycode;
+        data.middle_right_punch1_Keycode = middle_right_punch1_Keycode;
+        data.middle_kick1_Keycode = middle_kick1_Keycode;
+        data.special_attack1_Keycode = special_attack1_Keycode;
+        data.jump1_Keycode = jump1_Keycode;
+        data.bend1_Keycode = bend1_Keycode;
+        data.block1_Keycode = block1_Keycode;
+
+        //player 2
+        data.upper_left_punch2_Keycode = upper_left_punch2_Keycode;
+        data.upper_right_punch2_Keycode = upper_right_punch2_Keycode;
+        data.upper_kick2_Keycode = upper_kick2_Keycode;
+        data.middle_left_punch2_Keycode = middle_left_punch2_Keycode;
+        data.middle_right_punch2_Keycode = middle_right_punch2_Keycode;
+        data.middle_kick2_Keycode = middle_kick2_Keycode;
+        data.special_attack2_Keycode = special_attack2_Keycode;
+        data.jump2_Keycode = jump2_Keycode;
+        data.block2_Keycode = block2_Keycode;
+
+        string json = JsonUtility.ToJson(data);
+
+        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+
+        savedPanel.SetActive(true);
+    }
+
+    public void LoadSettings()
+    {
+        string path = Application.persistentDataPath + "/savefile.json";
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+            //player 1
+            upper_left_punch1_Keycode = data.upper_left_punch1_Keycode;
+            upper_right_punch1_Keycode = data.upper_right_punch1_Keycode;
+            upper_kick1_Keycode = data.upper_kick1_Keycode;
+            middle_left_punch1_Keycode = data.middle_left_punch1_Keycode;
+            middle_right_punch1_Keycode = data.middle_right_punch1_Keycode;
+            middle_kick1_Keycode = data.middle_kick1_Keycode;
+            special_attack1_Keycode = data.special_attack1_Keycode;
+            jump1_Keycode = data.jump1_Keycode;
+            bend1_Keycode = data.bend1_Keycode;
+            block1_Keycode = data.block1_Keycode;
+
+            //player 2
+            upper_left_punch2_Keycode = data.upper_left_punch2_Keycode;
+            upper_right_punch2_Keycode = data.upper_right_punch2_Keycode;
+            upper_kick2_Keycode = data.upper_kick2_Keycode;
+            middle_left_punch2_Keycode = data.middle_left_punch2_Keycode;
+            middle_right_punch2_Keycode = data.middle_right_punch2_Keycode;
+            middle_kick2_Keycode = data.middle_kick2_Keycode;
+            special_attack2_Keycode = data.special_attack2_Keycode;
+            jump2_Keycode = data.jump2_Keycode;
+            block2_Keycode = data.block2_Keycode;
+        }
+    }
+
+    public void OnPressOKOnPanel()
+    {
+        savedPanel.SetActive(false);
     }
 }

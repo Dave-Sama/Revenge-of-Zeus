@@ -48,25 +48,6 @@ public class Actions : MonoBehaviour
                 attackSound2 = GameObject.Find("Attack Sound 2").GetComponent<AudioSource>();
             }
         }
-        //isAttacking = false;
-        //if (Instance == null)
-        //{
-        //    Instance = this;
-        //    anim = gameObject.GetComponent<Animator>();
-        //    opponentsSP = 0;
-        //    onTheGround = true;
-        //    isWalking = false;
-        //    jump = false;
-        //    isCrouching = false;
-        //    instatiated = false;
-        //}
-        //else
-        //{
-        //    if (Instance != this)
-        //    {
-        //        Destroy(gameObject);
-        //    }
-        //}
     }
 
     public void IntToAction(int num)

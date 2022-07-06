@@ -69,31 +69,8 @@ public class ControlSettings : MonoBehaviour
         //bend2_Field.characterLimit = 1;
         //block2_Field.characterLimit = 1;
 
-
-        // init player 1 inputs
-        upper_left_punch1_Field.text = controls[0];
-        upper_right_punch1_Field.text = controls[1];
-        upper_kick1_Field.text = controls[2];
-        middle_left_punch1_Field.text = controls[3];
-        middle_right_punch1_Field.text = controls[4];
-        middle_kick1_Field.text = controls[5];
-        special_attack1_Field.text = controls[6];
-        jump1_Field.text = controls[7];
-        bend1_Field.text = controls[8];
-        block1_Field.text = controls[9];
-
-
-        // init player 2 inputs
-        upper_left_punch2_Field.text = controls[10];
-        upper_right_punch2_Field.text = controls[11];
-        upper_kick2_Field.text = controls[12];
-        middle_left_punch2_Field.text = controls[13];
-        middle_right_punch2_Field.text = controls[14];
-        middle_kick2_Field.text = controls[15];
-        special_attack2_Field.text = controls[16];
-        jump2_Field.text = controls[17];
-        bend2_Field.text = controls[18];
-        block2_Field.text = controls[19];
+        ShowKeys();
+       
     }
 
     // Go back to main menu
@@ -118,6 +95,33 @@ public class ControlSettings : MonoBehaviour
         videoSettingsWindow.SetActive(true);
     }
 
+    public void ShowKeys()
+    {
+        // init player 1 inputs
+        upper_left_punch1_Field.text = DataManager.Instance.upper_left_punch1_Keycode.ToString();
+        upper_right_punch1_Field.text = DataManager.Instance.upper_right_punch1_Keycode.ToString();
+        upper_kick1_Field.text = DataManager.Instance.upper_kick1_Keycode.ToString();
+        middle_left_punch1_Field.text = DataManager.Instance.middle_left_punch1_Keycode.ToString();
+        middle_right_punch1_Field.text = DataManager.Instance.middle_right_punch1_Keycode.ToString();
+        middle_kick1_Field.text = DataManager.Instance.middle_kick1_Keycode.ToString();
+        special_attack1_Field.text = DataManager.Instance.special_attack1_Keycode.ToString();
+        jump1_Field.text = DataManager.Instance.jump1_Keycode.ToString();
+        bend1_Field.text = DataManager.Instance.bend1_Keycode.ToString();
+        block1_Field.text = DataManager.Instance.block1_Keycode.ToString();
+
+        // init player 2 inputs
+        upper_left_punch2_Field.text = DataManager.Instance.upper_left_punch2_Keycode.ToString();
+        upper_right_punch2_Field.text = DataManager.Instance.upper_right_punch2_Keycode.ToString();
+        upper_kick2_Field.text = DataManager.Instance.upper_kick2_Keycode.ToString();
+        middle_left_punch2_Field.text = DataManager.Instance.middle_left_punch2_Keycode.ToString();
+        middle_right_punch2_Field.text = DataManager.Instance.middle_right_punch2_Keycode.ToString();
+        middle_kick2_Field.text = DataManager.Instance.middle_kick2_Keycode.ToString();
+        special_attack2_Field.text = DataManager.Instance.special_attack2_Keycode.ToString();
+        jump2_Field.text = DataManager.Instance.jump2_Keycode.ToString();
+        bend2_Field.text = DataManager.Instance.bend2_Keycode.ToString();
+        block2_Field.text = DataManager.Instance.block2_Keycode.ToString();
+    }
+
     // Get upper case substring
     private string GetUpperSub(string s)
     {
@@ -129,28 +133,74 @@ public class ControlSettings : MonoBehaviour
     public void RestoreControllers()
     {
         // player 1 default controllers
-        ReadPlayer1UpperLeftPunchInput(controls[0]);
-        ReadPlayer1UpperRightPunchInput(controls[1]);
-        ReadPlayer1UpperKickInput(controls[2]);
-        ReadPlayer1MiddleLeftPunchInput(controls[3]);
-        ReadPlayer1MiddleRightPunchInput(controls[4]);
-        ReadPlayer1MiddleKickInput(controls[5]);
-        ReadPlayer1SpecialAttackInput(controls[6]);
-        ReadPlayer1JumpInput(controls[7]);
-        ReadPlayer1BendInput(controls[8]);
-        ReadPlayer1BlockInput(controls[9]);
+        //ReadPlayer1UpperLeftPunchInput(controls[0]);
+        //ReadPlayer1UpperRightPunchInput(controls[1]);
+        //ReadPlayer1UpperKickInput(controls[2]);
+        //ReadPlayer1MiddleLeftPunchInput(controls[3]);
+        //ReadPlayer1MiddleRightPunchInput(controls[4]);
+        //ReadPlayer1MiddleKickInput(controls[5]);
+        //ReadPlayer1SpecialAttackInput(controls[6]);
+        //ReadPlayer1JumpInput(controls[7]);
+        //ReadPlayer1BendInput(controls[8]);
+        //ReadPlayer1BlockInput(controls[9]);
 
-        // player 2 default controllers
-        ReadPlayer2UpperLeftPunchInput(controls[10]);
-        ReadPlayer2UpperRightPunchInput(controls[11]);
-        ReadPlayer2UpperKickInput(controls[12]);
-        ReadPlayer2MiddleLeftPunchInput(controls[13]);
-        ReadPlayer2MiddleRightPunchInput(controls[14]);
-        ReadPlayer2MiddleKickInput(controls[15]);
-        ReadPlayer2SpecialAttackInput(controls[16]);
-        ReadPlayer2JumpInput(controls[17]);
-        ReadPlayer2BendInput(controls[18]);
-        ReadPlayer2BlockInput(controls[19]);
+        //// player 2 default controllers
+        //ReadPlayer2UpperLeftPunchInput(controls[10]);
+        //ReadPlayer2UpperRightPunchInput(controls[11]);
+        //ReadPlayer2UpperKickInput(controls[12]);
+        //ReadPlayer2MiddleLeftPunchInput(controls[13]);
+        //ReadPlayer2MiddleRightPunchInput(controls[14]);
+        //ReadPlayer2MiddleKickInput(controls[15]);
+        //ReadPlayer2SpecialAttackInput(controls[16]);
+        //ReadPlayer2JumpInput(controls[17]);
+        //ReadPlayer2BendInput(controls[18]);
+        //ReadPlayer2BlockInput(controls[19]);
+        DataManager.Instance.upper_left_punch1_Keycode = KeyCode.A;
+        DataManager.Instance.upper_right_punch1_Keycode = KeyCode.S;
+        DataManager.Instance.upper_kick1_Keycode = KeyCode.D;
+        DataManager.Instance.middle_left_punch1_Keycode = KeyCode.Z;
+        DataManager.Instance.middle_right_punch1_Keycode = KeyCode.X;
+        DataManager.Instance.middle_kick1_Keycode = KeyCode.C;
+        DataManager.Instance.special_attack1_Keycode = KeyCode.V;
+        DataManager.Instance.jump1_Keycode = KeyCode.UpArrow;
+        DataManager.Instance.bend1_Keycode = KeyCode.DownArrow;
+        DataManager.Instance.block1_Keycode = KeyCode.LeftControl;
+
+
+        DataManager.Instance.upper_left_punch2_Keycode = KeyCode.Insert;
+        DataManager.Instance.upper_right_punch2_Keycode = KeyCode.Home;
+        DataManager.Instance.upper_kick2_Keycode = KeyCode.PageUp;
+        DataManager.Instance.middle_left_punch2_Keycode = KeyCode.Delete;
+        DataManager.Instance.middle_right_punch2_Keycode = KeyCode.End;
+        DataManager.Instance.middle_kick2_Keycode = KeyCode.PageDown;
+        DataManager.Instance.special_attack2_Keycode = KeyCode.Keypad7;
+        DataManager.Instance.jump2_Keycode = KeyCode.Keypad8;
+        DataManager.Instance.bend2_Keycode = KeyCode.Keypad2;
+        DataManager.Instance.block2_Keycode = KeyCode.Keypad0;
+
+        // init player 1 inputs
+        upper_left_punch1_Field.text = controls[0];
+        upper_right_punch1_Field.text = controls[1];
+        upper_kick1_Field.text = controls[2];
+        middle_left_punch1_Field.text = controls[3];
+        middle_right_punch1_Field.text = controls[4];
+        middle_kick1_Field.text = controls[5];
+        special_attack1_Field.text = controls[6];
+        jump1_Field.text = controls[7];
+        bend1_Field.text = controls[8];
+        block1_Field.text = controls[9];
+
+        // init player 2 inputs
+        upper_left_punch2_Field.text = controls[10];
+        upper_right_punch2_Field.text = controls[11];
+        upper_kick2_Field.text = controls[12];
+        middle_left_punch2_Field.text = controls[13];
+        middle_right_punch2_Field.text = controls[14];
+        middle_kick2_Field.text = controls[15];
+        special_attack2_Field.text = controls[16];
+        jump2_Field.text = controls[17];
+        bend2_Field.text = controls[18];
+        block2_Field.text = controls[19];
     }
 
     // Convert the string from the input to a keycode.

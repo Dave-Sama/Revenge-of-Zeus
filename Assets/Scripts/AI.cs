@@ -238,12 +238,11 @@ public class AI : MonoBehaviour
             HPText.text = HP.ToString();
             SPText.text = SP.ToString();
         }
-
-        IEnumerator BlockCooldown()
-        {
-            permissionToBlock = false;
-            yield return new WaitForSeconds(10);
-            permissionToBlock = true;
-        }
+    }
+    IEnumerator BlockCooldown()
+    {
+        permissionToBlock = false;
+        yield return new WaitForSeconds(10);
+        permissionToBlock = true;
     }
 }
