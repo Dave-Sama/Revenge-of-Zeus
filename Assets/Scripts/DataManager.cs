@@ -47,6 +47,7 @@ public class DataManager : MonoBehaviour
     public string AgentName { get; set; } // for choosing the right model at the menu
     public AudioClip CurrentSong { get; set; } // the song in the current fight (must be the same for all rounds)
     public bool EnteredTheGame { get; set; } // to not initialize the controls when returning to the menu
+    public float volume { get; set; }
 
 
     // Keycodes for player 1 control
@@ -97,7 +98,7 @@ public class DataManager : MonoBehaviour
     [System.Serializable]
     public class SaveData
     {
-        //player 1
+        //player 1 controls
         public KeyCode upper_left_punch1_Keycode;
         public KeyCode upper_right_punch1_Keycode;
         public KeyCode upper_kick1_Keycode;
@@ -109,7 +110,7 @@ public class DataManager : MonoBehaviour
         public KeyCode bend1_Keycode;
         public KeyCode block1_Keycode;
 
-        //player 2
+        //player 2 controls
         public KeyCode upper_left_punch2_Keycode;
         public KeyCode upper_right_punch2_Keycode;
         public KeyCode upper_kick2_Keycode;
@@ -120,12 +121,15 @@ public class DataManager : MonoBehaviour
         public KeyCode jump2_Keycode;
         public KeyCode bend2_Keycode;
         public KeyCode block2_Keycode;
+
+        //volume
+        public float volume;
     }
 
     public void SaveSettings()
     {
         SaveData data = new SaveData();
-        //player 1
+        //player 1 controls
         data.upper_left_punch1_Keycode = upper_left_punch1_Keycode;
         data.upper_right_punch1_Keycode = upper_right_punch1_Keycode;
         data.upper_kick1_Keycode = upper_kick1_Keycode;
@@ -137,7 +141,7 @@ public class DataManager : MonoBehaviour
         data.bend1_Keycode = bend1_Keycode;
         data.block1_Keycode = block1_Keycode;
 
-        //player 2
+        //player 2 controls
         data.upper_left_punch2_Keycode = upper_left_punch2_Keycode;
         data.upper_right_punch2_Keycode = upper_right_punch2_Keycode;
         data.upper_kick2_Keycode = upper_kick2_Keycode;
@@ -147,6 +151,9 @@ public class DataManager : MonoBehaviour
         data.special_attack2_Keycode = special_attack2_Keycode;
         data.jump2_Keycode = jump2_Keycode;
         data.block2_Keycode = block2_Keycode;
+
+        //volume
+        data.volume=volume;
 
         string json = JsonUtility.ToJson(data);
 
@@ -160,7 +167,7 @@ public class DataManager : MonoBehaviour
         {
             string json = File.ReadAllText(path);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
-            //player 1
+            //player 1 controls
             upper_left_punch1_Keycode = data.upper_left_punch1_Keycode;
             upper_right_punch1_Keycode = data.upper_right_punch1_Keycode;
             upper_kick1_Keycode = data.upper_kick1_Keycode;
@@ -172,7 +179,7 @@ public class DataManager : MonoBehaviour
             bend1_Keycode = data.bend1_Keycode;
             block1_Keycode = data.block1_Keycode;
 
-            //player 2
+            //player 2 controls
             upper_left_punch2_Keycode = data.upper_left_punch2_Keycode;
             upper_right_punch2_Keycode = data.upper_right_punch2_Keycode;
             upper_kick2_Keycode = data.upper_kick2_Keycode;
@@ -182,6 +189,9 @@ public class DataManager : MonoBehaviour
             special_attack2_Keycode = data.special_attack2_Keycode;
             jump2_Keycode = data.jump2_Keycode;
             block2_Keycode = data.block2_Keycode;
+
+            //volume
+            volume = data.volume;
         }
     }
 }

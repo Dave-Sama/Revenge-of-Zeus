@@ -31,6 +31,7 @@ public class MainMenu : MonoBehaviour
         eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
         downArrowClicked = false;
         DataManager.Instance.LoadSettings();
+        AudioListener.volume = DataManager.Instance.volume;
         //if(!DataManager.Instance.EnteredTheGame)
         //{
         //    InitializeControllers();
