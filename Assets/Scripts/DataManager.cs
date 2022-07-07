@@ -6,7 +6,6 @@ using UnityEngine;
 public class DataManager : MonoBehaviour
 {
     public static DataManager Instance;
-    public GameObject savedPanel;
     public string GameMode { get; set; }
     public string PlayersCharacter { get; set; }
     public string OpponentsCharacter { get; set; }
@@ -152,8 +151,6 @@ public class DataManager : MonoBehaviour
         string json = JsonUtility.ToJson(data);
 
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
-
-        savedPanel.SetActive(true);
     }
 
     public void LoadSettings()
@@ -186,10 +183,5 @@ public class DataManager : MonoBehaviour
             jump2_Keycode = data.jump2_Keycode;
             block2_Keycode = data.block2_Keycode;
         }
-    }
-
-    public void OnPressOKOnPanel()
-    {
-        savedPanel.SetActive(false);
     }
 }

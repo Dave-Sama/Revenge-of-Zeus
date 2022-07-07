@@ -9,6 +9,7 @@ public class ControlSettings : MonoBehaviour
     // Keys
     private readonly Array keyCodes = Enum.GetValues(typeof(KeyCode));
     private KeyCode key;
+    public GameObject savedPanel;
 
     // Default Controls
     private string[] controls = { "A", "S", "D", "Z", "X", "C", "V", "↑", "↓", "Ctrl", "Insert", "Hm", "PU", "Del", "End", "PD", "7", "8", "2", "0" };
@@ -461,5 +462,16 @@ public class ControlSettings : MonoBehaviour
             DataManager.Instance.block2_Keycode = key;
             block2_Field.text = block2;
         }
+    }
+
+    public void SaveControls()
+    {
+        DataManager.Instance.SaveSettings();
+        savedPanel.SetActive(true);
+    }
+
+    public void OnPressOKOnPanel()
+    {
+        savedPanel.SetActive(false);
     }
 }
