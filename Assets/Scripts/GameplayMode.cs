@@ -9,12 +9,14 @@ public class GameplayMode : MonoBehaviour
     [SerializeField] private AudioSource introSong;
     [SerializeField] private GameObject gameplayPanel;
     [SerializeField] private GameObject agentPanel;
-    private AudioSource buttonClick; // Not the regular click but the voice that saying "Welcome to the olympus tournament"
+    private AudioSource gameplayAudio; // Not the regular click but the voice that saying "Welcome to the olympus tournament"
+    private AudioSource agentAudio; // Not the regular click but the voice that saying "Welcome to the olympus tournament"
 
     // Start is called before the first frame update
     void Start()
     {
-        buttonClick = GameObject.Find("Gameplay Button Set").GetComponent<AudioSource>();
+        gameplayAudio = GameObject.Find("Gameplay Button Set").GetComponent<AudioSource>();
+        agentAudio = GameObject.Find("Choose Agent Panel").GetComponent<AudioSource>();
         agentPanel.SetActive(false);
         DataManager.Instance.downArrowPressed = true;
     }
@@ -52,7 +54,7 @@ public class GameplayMode : MonoBehaviour
     public void PvP()
     {
         introSong.Stop();
-        buttonClick.Play();
+        gameplayAudio.Play();
         DataManager.Instance.GameMode = "PvP";
         StartCoroutine(LoadAfterAudioStops());
     }
@@ -60,21 +62,21 @@ public class GameplayMode : MonoBehaviour
     public void Easy()
     {
         introSong.Stop();
-        buttonClick.Play();
+        agentAudio.Play();
         DataManager.Instance.AgentName = "Easy";
         StartCoroutine(LoadAfterAudioStops());
     }
     public void Medium()
     {
         introSong.Stop();
-        buttonClick.Play();
+        agentAudio.Play();
         DataManager.Instance.AgentName = "Medium";
         StartCoroutine(LoadAfterAudioStops());
     }
     public void Hard()
     {
         introSong.Stop();
-        buttonClick.Play();
+        agentAudio.Play();
         DataManager.Instance.AgentName = "Hard";
         StartCoroutine(LoadAfterAudioStops());
     }
