@@ -67,24 +67,24 @@ Pause menu:
 
 Winning screen (single player):
 
-![Winning](./client/public/win.png)
+![Winning](./Assets/Screenshots/win.png)
 
 Game over screen (single player):
 
-![Game-over](./client/public/lose.png)
+![Game-over](./Assets/Screenshots/lose.png)
 
 End of match (PvP):
 
-![End-of-match](./client/public/end-match.png)
+![End-of-match](./Assets/Screenshots/end-match.png)
 
 Sound settings:
 
-![Sound-settings](./client/public/sound-settings.png)
+![Sound-settings](./Assets/Screenshots/sound-settings.png)
 
 Controls settings:
 
-![Controls-settings](./client/public/controls.png)
+![Controls-settings](./Assets/Screenshots/controls.png)
 
 Video settings:
 
-![Video-settings](./client/public/video.png)
+![Video-settings](./Assets/Screenshots/video.png)
